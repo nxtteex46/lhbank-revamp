@@ -108,7 +108,7 @@
             ["swap", "อัตราแลกเปลี่ยน", "อัปเดตแบบเรียลไทม์", "exchange-rates/"],
           ]},
         ],
-        feature: { img: "photo-1579621970563-ebec7560ff3e", tag: "ดอกเบี้ยพิเศษ", title: "ออมทรัพย์ดิจิทัล รับดอกเบี้ยสูงสุด 1.80% ต่อปี", href: "personal/product/?id=smart-savings" },
+        feature: { img: "photo-1559526324-4b87b5e36e44", tag: "ดอกเบี้ยพิเศษ", title: "ออมทรัพย์ดิจิทัล รับดอกเบี้ยสูงสุด 1.80% ต่อปี", href: "personal/product/?id=smart-savings" },
       },
       {
         id: "loans", label: "สินเชื่อ",
@@ -124,7 +124,7 @@
             ["calc", "คำนวณสินเชื่อบ้าน", "ประเมินค่างวดและวงเงิน", "personal/calculator/home-loan/"],
           ]},
         ],
-        feature: { img: "photo-1600585154340-be6161a56a0c", tag: "ดอกเบี้ยเริ่มต้น 2.75%", title: "บ้านที่ใช่ กับสินเชื่อที่ออกแบบมาเพื่อคุณ", href: "personal/products/?cat=home-loan" },
+        feature: { img: "photo-1613490493576-7fde63acd811", tag: "ดอกเบี้ยเริ่มต้น 2.75%", title: "บ้านที่ใช่ กับสินเชื่อที่ออกแบบมาเพื่อคุณ", href: "personal/products/?cat=home-loan" },
       },
       {
         id: "cards", label: "บัตร",
@@ -137,7 +137,7 @@
             ["lock", "บัตรเดบิต Smart", "ประกันอุบัติเหตุในตัว", "personal/product/?id=debit-smart"],
           ]},
         ],
-        feature: { img: "photo-1556742049-0cfed4f6a45d", tag: "สมาชิกใหม่", title: "รับเครดิตเงินคืน 10% สำหรับการใช้จ่ายครั้งแรก", href: "personal/products/?cat=card" },
+        feature: { img: "photo-1563013544-824ae1b704d3", tag: "สมาชิกใหม่", title: "รับเครดิตเงินคืน 10% สำหรับการใช้จ่ายครั้งแรก", href: "personal/products/?cat=card" },
       },
       {
         id: "invest", label: "การลงทุน",
@@ -152,7 +152,7 @@
             ["headset", "นัดหมายผู้เชี่ยวชาญ", "Wealth Advisor ส่วนตัว", "personal/investments/#advisory"],
           ]},
         ],
-        feature: { img: "photo-1611974789855-9c2a0a7236a3", tag: "Market Insight", title: "มุมมองการลงทุนไตรมาสที่ 1 / 2027", href: "personal/investments/" },
+        feature: { img: "photo-1526628953301-3e589a6a8b74", tag: "Market Insight", title: "มุมมองการลงทุนไตรมาสที่ 1 / 2027", href: "personal/investments/" },
       },
       {
         id: "services", label: "บริการ",
@@ -181,11 +181,11 @@
         ["calc", "คำนวณสินเชื่อ", "ประเมินค่างวด", "personal/calculator/home-loan/"],
         ["grid", "ผลิตภัณฑ์ทั้งหมด", "SME Banking", "personal/products/?cat=sme"],
       ]},
-    ], feature: { img: "photo-1517248135467-4c7edcad34c4", tag: "SME", title: "ทุนหมุนเวียนสำหรับธุรกิจที่กำลังเติบโต", href: "personal/products/?cat=sme" } },
+    ], feature: { img: "photo-1551836022-4c4c79ecde51", tag: "SME", title: "ทุนหมุนเวียนสำหรับธุรกิจที่กำลังเติบโต", href: "personal/products/?cat=sme" } },
     { id: "sme-dep", label: "บัญชีธุรกิจ", cols: [
       { h: "บัญชี", items: [["wallet", "บัญชีกระแสรายวัน", "บริหารสภาพคล่อง", "personal/products/?cat=sme"], ["piggy", "ออมทรัพย์ธุรกิจ", "ดอกเบี้ยพิเศษ", "personal/products/?cat=sme"]] },
       { h: "บริการ", items: [["globe", "การค้าระหว่างประเทศ", "L/C, T/R", "business/"], ["swap", "อัตราแลกเปลี่ยน", "อัปเดตเรียลไทม์", "exchange-rates/"]] },
-    ], feature: { img: "photo-1556761175-5973dc0f32e7", tag: "Business Account", title: "บัญชีเดียว จัดการธุรกิจได้ครบ", href: "personal/products/?cat=sme" } },
+    ], feature: { img: "photo-1600880292089-90a7e086ee0c", tag: "Business Account", title: "บัญชีเดียว จัดการธุรกิจได้ครบ", href: "personal/products/?cat=sme" } },
     { id: "sme-help", label: "ที่ปรึกษาธุรกิจ", cols: [
       { h: "บริการ", items: [["headset", "นัดหมาย RM", "ผู้ดูแลธุรกิจส่วนตัว", "sme/#advisory"], ["pin", "ศูนย์ธุรกิจ SME", "ใกล้คุณ", "branch-locations/?type=sme"]] },
     ], feature: null },
@@ -193,7 +193,7 @@
   MENUS.business = [
     { id: "biz-fin", label: "สินเชื่อองค์กร", cols: [
       { h: "สินเชื่อ", items: [["building", "สินเชื่อโครงการ", "Project Finance", "personal/product/?id=project-finance"], ["briefcase", "สินเชื่อระยะยาว", "Term Loan", "personal/products/?cat=business"]] },
-    ], feature: { img: "photo-1486406146926-c627a92ad1ab", tag: "Corporate", title: "พันธมิตรทางการเงินสำหรับองค์กรชั้นนำ", href: "personal/products/?cat=business" } },
+    ], feature: { img: "photo-1582407947304-fd86f028f716", tag: "Corporate", title: "พันธมิตรทางการเงินสำหรับองค์กรชั้นนำ", href: "personal/products/?cat=business" } },
     { id: "biz-cash", label: "Cash Management", cols: [
       { h: "บริการ", items: [["layers", "Cash Management", "บริหารเงินสดองค์กร", "personal/product/?id=cash-management"], ["globe", "Trade Finance", "การค้าระหว่างประเทศ", "personal/products/?cat=business"]] },
     ], feature: null },

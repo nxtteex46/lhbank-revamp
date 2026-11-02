@@ -177,7 +177,7 @@
         <div class="row row--between"><span class="badge ${b.type === "sme" ? "badge--ink" : ""}">${b.type === "sme" ? "ศูนย์ธุรกิจ SME" : "สาขา"}</span><button class="icon-btn" data-close-d aria-label="ปิด">${icon("close")}</button></div>
         <h3 class="mt-4">${b.name}</h3>
         <div class="mt-2">${openLabel(b)}</div>
-        <div class="media ratio-16x9 mt-6" style="border-radius:var(--r-md)"><img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=800&q=70" alt="" loading="lazy"></div>
+        <div class="media ratio-16x9 mt-6" style="border-radius:var(--r-md)"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=70" alt="" loading="lazy"></div>
         <div class="stack mt-6" style="--stack:12px">
           <div class="row" style="gap:12px;align-items:flex-start;flex-wrap:nowrap">${icon("pin")}<span class="t-sm">${b.addr} ${b.province}</span></div>
           <div class="row" style="gap:12px">${icon("phone")}<a class="t-sm link link--ink" href="tel:${b.tel.replace(/-/g, "")}">${b.tel}</a></div>

@@ -11,29 +11,29 @@
   ];
 
   root.innerHTML = `
-    <section class="container">
-      <div class="page-header" style="padding-bottom:24px">
-        <nav aria-label="breadcrumb"><ol class="breadcrumb"><li><a href="${url("personal/")}">บุคคล</a></li><li><span aria-current="page">การลงทุน</span></li></ol></nav>
-      </div>
-      <div class="hero__grid" style="padding-bottom:64px">
-        <div class="reveal">
-          <span class="eyebrow">Wealth & Investment</span>
-          <h1 class="t-display hero__title">สร้างความมั่งคั่ง<br>อย่าง<em>มีทิศทาง</em></h1>
-          <p class="t-lead hero__lead">กองทุนคัดสรร หุ้นกู้ และประกัน พร้อม Wealth Advisor ที่ช่วยออกแบบพอร์ตให้สอดคล้องกับเป้าหมายและความเสี่ยงที่คุณรับได้</p>
-          <div class="hero__actions"><a class="btn btn--primary btn--lg" href="#advisory">ประเมินความเสี่ยง ${icon("arrow-right")}</a><a class="btn btn--secondary btn--lg" href="#funds">ดูกองทุนแนะนำ</a></div>
+    <section class="container"><div class="page-header" style="padding-block:16px 16px">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb"><li><a href="${url("personal/")}">บุคคล</a></li><li><span aria-current="page">การลงทุน</span></li></ol></nav>
+    </div></section>
+    <section class="hero2" style="padding-top:0">
+      <div class="hero2__frame" style="min-height:min(76vh,720px)">
+        ${img(U("photo-1530521954074-e64f6810b32d", 2000), "", 'loading="eager"')}
+        <div class="container hero2__content">
+          <span class="eyebrow eyebrow--glass">Wealth &amp; Investment</span>
+          <h1>สร้างความมั่งคั่ง<br>อย่าง<em>มีทิศทาง</em></h1>
+          <p class="t-lead">กองทุนคัดสรร หุ้นกู้ และประกัน พร้อม Wealth Advisor ที่ช่วยออกแบบพอร์ตให้สอดคล้องกับเป้าหมายและความเสี่ยงที่คุณรับได้</p>
+          <div class="hero2__actions"><a class="btn btn--primary btn--lg" href="#advisory">ประเมินความเสี่ยง ${icon("arrow-right")}</a><a class="btn btn--glass btn--lg" href="#funds">ดูกองทุนแนะนำ</a></div>
         </div>
-        <div class="hero__visual reveal">
-          <div class="media hero__media" style="aspect-ratio:5/4">${img(U("photo-1469474968028-56623f02e42e", 1100), "", 'loading="eager"')}</div>
-          <div class="hero__float hero__float--a" style="min-width:270px">
-            <div class="row row--between"><span class="t-xs t-muted">พอร์ตตัวอย่าง · Balanced</span><span class="badge badge--success">+8.6% YTD</span></div>
-            <div class="mt-3">${sparkline(series(5, 40, 100, 0.025, 0.003), { w: 240, h: 56 })}</div>
-            <div class="row mt-2 t-xs" style="gap:14px"><span><i class="dot" style="color:var(--c-accent)"></i> หุ้น 50%</span><span><i class="dot" style="color:var(--c-accent-200)"></i> ตราสารหนี้ 40%</span><span><i class="dot" style="color:var(--c-gold)"></i> ทอง 10%</span></div>
+        <div class="hero2__cards">
+          <div class="glass-card">
+            <div class="row row--between"><span class="lbl">พอร์ตตัวอย่าง · Balanced</span><span class="lbl" style="color:#9be7c4">+8.6% YTD</span></div>
+            <div class="mt-3">${sparkline(series(5, 40, 100, 0.025, 0.003), { w: 240, h: 56, color: "#a9dcf0" })}</div>
+            <div class="row mt-2 lbl" style="gap:12px"><span>หุ้น 50%</span><span>ตราสารหนี้ 40%</span><span>ทอง 10%</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="container" style="padding-bottom:56px">
+    <section class="container" style="padding-block:24px 56px">
       <a class="campaign" href="#funds" style="display:block" aria-label="LH Fund Pro RMF / ThaiESG 2026">
         <span class="campaign__slide" style="display:block"><picture><source media="(max-width: 680px)" srcset="${url("assets/img/lhbank/banner-rmf-thaiesg-mb.jpg")}"><img src="${url("assets/img/lhbank/banner-rmf-thaiesg.jpg")}" alt="LH Fund Pro RMF / ThaiESG 2026" loading="lazy"></picture></span>
       </a>
@@ -91,7 +91,7 @@
       <div class="container">
         <div class="section-head"><div class="section-head__text"><span class="eyebrow">Insights</span><h2>มุมมองการลงทุน</h2></div><a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">ดูบทวิเคราะห์ทั้งหมด ${icon("arrow-right")}</a></div>
         <div class="cols-3">
-          ${[["photo-1611974789855-9c2a0a7236a3", "Market Outlook", "มุมมองการลงทุนไตรมาส 1/2027: โอกาสในหุ้นเทคโนโลยีโลก", "2 ม.ค. 2027"], ["photo-1554224155-6726b3ff858f", "Tax Planning", "Thai ESG vs SSF: เลือกกองทุนลดหย่อนภาษีให้เหมาะกับคุณ", "28 ธ.ค. 2026"], ["photo-1579621970563-ebec7560ff3e", "Fixed Income", "หุ้นกู้ในยุคดอกเบี้ยขาลง ยังน่าสนใจหรือไม่", "20 ธ.ค. 2026"]]
+          ${[["photo-1526628953301-3e589a6a8b74", "Market Outlook", "มุมมองการลงทุนไตรมาส 1/2027: โอกาสในหุ้นเทคโนโลยีโลก", "2 ม.ค. 2027"], ["photo-1600210492486-724fe5c67fb0", "Tax Planning", "Thai ESG vs SSF: เลือกกองทุนลดหย่อนภาษีให้เหมาะกับคุณ", "28 ธ.ค. 2026"], ["photo-1559526324-4b87b5e36e44", "Fixed Income", "หุ้นกู้ในยุคดอกเบี้ยขาลง ยังน่าสนใจหรือไม่", "20 ธ.ค. 2026"]]
             .map(([im, tag, t, d]) => `<a class="article-card" href="#" data-toast="Article template — reusable pattern"><div class="media media--zoom">${img(U(im, 700))}</div><div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${d}</span></div><h3>${t}</h3></a>`).join("")}
         </div>
       </div>

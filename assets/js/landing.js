@@ -11,62 +11,34 @@
   /* ---------- Section components ---------- */
   const S = {};
 
-  S.heroSplit = (c) => `
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="reveal">
-          <span class="eyebrow">${c.eyebrow}</span>
-          <h1 class="t-display hero__title">${c.title}</h1>
-          <p class="t-lead hero__lead">${c.lead}</p>
-          <div class="hero__actions">
+  /* Cinematic hero (v2) — Personal uses data cards; SME / Business pass none */
+  S.hero = (c) => `
+    <section class="hero2">
+      <div class="hero2__frame ${c.cards ? "hero2__frame--shift" : ""}">
+        ${img(U(c.img, 2000), "", 'fetchpriority="high" loading="eager"')}
+        <div class="container hero2__content">
+          <span class="eyebrow eyebrow--glass">${c.eyebrow}</span>
+          <h1>${c.title}</h1>
+          <p class="t-lead">${c.lead}</p>
+          <div class="hero2__actions">
             <a class="btn btn--primary btn--lg" href="${url(c.primary[1])}">${c.primary[0]} ${icon("arrow-right")}</a>
-            <a class="btn btn--secondary btn--lg" href="${url(c.secondary[1])}">${c.secondary[0]}</a>
+            <a class="btn btn--glass btn--lg" href="${c.secondary[2] ? "#" : url(c.secondary[1])}" ${c.secondary[2] ? `data-modal="${c.secondary[2]}"` : ""}>${c.secondary[0]}</a>
           </div>
-          <div class="hero__trust">
-            ${c.trust.map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join("")}
-          </div>
+          ${c.trust ? `<div class="hero2__trust">${c.trust.map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join("")}</div>` : ""}
         </div>
-        <div class="hero__visual reveal">
-          <div class="media hero__media">${img(U(c.img, 1100), "", 'fetchpriority="high" loading="eager"')}</div>
-          <div class="hero__float hero__float--a">
-            <div class="row" style="gap:12px"><span class="tile__icon" style="width:40px;height:40px;border-radius:12px;background:var(--c-accent-50);box-shadow:none">${icon("home")}</span>
-            <div><div class="t-xs t-muted">ค่างวดโดยประมาณ</div><div class="t-num" style="font-weight:600;font-size:1.3rem">฿18,420<span class="t-xs t-muted" style="font-weight:400"> /เดือน</span></div></div></div>
-            <div class="mt-3" style="height:6px;border-radius:6px;background:var(--c-line);overflow:hidden"><span style="display:block;height:100%;width:68%;background:var(--c-accent);border-radius:6px"></span></div>
-            <div class="row row--between t-xs t-muted mt-2"><span>เงินต้น 68%</span><span>ดอกเบี้ย 32%</span></div>
-          </div>
-          <div class="hero__float hero__float--b">
-            <div class="t-xs t-muted">ดอกเบี้ยออมทรัพย์</div>
-            <div class="t-num" style="font-weight:600;font-size:1.5rem;color:var(--c-accent-700)">1.80%</div>
-          </div>
-        </div>
+        ${c.cards ? `<div class="hero2__cards">
+          <div class="glass-card"><div class="lbl">ดอกเบี้ยออมทรัพย์ Smart Savings</div><div class="val">1.80%</div><div class="lbl">ต่อปี · ถอนได้ทุกเมื่อ</div></div>
+          <div class="glass-card"><div class="lbl">ค่างวดบ้านโดยประมาณ</div><div class="val">฿16,534<span style="font-size:.45em;opacity:.7"> /เดือน</span></div><div class="bar"><span style="width:62%"></span></div><div class="row row--between lbl mt-2"><span>สินเชื่อบ้าน แสนสบาย</span><span>2.75%</span></div></div>
+        </div>` : ""}
       </div>
-      <div class="container mt-12 reveal">
-        <nav class="quick-bar" aria-label="ทางลัด">
-          ${c.quick.map(([ic, t, s, h]) => `<a href="${url(h)}"><span class="tile__icon">${icon(ic)}</span><div><strong>${t}</strong><span>${s}</span></div></a>`).join("")}
-        </nav>
-      </div>
-    </section>`;
-
-  S.heroBanner = (c) => `
-    <section class="section--tight" style="padding-top:24px">
       <div class="container">
-        <div class="hero-banner reveal">
-          ${img(U(c.img, 1800), "", 'loading="eager"')}
-          <div class="hero-banner__content">
-            <span class="eyebrow">${c.eyebrow}</span>
-            <h1 class="t-h1 mt-4">${c.title}</h1>
-            <p class="t-lead mt-4">${c.lead}</p>
-            <div class="hero__actions" style="margin-top:28px">
-              <a class="btn btn--primary btn--lg" href="${url(c.primary[1])}">${c.primary[0]} ${icon("arrow-right")}</a>
-              <a class="btn btn--outline-light btn--lg" href="${c.secondary[1].startsWith("#") ? c.secondary[1] : url(c.secondary[1])}" ${c.secondary[2] ? `data-modal="${c.secondary[2]}"` : ""}>${c.secondary[0]}</a>
-            </div>
-          </div>
-        </div>
-        <nav class="quick-bar mt-6 reveal" aria-label="ทางลัด">
-          ${c.quick.map(([ic, t, s, h]) => `<a href="${url(h)}"><span class="tile__icon">${icon(ic)}</span><div><strong>${t}</strong><span>${s}</span></div></a>`).join("")}
+        <nav class="quick-bar" aria-label="ทางลัด">
+          ${c.quick.map(([ic, t, st, h]) => `<a href="${url(h)}"><span class="tile__icon">${icon(ic)}</span><div><strong>${t}</strong><span>${st}</span></div></a>`).join("")}
         </nav>
       </div>
     </section>`;
+  S.heroSplit = (c) => S.hero({ ...c, cards: true });
+  S.heroBanner = (c) => S.hero(c);
 
   S.discovery = (c) => `
     <section class="section" id="discover">
@@ -291,7 +263,7 @@
   const CONFIG = {
     personal: [
       ["heroSplit", {
-        eyebrow: "Modern Wealth Lifestyle", img: "photo-1600596542815-ffad4c1539a9",
+        eyebrow: "Modern Wealth Lifestyle", img: "photo-1609220136736-443140cffec6",
         title: "ทุกเป้าหมายในชีวิต<br>มี<em>ที่ปรึกษา</em>เคียงข้าง",
         lead: "ตั้งแต่เงินออมก้อนแรก บ้านหลังแรก จนถึงการสร้างความมั่งคั่งให้ครอบครัว LH Bank พร้อมช่วยคุณวางแผนและตัดสินใจได้อย่างมั่นใจ",
         primary: ["ค้นหาผลิตภัณฑ์ที่ใช่", "personal/products/"], secondary: ["คำนวณสินเชื่อบ้าน", "personal/calculator/home-loan/"],
@@ -307,43 +279,43 @@
       ["discovery", {
         eyebrow: "Product Discovery", title: "วันนี้คุณกำลัง<em>วางแผน</em>เรื่องอะไร", lead: "เลือกเป้าหมายของคุณ แล้วเราจะแนะนำผลิตภัณฑ์ที่เหมาะสมที่สุด", all: "personal/products/",
         goals: [
-          { label: "มีบ้านเป็นของตัวเอง", img: "photo-1600585154340-be6161a56a0c", tag: "สินเชื่อบ้าน", headline: "บ้านหลังแรก เริ่มต้นได้ง่ายกว่าที่คิด", text: "ดอกเบี้ยคงที่ 3 ปีแรก ผ่อนนานสูงสุด 40 ปี พร้อมที่ปรึกษาดูแลตลอดเส้นทาง", cta: "ดูสินเชื่อบ้าน", href: "personal/products/?cat=home-loan", items: ["saen-sabai", "refinance"] },
-          { label: "เก็บออมอย่างมั่นคง", img: "photo-1511895426328-dc8714191300", tag: "เงินฝาก", headline: "ให้เงินออมทำงาน อย่างมั่นคงทุกวัน", text: "ดอกเบี้ยสูง ถอนได้ทุกเมื่อ หรือเลือกฝากประจำปลอดภาษี", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["smart-savings", "tax-free-24"] },
-          { label: "ลงทุนให้เงินเติบโต", img: "photo-1611974789855-9c2a0a7236a3", tag: "การลงทุน", headline: "สร้างพอร์ตที่ใช่ ในแบบของคุณ", text: "กองทุนคัดสรรจากบลจ.ชั้นนำ พร้อม Wealth Advisor ส่วนตัว", cta: "ไปที่ศูนย์การลงทุน", href: "personal/investments/", items: ["fcd", "fixed-12"] },
-          { label: "ใช้จ่ายอย่างมีสไตล์", img: "photo-1556742049-0cfed4f6a45d", tag: "บัตร", headline: "ทุกการใช้จ่าย คือสิทธิพิเศษ", text: "บัตรเครดิตที่ออกแบบมาเพื่อไลฟ์สไตล์และการเดินทางของคุณ", cta: "ดูบัตรทั้งหมด", href: "personal/products/?cat=card", items: ["wealth-card", "travel-card"] },
-          { label: "เงินก้อนสำหรับเป้าหมาย", img: "photo-1529156069898-49953e39b3ac", tag: "สินเชื่อ", headline: "เงินก้อนที่พร้อมเมื่อคุณต้องการ", text: "ทั้งสินเชื่อส่วนบุคคลและบ้านแลกเงิน ดอกเบี้ยโปร่งใส", cta: "ดูสินเชื่อ", href: "personal/products/?cat=personal-loan", items: ["personal-loan", "home-for-cash"] },
+          { label: "มีบ้านเป็นของตัวเอง", img: "photo-1613490493576-7fde63acd811", tag: "สินเชื่อบ้าน", headline: "บ้านหลังแรก เริ่มต้นได้ง่ายกว่าที่คิด", text: "ดอกเบี้ยคงที่ 3 ปีแรก ผ่อนนานสูงสุด 40 ปี พร้อมที่ปรึกษาดูแลตลอดเส้นทาง", cta: "ดูสินเชื่อบ้าน", href: "personal/products/?cat=home-loan", items: ["saen-sabai", "refinance"] },
+          { label: "เก็บออมอย่างมั่นคง", img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", headline: "ให้เงินออมทำงาน อย่างมั่นคงทุกวัน", text: "ดอกเบี้ยสูง ถอนได้ทุกเมื่อ หรือเลือกฝากประจำปลอดภาษี", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["smart-savings", "tax-free-24"] },
+          { label: "ลงทุนให้เงินเติบโต", img: "photo-1530521954074-e64f6810b32d", tag: "การลงทุน", headline: "สร้างพอร์ตที่ใช่ ในแบบของคุณ", text: "กองทุนคัดสรรจากบลจ.ชั้นนำ พร้อม Wealth Advisor ส่วนตัว", cta: "ไปที่ศูนย์การลงทุน", href: "personal/investments/", items: ["fcd", "fixed-12"] },
+          { label: "ใช้จ่ายอย่างมีสไตล์", img: "photo-1563013544-824ae1b704d3", tag: "บัตร", headline: "ทุกการใช้จ่าย คือสิทธิพิเศษ", text: "บัตรเครดิตที่ออกแบบมาเพื่อไลฟ์สไตล์และการเดินทางของคุณ", cta: "ดูบัตรทั้งหมด", href: "personal/products/?cat=card", items: ["wealth-card", "travel-card"] },
+          { label: "เงินก้อนสำหรับเป้าหมาย", img: "photo-1529333166437-7750a6dd5a70", tag: "สินเชื่อ", headline: "เงินก้อนที่พร้อมเมื่อคุณต้องการ", text: "ทั้งสินเชื่อส่วนบุคคลและบ้านแลกเงิน ดอกเบี้ยโปร่งใส", cta: "ดูสินเชื่อ", href: "personal/products/?cat=personal-loan", items: ["personal-loan", "home-for-cash"] },
         ],
       }],
       ["featured", { eyebrow: "Featured Products", title: "ผลิตภัณฑ์แนะนำ", all: "personal/products/", tabs: [["ทั้งหมด", "all"], ["เงินฝาก", "deposit"], ["สินเชื่อบ้าน", "home-loan"], ["บัตร", "card"]], pick: ["saen-sabai", "smart-savings", "wealth-card", "tax-free-24", "refinance", "travel-card", "happy-home", "fixed-12", "debit-smart"] }],
       ["stats", { items: [["30+ ปี", "ประสบการณ์ในกลุ่มที่อยู่อาศัย"], ["120+", "สาขาและจุดบริการทั่วประเทศ"], ["2 ล้าน+", "ลูกค้าที่ไว้วางใจ"], ["AA−", "อันดับความน่าเชื่อถือ (ตัวอย่าง)"]] }],
       ["promotions", { eyebrow: "Promotions", title: "สิทธิพิเศษสำหรับคุณ", items: [
-        { img: "photo-1600585154340-be6161a56a0c", tag: "สินเชื่อบ้าน", until: "31 มี.ค. 2027", title: "ยื่นกู้บ้านออนไลน์ รับส่วนลดค่าจดจำนอง 50%", href: "personal/product/?id=saen-sabai" },
-        { img: "photo-1579621970563-ebec7560ff3e", tag: "เงินฝาก", until: "30 มิ.ย. 2027", title: "เปิดบัญชี Smart Savings รับดอกเบี้ยพิเศษ 2.00% 3 เดือนแรก", href: "personal/product/?id=smart-savings" },
-        { img: "photo-1469854523086-cc02fe5d8800", tag: "บัตรเครดิต", until: "31 ธ.ค. 2027", title: "ช้อปต่างประเทศ รับเครดิตเงินคืนสูงสุด 5,000 บาท", href: "personal/product/?id=travel-card" },
-        { img: "photo-1611974789855-9c2a0a7236a3", tag: "กองทุน", until: "28 ก.พ. 2027", title: "ลงทุนกองทุน Thai ESG ครบ 50,000 บาท รับของสมนาคุณพิเศษ", href: "personal/investments/" },
-        { img: "photo-1502672260266-1c1ef2d93688", tag: "รีไฟแนนซ์", until: "30 เม.ย. 2027", title: "รีไฟแนนซ์บ้าน ฟรีค่าประเมินและค่าจดจำนอง", href: "personal/product/?id=refinance" },
+        { img: "photo-1613490493576-7fde63acd811", tag: "สินเชื่อบ้าน", until: "31 มี.ค. 2027", title: "ยื่นกู้บ้านออนไลน์ รับส่วนลดค่าจดจำนอง 50%", href: "personal/product/?id=saen-sabai" },
+        { img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", until: "30 มิ.ย. 2027", title: "เปิดบัญชี Smart Savings รับดอกเบี้ยพิเศษ 2.00% 3 เดือนแรก", href: "personal/product/?id=smart-savings" },
+        { img: "photo-1530521954074-e64f6810b32d", tag: "บัตรเครดิต", until: "31 ธ.ค. 2027", title: "ช้อปต่างประเทศ รับเครดิตเงินคืนสูงสุด 5,000 บาท", href: "personal/product/?id=travel-card" },
+        { img: "photo-1526628953301-3e589a6a8b74", tag: "กองทุน", until: "28 ก.พ. 2027", title: "ลงทุนกองทุน Thai ESG ครบ 50,000 บาท รับของสมนาคุณพิเศษ", href: "personal/investments/" },
+        { img: "photo-1600607687939-ce8a6c25118c", tag: "รีไฟแนนซ์", until: "30 เม.ย. 2027", title: "รีไฟแนนซ์บ้าน ฟรีค่าประเมินและค่าจดจำนอง", href: "personal/product/?id=refinance" },
       ] }],
-      ["advisory", { eyebrow: "Advisory", title: "ที่ปรึกษาการเงิน<br>ที่เข้าใจคุณ", lead: "ไม่ว่าจะซื้อบ้าน วางแผนเกษียณ หรือสร้างพอร์ตการลงทุน ผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำแบบตัวต่อตัว ไม่มีค่าใช้จ่าย", points: ["วิเคราะห์สถานะการเงินและเป้าหมายของคุณ", "แนะนำผลิตภัณฑ์ที่เหมาะสม เปรียบเทียบอย่างโปร่งใส", "ดูแลต่อเนื่องตลอดเส้นทาง ทั้งออนไลน์และที่สาขา"], cta: "นัดหมายที่ปรึกษา", img: "photo-1573497019940-1c28c88b4f3e", avatar: "photo-1544005313-94ddf0286df2", advisor: "คุณศิริพร ว.", role: "Wealth Advisor · ว่างวันนี้" }],
+      ["advisory", { eyebrow: "Advisory", title: "ที่ปรึกษาการเงิน<br>ที่เข้าใจคุณ", lead: "ไม่ว่าจะซื้อบ้าน วางแผนเกษียณ หรือสร้างพอร์ตการลงทุน ผู้เชี่ยวชาญของเราพร้อมให้คำแนะนำแบบตัวต่อตัว ไม่มีค่าใช้จ่าย", points: ["วิเคราะห์สถานะการเงินและเป้าหมายของคุณ", "แนะนำผลิตภัณฑ์ที่เหมาะสม เปรียบเทียบอย่างโปร่งใส", "ดูแลต่อเนื่องตลอดเส้นทาง ทั้งออนไลน์และที่สาขา"], cta: "นัดหมายที่ปรึกษา", img: "photo-1573497019236-17f8177b81e8", avatar: "photo-1573496359142-b8d87734a5a2", advisor: "คุณศิริพร ว.", role: "Wealth Advisor · ว่างวันนี้" }],
       ["tools", { eyebrow: "Tools & Services", title: "เครื่องมือช่วยตัดสินใจ", items: [["calc", "คำนวณสินเชื่อบ้าน", "ค่างวด วงเงิน และดอกเบี้ยรวม", "personal/calculator/home-loan/"], ["swap", "อัตราแลกเปลี่ยน", "ซื้อ-ขาย และข้อมูลย้อนหลัง", "exchange-rates/"], ["pin", "ค้นหาสาขา", "สาขาใกล้คุณ เปิดเสาร์-อาทิตย์", "branch-locations/"], ["target", "ประเมินความเสี่ยง", "รู้จักสไตล์การลงทุนใน 1 นาที", "personal/investments/#advisory"]] }],
       ["app", {}],
-      ["articles", { eyebrow: "Insights", title: "ความรู้การเงินเพื่อชีวิต", items: [["photo-1560518883-ce09059eeffa", "บ้าน", "5 สิ่งที่ต้องเตรียมก่อนยื่นกู้บ้านหลังแรก", "อ่าน 5 นาที"], ["photo-1554224155-6726b3ff858f", "ภาษี", "วางแผนลดหย่อนภาษีปี 2027 ด้วย Thai ESG", "อ่าน 4 นาที"], ["photo-1469474968028-56623f02e42e", "เกษียณ", "เริ่มวางแผนเกษียณตั้งแต่อายุ 30 ต้องเก็บเท่าไร", "อ่าน 6 นาที"]] }],
+      ["articles", { eyebrow: "Insights", title: "ความรู้การเงินเพื่อชีวิต", items: [["photo-1600047509807-ba8f99d2cdde", "บ้าน", "5 สิ่งที่ต้องเตรียมก่อนยื่นกู้บ้านหลังแรก", "อ่าน 5 นาที"], ["photo-1600210492486-724fe5c67fb0", "ภาษี", "วางแผนลดหย่อนภาษีปี 2027 ด้วย Thai ESG", "อ่าน 4 นาที"], ["photo-1519451241324-20b4ea2c4220", "เกษียณ", "เริ่มวางแผนเกษียณตั้งแต่อายุ 30 ต้องเก็บเท่าไร", "อ่าน 6 นาที"]] }],
       ["cta", { eyebrow: "เริ่มต้นวันนี้", title: "พร้อมก้าวต่อไป<br>กับ LH Bank", lead: "เลือกช่องทางที่สะดวกสำหรับคุณ เราพร้อมดูแลทุกขั้นตอน", options: [["mobile", "เปิดบัญชีออนไลน์", "ใช้เวลาเพียง 5 นาที", "personal/product/?id=smart-savings"], ["headset", "ให้เจ้าหน้าที่ติดต่อกลับ", "ภายใน 1 วันทำการ", "", "leadModal"], ["pin", "ไปที่สาขาใกล้คุณ", "เปิดทุกวัน 10:00–20:00 น.", "branch-locations/"]] }],
     ],
     sme: [
-      ["heroBanner", { eyebrow: "SME Banking", img: "photo-1517248135467-4c7edcad34c4", title: "เติบโตไปด้วยกัน<br>กับ<em style=\"color:var(--c-accent-200)\">พันธมิตร</em>ทางธุรกิจ", lead: "สินเชื่อ บัญชี และที่ปรึกษาธุรกิจ ที่ออกแบบมาสำหรับเจ้าของกิจการ SME โดยเฉพาะ", primary: ["ดูสินเชื่อ SME", "personal/products/?cat=sme"], secondary: ["นัดหมาย RM", "#", "leadModal"],
+      ["heroBanner", { eyebrow: "SME Banking", img: "photo-1600880292203-757bb62b4baf", title: "เติบโตไปด้วยกัน<br>กับ<em style=\"color:var(--c-accent-200)\">พันธมิตร</em>ทางธุรกิจ", lead: "สินเชื่อ บัญชี และที่ปรึกษาธุรกิจ ที่ออกแบบมาสำหรับเจ้าของกิจการ SME โดยเฉพาะ", primary: ["ดูสินเชื่อ SME", "personal/products/?cat=sme"], secondary: ["นัดหมาย RM", "#", "leadModal"],
         quick: [["store", "สินเชื่อ SME", "วงเงินสูงสุด 50 ล้าน", "personal/products/?cat=sme"], ["wallet", "บัญชีธุรกิจ", "บริหารสภาพคล่อง", "personal/products/?cat=sme"], ["calc", "คำนวณสินเชื่อ", "ประเมินค่างวด", "personal/calculator/home-loan/"], ["pin", "ศูนย์ธุรกิจ SME", "ใกล้คุณ", "branch-locations/?type=sme"]] }],
       ["segmentSolutions", { eyebrow: "Section Variant · Solutions", title: "โซลูชันสำหรับทุกช่วงของธุรกิจ", lead: "Reuse จาก Tile component — ปรับเนื้อหาและไอคอนตาม Segment", items: [["bolt", "เริ่มต้นธุรกิจ", "เงินทุนหมุนเวียนสำหรับกิจการ 1 ปีขึ้นไป", "personal/product/?id=sme-start"], ["building", "ขยายกิจการ", "ลงทุนสาขาใหม่ เครื่องจักร และอสังหาฯ", "personal/product/?id=sme-growth"], ["globe", "ค้าขายต่างประเทศ", "Trade Finance และ FX สำหรับ SME", "exchange-rates/"]] }],
       ["featured", { eyebrow: "Section Variant · Featured", title: "ผลิตภัณฑ์สำหรับ SME", all: "personal/products/?cat=sme", tabs: [["ทั้งหมด", "all"]], pick: ["sme-start", "sme-growth", "cash-management"] }],
       ["stats", { items: [["50 ล้าน", "วงเงินสูงสุดต่อราย"], ["7 วัน", "อนุมัติเบื้องต้น"], ["12 แห่ง", "ศูนย์ธุรกิจ SME"], ["1:1", "RM ดูแลส่วนตัว"]] }],
-      ["advisory", { eyebrow: "Section Variant · Advisory", title: "Relationship Manager<br>ที่เข้าใจธุรกิจคุณ", lead: "ทีมที่ปรึกษาธุรกิจช่วยวางโครงสร้างสินเชื่อให้สอดคล้องกับกระแสเงินสด และเติบโตได้อย่างยั่งยืน", points: ["วิเคราะห์งบการเงินและความต้องการเงินทุน", "ออกแบบงวดชำระตามรอบธุรกิจ", "เชื่อมต่อบริการ Cash Management และ Trade"], cta: "นัดหมาย RM", img: "photo-1556761175-5973dc0f32e7", avatar: "photo-1507679799987-c73779587ccf", advisor: "คุณธนกร ส.", role: "SME Relationship Manager" }],
+      ["advisory", { eyebrow: "Section Variant · Advisory", title: "Relationship Manager<br>ที่เข้าใจธุรกิจคุณ", lead: "ทีมที่ปรึกษาธุรกิจช่วยวางโครงสร้างสินเชื่อให้สอดคล้องกับกระแสเงินสด และเติบโตได้อย่างยั่งยืน", points: ["วิเคราะห์งบการเงินและความต้องการเงินทุน", "ออกแบบงวดชำระตามรอบธุรกิจ", "เชื่อมต่อบริการ Cash Management และ Trade"], cta: "นัดหมาย RM", img: "photo-1600880292089-90a7e086ee0c", avatar: "photo-1556157382-97eda2d62296", advisor: "คุณธนกร ส.", role: "SME Relationship Manager" }],
       ["cta", { eyebrow: "พร้อมเติบโต", title: "เริ่มต้นคุยกับ<br>ทีม SME วันนี้", lead: "ให้เราช่วยประเมินวงเงินและโครงสร้างสินเชื่อที่เหมาะกับธุรกิจคุณ", options: [["headset", "ให้ RM ติดต่อกลับ", "ภายใน 1 วันทำการ", "", "leadModal"], ["pin", "ศูนย์ธุรกิจ SME ใกล้คุณ", "12 แห่งทั่วกรุงเทพฯ และปริมณฑล", "branch-locations/?type=sme"]] }],
     ],
     business: [
-      ["heroBanner", { eyebrow: "Business & Corporate Banking", img: "photo-1486406146926-c627a92ad1ab", title: "พันธมิตรทางการเงิน<br>สำหรับองค์กร", lead: "โซลูชันสินเชื่อ การบริหารเงินสด และการค้าระหว่างประเทศ พร้อมความเชี่ยวชาญด้านอสังหาริมทรัพย์กว่า 30 ปี", primary: ["ดูบริการองค์กร", "personal/products/?cat=business"], secondary: ["ติดต่อทีมองค์กร", "#", "leadModal"],
+      ["heroBanner", { eyebrow: "Business & Corporate Banking", img: "photo-1582407947304-fd86f028f716", title: "พันธมิตรทางการเงิน<br>สำหรับองค์กร", lead: "โซลูชันสินเชื่อ การบริหารเงินสด และการค้าระหว่างประเทศ พร้อมความเชี่ยวชาญด้านอสังหาริมทรัพย์กว่า 30 ปี", primary: ["ดูบริการองค์กร", "personal/products/?cat=business"], secondary: ["ติดต่อทีมองค์กร", "#", "leadModal"],
         quick: [["building", "Project Finance", "สินเชื่อโครงการ", "personal/product/?id=project-finance"], ["layers", "Cash Management", "บริหารเงินสด", "personal/product/?id=cash-management"], ["globe", "Trade Finance", "L/C, T/R, FX", "exchange-rates/"], ["headset", "ติดต่อ RM", "ทีมดูแลองค์กร", "business/#advisory"]] }],
       ["segmentSolutions", { eyebrow: "Section Variant · Solutions", title: "บริการสำหรับองค์กร", lead: "Section เดียวกับ SME — สลับเนื้อหาเป็นบริการองค์กร 4 คอลัมน์", items: [["building", "Project Finance", "สินเชื่อสำหรับผู้พัฒนาโครงการ", "personal/product/?id=project-finance"], ["layers", "Cash Management", "Payroll, Bulk Payment, Collection", "personal/product/?id=cash-management"], ["globe", "Trade Finance", "L/C, T/R และ FX Hedging", "exchange-rates/"], ["chart", "Treasury", "บริหารความเสี่ยงอัตราดอกเบี้ย", "personal/products/?cat=business"]] }],
       ["stats", { items: [["30+ ปี", "ความเชี่ยวชาญอสังหาริมทรัพย์"], ["24/7", "Corporate Online"], ["API", "Host-to-Host Integration"], ["1:1", "ทีมดูแลองค์กร"]] }],
-      ["advisory", { eyebrow: "Section Variant · Advisory", title: "ทีมผู้เชี่ยวชาญ<br>สำหรับองค์กรของคุณ", lead: "Corporate RM และ Product Specialist ทำงานร่วมกันเพื่อออกแบบโซลูชันที่เหมาะกับโครงสร้างธุรกิจ", points: ["โครงสร้างสินเชื่อเฉพาะโครงการ", "เชื่อมต่อระบบ ERP ผ่าน API", "รายงานและการควบคุมแบบ Multi-level Approval"], cta: "ติดต่อทีมองค์กร", img: "photo-1450101499163-c8848c66ca85", avatar: "photo-1507679799987-c73779587ccf", advisor: "ทีม Corporate Banking", role: "จันทร์–ศุกร์ 08:30–17:00" }],
+      ["advisory", { eyebrow: "Section Variant · Advisory", title: "ทีมผู้เชี่ยวชาญ<br>สำหรับองค์กรของคุณ", lead: "Corporate RM และ Product Specialist ทำงานร่วมกันเพื่อออกแบบโซลูชันที่เหมาะกับโครงสร้างธุรกิจ", points: ["โครงสร้างสินเชื่อเฉพาะโครงการ", "เชื่อมต่อระบบ ERP ผ่าน API", "รายงานและการควบคุมแบบ Multi-level Approval"], cta: "ติดต่อทีมองค์กร", img: "photo-1573164713988-8665fc963095", avatar: "photo-1556157382-97eda2d62296", advisor: "ทีม Corporate Banking", role: "จันทร์–ศุกร์ 08:30–17:00" }],
       ["cta", { eyebrow: "Corporate", title: "พูดคุยกับ<br>ทีมองค์กร", lead: "ให้เราออกแบบโซลูชันทางการเงินสำหรับองค์กรของคุณ", options: [["headset", "ให้ทีมองค์กรติดต่อกลับ", "ภายใน 1 วันทำการ", "", "leadModal"], ["phone", "Corporate Hotline", "1327 กด 3", "tel:1327"]] }],
     ],
   };
