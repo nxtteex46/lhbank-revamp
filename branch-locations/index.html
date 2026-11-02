@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LH Bank | ค้นหาสาขา</title>
+<meta name="description" content="ค้นหาสาขาและศูนย์ธุรกิจ LH Bank ใกล้คุณ">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2339a3ce'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3ELH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-root="../" data-segment="personal" data-page="branches" data-nav="services">
+<div id="site-header"></div>
+<main id="main">
+  <section class="container">
+    <div class="page-header page-header--split" style="padding-bottom:32px">
+      <div>
+        <nav aria-label="breadcrumb"><ol class="breadcrumb"><li><a href="../personal/">หน้าแรก</a></li><li><span aria-current="page">ค้นหาสาขา</span></li></ol></nav>
+        <h1 class="page-header__title">ค้นหา<em>สาขา</em>ใกล้คุณ</h1>
+      </div>
+      <p class="t-lead">สาขา ศูนย์ธุรกิจ SME และจุดบริการ พร้อมเวลาทำการและบริการของแต่ละสาขา</p>
+    </div>
+  </section>
+  <section class="container" style="padding-bottom:var(--section-y)">
+    <div class="locator" id="locator">
+      <div class="locator__side">
+        <div class="locator__controls">
+          <div class="search" id="brSearch">
+            <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" type="search" placeholder="ค้นหาชื่อสาขา เขต หรือห้างสรรพสินค้า" aria-label="ค้นหาสาขา" style="height:50px">
+            <button class="search__clear" aria-label="ล้าง"><svg class="ico" viewBox="0 0 24 24" style="position:static"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          </div>
+          <div class="row" style="gap:8px">
+            <div class="dropdown" id="provDd">
+              <button class="dropdown__trigger" style="height:40px"><span data-dd-label>ทุกจังหวัด</span><svg class="ico" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+              <div class="dropdown__menu" id="provMenu"></div>
+            </div>
+            <button class="btn btn--ghost btn--sm" id="locateMe"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"/></svg>ใกล้ฉัน</button>
+          </div>
+          <div class="chips chips--scroll" id="brFilters" style="margin-inline:-20px;padding-inline:20px"></div>
+          <div class="segmented locator__mobile-toggle" id="viewToggle" style="width:100%">
+            <button class="is-active" data-view="list" style="flex:1"><svg class="ico" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>รายการ</button>
+            <button data-view="map" style="flex:1"><svg class="ico" viewBox="0 0 24 24"><path d="m9 5-5 2v13l5-2 6 2 5-2V5l-5 2z"/><path d="M9 5v13M15 7v13"/></svg>แผนที่</button>
+          </div>
+        </div>
+        <div class="locator__list" id="brList"></div>
+      </div>
+      <div class="map" id="map" aria-label="แผนที่สาขา">
+        <div class="map__canvas" id="mapCanvas"></div>
+        <div class="map__controls"><button id="zIn" aria-label="ซูมเข้า"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button id="zOut" aria-label="ซูมออก"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><button id="zFit" aria-label="แสดงทั้งหมด"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.5"/></svg></button></div>
+        <div class="map__popup" id="mapPopup"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="drawer" id="brDrawer" role="dialog" aria-modal="true" aria-label="รายละเอียดสาขา"></div>
+<div class="mega-overlay" id="brOverlay" style="z-index:165"></div>
+<div id="site-footer"></div>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/branches.js"></script>
+</body>
+</html>

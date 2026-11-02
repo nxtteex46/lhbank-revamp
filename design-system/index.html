@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LH Bank | Design System</title>
+<meta name="description" content="LH Bank Website Revamp 2027 — Shared Design System & Component Library">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2339a3ce'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3ELH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-root="../" data-segment="personal" data-page="design-system">
+<div id="site-header"></div>
+<main id="main">
+  <section class="container">
+    <div class="page-header page-header--split">
+      <div>
+        <nav aria-label="breadcrumb"><ol class="breadcrumb"><li><a href="../personal/">LH Bank</a></li><li><span aria-current="page">Design System</span></li></ol></nav>
+        <h1 class="page-header__title">Design System<br><em>Modern Wealth Lifestyle</em></h1>
+      </div>
+      <div>
+        <p class="t-lead">Shared foundations, components, templates และ interaction rules สำหรับ Personal, SME และ Business Banking — source of truth สำหรับ Figma library และ developer handoff</p>
+        <div class="row mt-6"><span class="badge">v1.0 · Bid</span><span class="badge badge--line">Tokens: assets/css/main.css</span><span class="badge badge--line">Updated 10 Nov 2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom:var(--section-y)">
+    <div class="ds-layout">
+      <nav class="ds-nav" aria-label="สารบัญ">
+        <a href="#principles">Principles</a><a href="#color">Color</a><a href="#type">Typography</a><a href="#space">Spacing & Grid</a><a href="#buttons">Buttons & Links</a><a href="#forms">Forms & Inputs</a><a href="#chips">Chips & Badges</a><a href="#cards">Cards</a><a href="#tabs">Tabs & Accordion</a><a href="#nav">Navigation</a><a href="#tables">Tables & Data</a><a href="#feedback">Feedback</a><a href="#templates">Templates</a><a href="#variants">SME / Business Variants</a><a href="#responsive">Responsive Rules</a><a href="#interactions">Interaction Notes</a><a href="#handoff">Handoff</a>
+      </nav>
+      <div>
+        <div class="ds-block" id="principles" style="padding-top:0">
+          <h2>Design Principles</h2>
+          <p>Premium · Trustworthy · Advisory-led · Effortless · Easy to Discover · Intuitive</p>
+          <div class="cols-3">
+            <div class="tile"><span class="tile__icon"><i data-icon="sparkle"></i></span><span class="tile__title">Refined Luxury</span><span class="t-sm t-muted">พื้นขาว ช่องว่างกว้าง Typography คมชัด ใช้สีน้ำเงิน #39A3CE เป็น accent เท่านั้น ไม่ตกแต่งเกินจำเป็น</span></div>
+            <div class="tile"><span class="tile__icon"><i data-icon="shield"></i></span><span class="tile__title">Trust through Clarity</span><span class="t-sm t-muted">ตัวเลขสำคัญ (ดอกเบี้ย ค่างวด) แสดงด้วยตัวเลข tabular ขนาดใหญ่ ข้อมูลอัตรา/ค่าธรรมเนียมมีวันที่อ้างอิงเสมอ</span></div>
+            <div class="tile"><span class="tile__icon"><i data-icon="headset"></i></span><span class="tile__title">Advisory-led</span><span class="t-sm t-muted">ทุกหน้ามีทางไปต่อ: เปรียบเทียบ คำนวณ หรือคุยกับผู้เชี่ยวชาญ — CTA หลัก 1 ปุ่ม + ทางเลือกรอง</span></div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="color">
+          <h2>Color</h2>
+          <p>White-first palette — สีหลักของแบรนด์ใช้สำหรับ action, highlight และ data เท่านั้น สีเข้ม Navy ใช้กับ section ที่ต้องการความหรูและ advisory</p>
+          <span class="ds-label">Brand</span>
+          <div class="cols-4 mb-8">
+            <div class="swatch"><div class="swatch__color" style="background:#39a3ce"></div><div class="swatch__meta"><strong>Accent 500</strong>#39A3CE · --c-accent</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#1f7fa8"></div><div class="swatch__meta"><strong>Accent 700</strong>#1F7FA8 · hover / text on light</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#e1f1f8"></div><div class="swatch__meta"><strong>Accent 100</strong>#E1F1F8 · tint</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#f1f8fb"></div><div class="swatch__meta"><strong>Accent 50</strong>#F1F8FB · surface</div></div>
+          </div>
+          <span class="ds-label">Neutral & Surface</span>
+          <div class="cols-4 mb-8">
+            <div class="swatch"><div class="swatch__color" style="background:#0d1d2a"></div><div class="swatch__meta"><strong>Ink</strong>#0D1D2A · text / dark CTA</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#0b2131"></div><div class="swatch__meta"><strong>Navy</strong>#0B2131 · premium sections</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#f4f7f9"></div><div class="swatch__meta"><strong>Mist</strong>#F4F7F9 · cool section</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#f7f5f1"></div><div class="swatch__meta"><strong>Sand</strong>#F7F5F1 · editorial section</div></div>
+          </div>
+          <span class="ds-label">Text & Lines / Feedback</span>
+          <div class="cols-4">
+            <div class="swatch"><div class="swatch__color" style="background:#6a7883"></div><div class="swatch__meta"><strong>Muted</strong>#6A7883 · secondary text (AA)</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#e5e9ec"></div><div class="swatch__meta"><strong>Line</strong>#E5E9EC · dividers</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#1c9a6a"></div><div class="swatch__meta"><strong>Success</strong>#1C9A6A · up / open</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#d14b4b"></div><div class="swatch__meta"><strong>Danger</strong>#D14B4B · down / error</div></div>
+          </div>
+          <p class="ds-note mt-6">Accessibility: ข้อความบนพื้นขาวใช้ Ink/Ink-2/Muted (≥ 4.5:1). ปุ่ม Primary #39A3CE ใช้ตัวอักษรขาวขนาด ≥ 16px weight 500 (large-text contrast) · ลิงก์ในเนื้อหาใช้ Accent 700 (4.6:1)</p>
+        </div>
+
+        <div class="ds-block" id="type">
+          <h2>Typography</h2>
+          <p>Anuphan (Thai/Latin, modern humanist) สำหรับเนื้อหาและหัวข้อ · Noto Serif Thai สำหรับคำเน้นแบบ editorial (&lt;em&gt;) · Inter tabular figures สำหรับตัวเลขการเงิน</p>
+          <div class="stack" style="--stack:20px">
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">Display<br>84/1.08</span><div class="t-display">ความมั่งคั่ง<em>ที่ใช่</em></div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">H1 60/1.12</span><div class="t-h1">สินเชื่อบ้าน แสนสบาย</div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">H2 44/1.2</span><div class="t-h2">ผลิตภัณฑ์แนะนำ</div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">H3 28/1.3</span><div class="t-h3">คุณสมบัติผู้สมัคร</div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">Lead 20/1.6</span><div class="t-lead">ที่ปรึกษาทางการเงินที่อยู่เคียงข้างทุกเป้าหมาย</div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">Body 16/1.65</span><div>สินเชื่อบ้านสำหรับซื้อบ้านใหม่ บ้านมือสอง หรือคอนโดมิเนียม</div></div>
+            <div class="row" style="align-items:baseline;gap:24px;flex-wrap:nowrap"><span class="ds-label" style="width:110px;flex:none">Number</span><div class="stat__value">฿18,420.00</div></div>
+          </div>
+          <p class="ds-note mt-6">ขนาดตัวอักษรใช้ fluid clamp() ระหว่าง mobile 375 → desktop 1440 · Thai line-height ≥ 1.6 สำหรับเนื้อหา · ไม่ใช้ตัวเอียงกับภาษาไทย</p>
+        </div>
+
+        <div class="ds-block" id="space">
+          <h2>Spacing & Grid</h2>
+          <p>4px base unit · 12-column grid · max content width 1240px · section padding ปรับตามหน้าจอ (64 → 128px)</p>
+          <div class="ds-demo mb-6" style="align-items:flex-end">
+            <script>document.write([4,8,12,16,24,32,48,64,96,128].map(s=>`<div style="display:grid;gap:6px;justify-items:center"><div style="width:${s/2}px;height:${s/2}px;background:var(--c-accent-100);border:1px solid var(--c-accent-200);border-radius:4px"></div><span class="t-xs t-muted t-num">${s}</span></div>`).join(''))</script>
+          </div>
+          <div class="grid" style="gap:var(--gutter)"><script>document.write(Array.from({length:12},(_, i)=>`<div style="height:64px;background:var(--c-accent-50);border:1px dashed var(--c-accent-200);border-radius:6px;display:grid;place-items:center;font-size:11px;color:var(--c-accent-700)">${i+1}</div>`).join(''))</script></div>
+          <div class="table-wrap mt-6"><table class="table table--simple"><thead><tr><th>Breakpoint</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Header</th></tr></thead><tbody>
+            <tr><td>Desktop ≥ 1100</td><td>12</td><td>24px</td><td>40px</td><td>76px · Mega menu</td></tr>
+            <tr><td>Tablet 681–1099</td><td>12 (6 effective)</td><td>20px</td><td>4vw</td><td>76px · Drawer nav</td></tr>
+            <tr><td>Mobile ≤ 680</td><td>4</td><td>16px</td><td>16px</td><td>64px · Full-screen nav</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="ds-block" id="buttons">
+          <h2>Buttons & Links</h2>
+          <p>Pill shape · 3 sizes (40 / 52 / 60) · 1 primary action ต่อ view · icon arrow เลื่อนเมื่อ hover</p>
+          <span class="ds-label">Variants</span>
+          <div class="ds-demo mb-6">
+            <button class="btn btn--primary">Primary <i data-icon="arrow-right"></i></button>
+            <button class="btn btn--dark">Dark</button>
+            <button class="btn btn--secondary">Secondary</button>
+            <button class="btn btn--ghost">Ghost</button>
+            <a class="link" href="#">Text link <i data-icon="arrow-right"></i></a>
+          </div>
+          <span class="ds-label">States — Primary</span>
+          <div class="ds-demo mb-6">
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary">Default</button><span class="t-xs t-muted">default</span></div>
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary state-hover">Hover</button><span class="t-xs t-muted">hover · Accent 700</span></div>
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary state-focus">Focus</button><span class="t-xs t-muted">focus · 3px ring</span></div>
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary" style="transform:scale(.98)">Pressed</button><span class="t-xs t-muted">active · scale .98</span></div>
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary is-loading">Loading</button><span class="t-xs t-muted">loading</span></div>
+            <div class="stack" style="--stack:6px;text-align:center"><button class="btn btn--primary" disabled>Disabled</button><span class="t-xs t-muted">disabled · 40%</span></div>
+          </div>
+          <span class="ds-label">Sizes</span>
+          <div class="ds-demo"><button class="btn btn--primary btn--sm">Small 40</button><button class="btn btn--primary">Medium 52</button><button class="btn btn--primary btn--lg">Large 60</button><button class="btn btn--secondary btn--icon" aria-label="icon"><i data-icon="share"></i></button></div>
+        </div>
+
+        <div class="ds-block" id="forms">
+          <h2>Forms & Inputs</h2>
+          <p>Height 54px · radius 14px · label อยู่ด้านบนเสมอ · error message ใต้ช่อง · focus ring สี accent</p>
+          <div class="cols-2">
+            <div class="ds-demo ds-demo--col">
+              <div class="field"><label class="field__label">Default</label><input class="input" placeholder="ชื่อ-นามสกุล"></div>
+              <div class="field"><label class="field__label">Focus</label><input class="input" value="สมชาย ใจดี" style="border-color:var(--c-accent);box-shadow:var(--ring)"></div>
+              <div class="field is-invalid"><label class="field__label">Error</label><input class="input" value="0812"><span class="field__error">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</span></div>
+              <div class="field"><label class="field__label">Disabled</label><input class="input" value="ไม่สามารถแก้ไขได้" disabled></div>
+            </div>
+            <div class="ds-demo ds-demo--col">
+              <div class="search"><i data-icon="search"></i><input class="input" placeholder="Search"></div>
+              <div class="field"><label class="field__label">Select</label><select class="select"><option>สินเชื่อบ้าน</option><option>เงินฝาก</option></select></div>
+              <div class="dropdown"><button class="dropdown__trigger"><span data-dd-label>Dropdown</span><i data-icon="chevron-down"></i></button><div class="dropdown__menu"><button class="dropdown__item is-selected">แนะนำ</button><button class="dropdown__item">ดอกเบี้ยต่ำ → สูง</button></div></div>
+              <div class="field"><label class="field__label">Range <span class="t-num t-accent">30 ปี</span></label><input type="range" class="range" min="5" max="40" value="30"></div>
+              <div class="row" style="gap:20px"><label class="check"><input type="checkbox" checked> Checkbox</label><label class="check"><input type="radio" name="r" checked> Radio</label><label class="switch"><input type="checkbox" checked> Switch</label></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="chips">
+          <h2>Chips, Badges & Indicators</h2>
+          <p>Chip = ตัวกรอง (toggle) · Badge = สถานะ/ป้ายกำกับ (read-only)</p>
+          <div class="ds-demo mb-6"><button class="chip is-active">ทั้งหมด</button><button class="chip">สินเชื่อบ้าน <span class="count">4</span></button><button class="chip">เงินฝาก</button><button class="chip"><i data-icon="calendar"></i>เปิดเสาร์-อาทิตย์</button></div>
+          <div class="ds-demo"><span class="badge">Accent</span><span class="badge badge--ink">แนะนำ</span><span class="badge badge--gold">Premium</span><span class="badge badge--success">+8.6%</span><span class="badge badge--danger">ปิดแล้ว</span><span class="badge badge--line">Outline</span><span class="open-state is-open"><i class="dot"></i>เปิดอยู่</span><span class="risk" data-level="5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></div>
+        </div>
+
+        <div class="ds-block" id="cards">
+          <h2>Cards</h2>
+          <p>Product Card เป็น component เดียวที่ reuse ทุกหมวด (Deposit / Loan / Card / SME / Business) — เปลี่ยนเฉพาะ category label, highlight metric และ CTA</p>
+          <div class="cols-3" id="dsCards"></div>
+          <div class="cols-3 mt-6">
+            <a class="tile" href="#"><span class="tile__icon"><i data-icon="calc"></i></span><span class="tile__arrow"><i data-icon="arrow-right"></i></span><span class="tile__title">Tile / Tool</span><span class="t-sm t-muted">Quick links & tools</span></a>
+            <div class="benefit"><span class="tile__icon"><i data-icon="percent"></i></span><div><h4>Benefit</h4><p>สำหรับ list สิทธิประโยชน์</p></div></div>
+            <div class="market-card"><div class="market-card__top"><span class="t-muted">Market card</span><span class="chg-up t-num t-sm">+0.84%</span></div><div class="market-card__val">1,428.35</div></div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="tabs">
+          <h2>Tabs, Segmented & Accordion</h2>
+          <p>Tabs = สลับเนื้อหาระดับ section · Segmented = สลับโหมด/ตัวกรองในพื้นที่เล็ก · Accordion = FAQ, mobile nav, footer (mobile)</p>
+          <div class="cols-2">
+            <div class="ds-demo ds-demo--col" data-tabs>
+              <div class="tabs" role="tablist"><button class="tab is-active" data-tab="a">ภาพรวม</button><button class="tab" data-tab="b">อัตราดอกเบี้ย</button><button class="tab" data-tab="c">เอกสาร</button></div>
+              <div class="tab-panel is-active t-sm t-muted" data-panel="a">Underline indicator · animate scaleX 300ms</div>
+              <div class="tab-panel t-sm t-muted" data-panel="b">Panel fade-up 450ms</div>
+              <div class="tab-panel t-sm t-muted" data-panel="c">Keyboard: Tab / Enter</div>
+              <div class="segmented"><button class="is-active">รายเดือน</button><button>รายปี</button></div>
+            </div>
+            <div class="ds-demo ds-demo--col">
+              <div class="accordion" data-accordion data-single>
+                <div class="acc-item is-open"><button class="acc-trigger" aria-expanded="true">Accordion — open<span class="acc-icon"></span></button><div class="acc-panel"><div><div class="acc-content t-sm">เนื้อหาขยายด้วย grid-template-rows 0fr → 1fr (350ms)</div></div></div></div>
+                <div class="acc-item"><button class="acc-trigger" aria-expanded="false">Accordion — closed<span class="acc-icon"></span></button><div class="acc-panel"><div><div class="acc-content t-sm">Single-open mode สำหรับ mobile nav</div></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="nav">
+          <h2>Navigation</h2>
+          <p>Utility bar (segment switch Personal / SME / Business · rates · branches · 1327 · TH/EN) + Sticky header + Mega menu 4 คอลัมน์ (2–3 link groups + featured card) · Mobile: full-screen accordion nav + quick tools + persistent CTA</p>
+          <div class="ds-demo ds-demo--col">
+            <nav aria-label="breadcrumb"><ol class="breadcrumb"><li><a href="#">บุคคล</a></li><li><a href="#">สินเชื่อบ้าน</a></li><li><span aria-current="page">แสนสบาย</span></li></ol></nav>
+            <div class="row t-sm t-muted" style="gap:24px"><span>• Hover intent 140ms (desktop) / click (touch)</span><span>• Esc ปิดทุก overlay</span><span>• Overlay dim 18%</span><span>• Header blur + border เมื่อ scroll</span></div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="tables">
+          <h2>Tables & Data Display</h2>
+          <p>ตัวเลขชิดขวา tabular figures · header sticky · row hover tint · บน mobile แปลงเป็น card list (Exchange Rates) หรือ scroll แนวนอน (Rates/Fees)</p>
+          <div class="table-wrap"><table class="table"><thead><tr><th>สกุลเงิน</th><th class="num sortable sort-desc">ซื้อ</th><th class="num">ขาย</th><th class="num">เปลี่ยนแปลง</th></tr></thead><tbody><tr><td>🇺🇸 USD</td><td class="num">32.5500</td><td class="num">32.9500</td><td class="num chg-up">▲ 0.12%</td></tr><tr><td>🇯🇵 JPY /100</td><td class="num">21.4800</td><td class="num">22.0500</td><td class="num chg-down">▼ 0.08%</td></tr></tbody></table></div>
+        </div>
+
+        <div class="ds-block" id="feedback">
+          <h2>Feedback & Overlays</h2>
+          <p>Modal (desktop center / mobile bottom sheet) · Drawer (detail panel) · Toast (2.6s) · Sticky CTA (mobile)</p>
+          <div class="ds-demo"><button class="btn btn--secondary" data-modal="leadModal">Open Modal (Lead form)</button><button class="btn btn--secondary" data-modal="applyModal">Open Modal (Apply CTA)</button><button class="btn btn--secondary" data-toast="Toast message example">Show Toast</button></div>
+        </div>
+
+        <div class="ds-block" id="templates">
+          <h2>Reusable Page Templates</h2>
+          <p>7 หน้าในขอบเขต สร้างจาก template ร่วม — เพิ่มผลิตภัณฑ์/segment ใหม่ได้โดยไม่ต้องออกแบบหน้าใหม่</p>
+          <div class="table-wrap"><table class="table table--simple"><thead><tr><th>Template</th><th>Used by</th><th>Variable parts</th><th>Prototype</th></tr></thead><tbody>
+            <tr><td><strong>Landing</strong></td><td style="white-space:normal">Personal (full) · SME · Business</td><td style="white-space:normal">Hero (split / banner), Quick bar, Discovery, Featured, Stats, Promotions, Advisory, Tools, App, Articles, CTA</td><td><a class="link" href="../personal/">Personal</a> · <a class="link" href="../sme/">SME</a> · <a class="link" href="../business/">Business</a></td></tr>
+            <tr><td><strong>Product Listing</strong></td><td style="white-space:normal">Deposit · Home Loan · Personal Loan · Card · SME · Business</td><td style="white-space:normal">Category, filter facets, highlight metric, sort keys, compare fields</td><td><a class="link" href="../personal/products/?cat=deposit">Deposit</a> · <a class="link" href="../personal/products/?cat=home-loan">Home Loan</a> · <a class="link" href="../personal/products/?cat=sme">SME</a></td></tr>
+            <tr><td><strong>Product Detail</strong></td><td style="white-space:normal">ทุกผลิตภัณฑ์</td><td style="white-space:normal">Key facts, benefits, eligibility, rates/fees tabs, documents, FAQ, related, CTA set (Apply / Open / Contact RM)</td><td><a class="link" href="../personal/product/?id=saen-sabai">Loan</a> · <a class="link" href="../personal/product/?id=smart-savings">Deposit</a> · <a class="link" href="../personal/product/?id=sme-start">SME</a></td></tr>
+            <tr><td><strong>Calculator</strong></td><td style="white-space:normal">Home Loan (reference) → Personal Loan, SME, Deposit, Refinance</td><td style="white-space:normal">calcField(), rate tiers, result panel, donut, schedule chart/table, tips, CTA</td><td><a class="link" href="../personal/calculator/home-loan/">Home Loan</a></td></tr>
+            <tr><td><strong>Utility</strong></td><td style="white-space:normal">Branch Locator · Exchange Rates · Investment</td><td style="white-space:normal">Search + filters, list/map, data table, chart, drawer</td><td><a class="link" href="../branch-locations/">Branches</a> · <a class="link" href="../exchange-rates/">Rates</a></td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="ds-block" id="variants">
+          <h2>SME / Business Section Variants</h2>
+          <p>ใช้ Shared Landing Template — เปลี่ยน hero type, เนื้อหา, ภาพ, metric และ CTA ตาม segment โดยไม่ต้องออกแบบ full page เพิ่ม</p>
+          <div class="table-wrap"><table class="table table--simple"><thead><tr><th>Section</th><th>Personal</th><th>SME</th><th>Business</th></tr></thead><tbody>
+            <tr><td>Hero</td><td>Split + floating data cards</td><td>Full-bleed banner (owner lifestyle)</td><td>Full-bleed banner (corporate)</td></tr>
+            <tr><td>Discovery</td><td>Life-goal selector</td><td>Business-stage tiles (3)</td><td>Service tiles (4)</td></tr>
+            <tr><td>Featured</td><td>Filterable product cards</td><td>SME products</td><td>—</td></tr>
+            <tr><td>Stats</td><td>Trust metrics</td><td>วงเงิน / อนุมัติ / ศูนย์ธุรกิจ</td><td>Experience / Online / API</td></tr>
+            <tr><td>Advisory</td><td>Wealth Advisor</td><td>Relationship Manager</td><td>Corporate team</td></tr>
+            <tr><td>Primary CTA</td><td>เปิดบัญชี / สมัคร</td><td>นัดหมาย RM</td><td>ติดต่อทีมองค์กร</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="ds-block" id="responsive">
+          <h2>Responsive Layout Rules</h2>
+          <div class="cols-2">
+            <ul class="check-list">
+              <li>Grid 12 → 2 → 1 คอลัมน์; product grid ใช้ auto-fill minmax(290px)</li>
+              <li>Filters: sticky sidebar (desktop) → bottom sheet + badge count (mobile)</li>
+              <li>Category nav / chips / goal selector → horizontal scroll</li>
+              <li>Mega menu → full-screen accordion nav</li>
+            </ul>
+            <ul class="check-list">
+              <li>Product detail: sticky in-page tabs + aside CTA → sticky bottom CTA bar</li>
+              <li>Calculator: 2-column → stacked; result panel follows inputs</li>
+              <li>Branch locator: split view → list / map toggle</li>
+              <li>Data tables → card list (rates) · touch targets ≥ 44px</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ds-block" id="interactions">
+          <h2>Interaction Notes</h2>
+          <div class="table-wrap"><table class="table table--simple"><thead><tr><th>Component</th><th>Trigger</th><th>Behavior</th></tr></thead><tbody>
+            <tr><td>Mega Menu</td><td>Hover (140ms intent) / click / Esc</td><td>Fade + 8px slide 250ms, page dim overlay</td></tr>
+            <tr><td>Mobile Nav</td><td>Hamburger</td><td>Slide from right 400ms, body scroll lock, single-open accordion</td></tr>
+            <tr><td>Global Search</td><td>Search icon</td><td>Full-screen overlay, live results + highlight, Enter → first result</td></tr>
+            <tr><td>Product Filter</td><td>Chip / checkbox / range</td><td>Instant filter, result count (aria-live), empty state with reset</td></tr>
+            <tr><td>Compare</td><td>Card checkbox</td><td>Tray slides up (max 3) → comparison modal table</td></tr>
+            <tr><td>Detail Tabs</td><td>Scroll / click</td><td>Sticky subnav + scrollspy; CTA appears when stuck</td></tr>
+            <tr><td>Calculator</td><td>Slider / numeric input</td><td>Two-way binding, real-time result, schedule tooltip, share / save</td></tr>
+            <tr><td>Branch Map</td><td>Card / pin / drag / wheel</td><td>Sync selection, pan &amp; zoom, popup → detail drawer</td></tr>
+            <tr><td>Exchange Rates</td><td>Row / date / round / sort</td><td>Select currency → converter + history chart with hover tooltip; favourites persist</td></tr>
+            <tr><td>Reveal</td><td>Scroll into view</td><td>Fade-up 800ms (disabled with prefers-reduced-motion)</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="ds-block" id="handoff" style="border-bottom:0">
+          <h2>Developer Handoff</h2>
+          <p>Design tokens เป็น CSS custom properties — map 1:1 กับ Figma variables (Color / Typography / Spacing / Radius / Elevation)</p>
+          <pre style="background:var(--c-navy);color:#cfe7f2;padding:24px;border-radius:var(--r-lg);overflow-x:auto;font-size:13px;line-height:1.7"><code>:root {
+  --c-accent: #39a3ce;   --c-accent-700: #1f7fa8;  --c-ink: #0d1d2a;
+  --c-navy: #0b2131;     --c-mist: #f4f7f9;        --c-sand: #f7f5f1;
+  --f-sans: "Anuphan";   --f-serif: "Noto Serif Thai";  --f-num: "Inter";
+  --s-1: 4px … --s-32: 128px;   --r-sm: 8px  --r-md: 14px  --r-lg: 22px  --r-xl: 32px;
+  --container: 1240px;   --gutter: 24px;  --header-h: 76px;
+}</code></pre>
+          <div class="cols-3 mt-6">
+            <div class="doc-item"><span class="tile__icon"><i data-icon="layers"></i></span><div><strong>Figma Source File</strong><br><small>แยกตาม Phase 1 (P0) / Phase 2 (P1)</small></div></div>
+            <div class="doc-item"><span class="tile__icon"><i data-icon="download"></i></span><div><strong>Export-ready Assets</strong><br><small>SVG icons · WebP images @1x/@2x</small></div></div>
+            <div class="doc-item"><span class="tile__icon"><i data-icon="doc"></i></span><div><strong>Spec & Redlines</strong><br><small>Dev Mode + interaction notes</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/core.js"></script>
+<script>
+(function(){const {img,U,url}=window.LH,D=window.LHDATA;
+document.getElementById("dsCards").innerHTML=["saen-sabai","smart-savings","sme-start"].map(id=>{const p=D.products.find(x=>x.id===id);return `<a class="product-card" href="${url("personal/product/?id="+p.id)}"><div class="media product-card__media">${img(U(p.img,700),p.name)}</div><div class="product-card__body"><span class="product-card__cat">${D.categories[p.cat].label}</span><h3 class="product-card__title">${p.name}</h3><p class="product-card__desc">${p.tagline}</p><div class="product-card__highlight"><span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span><span class="product-card__label">${p.highlight.label}</span></div></div></a>`}).join("");})();
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LH Bank | คำนวณสินเชื่อบ้าน</title>
+<meta name="description" content="คำนวณค่างวดและวงเงินสินเชื่อบ้าน LH Bank">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2339a3ce'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3ELH%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/main.css">
+</head>
+<body data-root="../../../" data-segment="personal" data-page="calculator" data-nav="loans">
+<div id="site-header"></div>
+<main id="main">
+  <section class="container">
+    <div class="page-header page-header--split" style="padding-bottom:40px">
+      <div>
+        <nav aria-label="breadcrumb"><ol class="breadcrumb">
+          <li><a href="../../">บุคคล</a></li><li><a href="../../products/?cat=home-loan">สินเชื่อบ้าน</a></li><li><span aria-current="page">คำนวณสินเชื่อบ้าน</span></li>
+        </ol></nav>
+        <h1 class="page-header__title">คำนวณ<em>สินเชื่อบ้าน</em></h1>
+        <p class="t-lead page-header__lead">วางแผนค่างวดอย่างมั่นใจ ปรับตัวเลขได้ทันที พร้อมสรุปภาระดอกเบี้ยตลอดสัญญา</p>
+      </div>
+      <div class="segmented" id="calcMode" role="tablist" aria-label="โหมดการคำนวณ" style="justify-self:start">
+        <button class="is-active" data-mode="payment" role="tab"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7"/></svg>คำนวณค่างวด</button>
+        <button data-mode="afford" role="tab"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg>วงเงินที่กู้ได้</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="calc" id="calc">
+      <form class="calc__inputs" id="calcForm" onsubmit="return false" aria-label="ข้อมูลสินเชื่อ"></form>
+      <div class="calc__result" id="calcResult" aria-live="polite"></div>
+    </div>
+    <p class="t-xs t-muted mt-4">* ผลการคำนวณเป็นการประมาณการเบื้องต้นเพื่อประกอบการตัดสินใจ ใช้อัตราดอกเบี้ยเฉลี่ยตามที่เลือก ไม่ใช่การอนุมัติสินเชื่อ</p>
+  </section>
+
+  <section class="container section--tight">
+    <div class="grid" style="align-items:start">
+      <div class="col-8">
+        <div class="row row--between mb-6"><h2 class="t-h3">ตารางสรุปการผ่อนชำระ</h2>
+          <div class="segmented" id="schedView"><button class="is-active" data-v="chart">กราฟ</button><button data-v="table">ตาราง</button></div>
+        </div>
+        <div class="card" id="schedChart" style="padding:28px 28px 44px">
+          <div class="row row--between mb-4"><div class="legend" style="display:flex;gap:20px"><div><i style="background:var(--c-accent)"></i>เงินต้น</div><div><i style="background:var(--c-accent-200)"></i>ดอกเบี้ย</div></div><span class="t-xs t-muted">ยอดชำระรายปี (บาท)</span></div>
+          <div class="bar-chart" id="barChart"></div>
+        </div>
+        <div class="table-wrap hide" id="schedTable" style="max-height:440px;overflow:auto"><table class="table"><thead><tr><th>ปีที่</th><th class="num">อัตราดอกเบี้ย</th><th class="num">ชำระเงินต้น</th><th class="num">ชำระดอกเบี้ย</th><th class="num">เงินต้นคงเหลือ</th></tr></thead><tbody id="schedBody"></tbody></table></div>
+      </div>
+      <div class="col-4">
+        <h2 class="t-h3 mb-6">เคล็ดลับจากที่ปรึกษา</h2>
+        <div class="stack" style="--stack:12px" id="tips"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" style="padding-top:24px">
+    <div class="cta-band">
+      <div><span class="eyebrow">Next step</span><h2 class="mt-4">พอใจกับค่างวดแล้ว?<br>เริ่มต้นยื่นกู้ได้เลย</h2><p class="t-lead mt-4" id="ctaSummary">ใช้ผลการคำนวณนี้ปรึกษาเจ้าหน้าที่ หรือสมัครออนไลน์ได้ทันที</p></div>
+      <div class="cta-band__actions">
+        <a class="cta-option" href="#" data-modal="applyModal"><span class="tile__icon"><svg class="ico" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="2.5"/><path d="M11 18h2"/></svg></span><div><strong>สมัครสินเชื่อบ้าน</strong><span>ออนไลน์ หรือที่สาขา</span></div></a>
+        <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon"><svg class="ico" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3.5" y="13.5" width="4" height="6" rx="1.5"/><rect x="16.5" y="13.5" width="4" height="6" rx="1.5"/></svg></span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>พร้อมผลการคำนวณของคุณ</span></div></a>
+        <a class="cta-option" href="../../products/?cat=home-loan"><span class="tile__icon"><svg class="ico" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg></span><div><strong>เปรียบเทียบสินเชื่อบ้าน</strong><span>ดูผลิตภัณฑ์ทั้งหมด</span></div></a>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="sticky-cta is-on" id="calcSticky"><div style="flex:1.2;display:grid;line-height:1.2"><span class="t-xs t-muted">ค่างวด/เดือน</span><strong class="t-num" id="stickyVal" style="font-size:1.2rem">—</strong></div><a class="btn btn--primary" href="#" data-modal="applyModal">สมัครสินเชื่อ</a></div>
+<div id="site-footer"></div>
+<script src="../../../assets/js/data.js"></script>
+<script src="../../../assets/js/core.js"></script>
+<script src="../../../assets/js/calculator.js"></script>
+</body>
+</html>
