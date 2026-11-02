@@ -33,6 +33,12 @@
       </div>
     </section>
 
+    <section class="container" style="padding-bottom:56px">
+      <a class="campaign" href="#funds" style="display:block" aria-label="LH Fund Pro RMF / ThaiESG 2026">
+        <span class="campaign__slide" style="display:block"><picture><source media="(max-width: 680px)" srcset="${url("assets/img/lhbank/banner-rmf-thaiesg-mb.jpg")}"><img src="${url("assets/img/lhbank/banner-rmf-thaiesg.jpg")}" alt="LH Fund Pro RMF / ThaiESG 2026" loading="lazy"></picture></span>
+      </a>
+    </section>
+
     <section class="section--tight section--mist">
       <div class="container">
         <div class="row row--between mb-6"><div><span class="eyebrow">Market Preview</span><h2 class="t-h3 mt-2">ภาพรวมตลาด</h2></div><span class="fx-updated"><span class="live"></span> อัปเดต 2 ม.ค. 2027 · 16:30 น. <span class="t-xs">(ข้อมูลตัวอย่าง)</span></span></div>
@@ -112,7 +118,7 @@
         ${sparkline(series(f.seed, 50, 100, 0.03, f.r1 / 5000), { w: 300, h: 56 })}
         <div class="fund-card__returns t-num"><div><span>1 ปี</span>${ret(f.r1)}</div><div><span>3 ปี (ต่อปี)</span>${ret(f.r3)}</div><div><span>5 ปี (ต่อปี)</span>${ret(f.r5)}</div></div>
         <div class="row row--between"><div class="t-xs t-muted">ความเสี่ยง ${risk(f.risk)}</div><div class="t-xs t-muted">NAV <strong class="t-num" style="color:var(--c-ink)">${f.nav.toFixed(4)}</strong></div></div>
-        <div class="row" style="gap:8px"><button class="btn btn--secondary btn--sm" style="flex:1" data-fund="${f.code}">รายละเอียด</button><button class="btn btn--dark btn--sm" style="flex:1" data-toast="ซื้อกองทุนผ่าน LH Bank Mobile">ลงทุน</button></div>
+        <div class="row" style="gap:8px"><button class="btn btn--secondary btn--sm" style="flex:1" data-fund="${f.code}">รายละเอียด</button><button class="btn btn--dark btn--sm" style="flex:1" data-toast="ซื้อกองทุนผ่านแอป LHB You">ลงทุน</button></div>
       </article>`).join("") || `<div class="listing__empty">ไม่มีกองทุนในหมวดนี้</div>`;
   }
   $$("#fundFilter button").forEach((b, _, all) => b.addEventListener("click", () => { all.forEach((x) => x.classList.toggle("is-active", x === b)); renderFunds(b.dataset.type); }));
@@ -141,7 +147,7 @@
           <dt>บลจ.</dt><dd>บลจ. แลนด์ แอนด์ เฮ้าส์</dd>
         </dl>
         <div class="stack mt-8" style="--stack:10px">
-          <button class="btn btn--primary btn--block" data-toast="ซื้อกองทุนผ่าน LH Bank Mobile">ลงทุนในกองทุนนี้</button>
+          <button class="btn btn--primary btn--block" data-toast="ซื้อกองทุนผ่านแอป LHB You">ลงทุนในกองทุนนี้</button>
           <a class="btn btn--secondary btn--block" href="#" data-toast="ดาวน์โหลด Fund Fact Sheet (PDF)">${icon("download")} Fund Fact Sheet</a>
         </div>
       </div>`;

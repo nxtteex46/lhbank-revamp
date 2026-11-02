@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2339a3ce'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='white' text-anchor='middle'%3ELH%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="../assets/img/lhbank/favicon.png">
+<link rel="apple-touch-icon" href="../assets/img/lhbank/favicon.png">
 <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body data-root="../" data-segment="personal" data-page="design-system">
@@ -31,7 +32,7 @@
   <section class="container" style="padding-bottom:var(--section-y)">
     <div class="ds-layout">
       <nav class="ds-nav" aria-label="สารบัญ">
-        <a href="#principles">Principles</a><a href="#color">Color</a><a href="#type">Typography</a><a href="#space">Spacing & Grid</a><a href="#buttons">Buttons & Links</a><a href="#forms">Forms & Inputs</a><a href="#chips">Chips & Badges</a><a href="#cards">Cards</a><a href="#tabs">Tabs & Accordion</a><a href="#nav">Navigation</a><a href="#tables">Tables & Data</a><a href="#feedback">Feedback</a><a href="#templates">Templates</a><a href="#variants">SME / Business Variants</a><a href="#responsive">Responsive Rules</a><a href="#interactions">Interaction Notes</a><a href="#handoff">Handoff</a>
+        <a href="#principles">Principles</a><a href="#logo">Logo & Assets</a><a href="#color">Color</a><a href="#type">Typography</a><a href="#space">Spacing & Grid</a><a href="#buttons">Buttons & Links</a><a href="#forms">Forms & Inputs</a><a href="#chips">Chips & Badges</a><a href="#cards">Cards</a><a href="#tabs">Tabs & Accordion</a><a href="#nav">Navigation</a><a href="#tables">Tables & Data</a><a href="#feedback">Feedback</a><a href="#templates">Templates</a><a href="#variants">SME / Business Variants</a><a href="#responsive">Responsive Rules</a><a href="#interactions">Interaction Notes</a><a href="#handoff">Handoff</a>
       </nav>
       <div>
         <div class="ds-block" id="principles" style="padding-top:0">
@@ -41,6 +42,26 @@
             <div class="tile"><span class="tile__icon"><i data-icon="sparkle"></i></span><span class="tile__title">Refined Luxury</span><span class="t-sm t-muted">พื้นขาว ช่องว่างกว้าง Typography คมชัด ใช้สีน้ำเงิน #39A3CE เป็น accent เท่านั้น ไม่ตกแต่งเกินจำเป็น</span></div>
             <div class="tile"><span class="tile__icon"><i data-icon="shield"></i></span><span class="tile__title">Trust through Clarity</span><span class="t-sm t-muted">ตัวเลขสำคัญ (ดอกเบี้ย ค่างวด) แสดงด้วยตัวเลข tabular ขนาดใหญ่ ข้อมูลอัตรา/ค่าธรรมเนียมมีวันที่อ้างอิงเสมอ</span></div>
             <div class="tile"><span class="tile__icon"><i data-icon="headset"></i></span><span class="tile__title">Advisory-led</span><span class="t-sm t-muted">ทุกหน้ามีทางไปต่อ: เปรียบเทียบ คำนวณ หรือคุยกับผู้เชี่ยวชาญ — CTA หลัก 1 ปุ่ม + ทางเลือกรอง</span></div>
+          </div>
+        </div>
+
+        <div class="ds-block" id="logo">
+          <h2>Logo & Brand Assets</h2>
+          <p>LH Bank CI logo (ไฟล์จริงจาก lhbank.co.th) — ใช้เวอร์ชันสีบนพื้นขาว และเวอร์ชันตัวอักษรขาวบนพื้น Navy · แถบ 8 สีเป็นส่วนหนึ่งของโลโก้ ห้ามตัดหรือเปลี่ยนสี · Clear space ≥ ความสูงแถบสี</p>
+          <div class="cols-3">
+            <div class="ds-demo" style="justify-content:center;min-height:160px"><img src="../assets/img/lhbank/logo.svg" alt="LH Bank logo" style="height:40px"></div>
+            <div class="ds-demo" style="justify-content:center;min-height:160px;background:var(--c-navy);border-color:var(--c-navy)"><img src="../assets/img/lhbank/logo-white.svg" alt="LH Bank logo (on dark)" style="height:40px"></div>
+            <div class="ds-demo" style="justify-content:center;min-height:160px;gap:20px"><img src="../assets/img/lhbank/lhbyou-icon.jpg" alt="LHB You app icon" style="height:72px;border-radius:18px;box-shadow:var(--sh-2)"><div><strong>LHB You</strong><div class="t-xs t-muted">App icon · App Store / Google Play</div></div></div>
+          </div>
+          <span class="ds-label mt-8">Logo palette (from CI bar)</span>
+          <div class="row" style="gap:0;border-radius:10px;overflow:hidden;width:max-content;max-width:100%">
+            <script>document.write(["#CED629","#47B9C0","#8B3F92","#ED8068","#0080BE","#F5BF0E","#94988D","#F08D1D"].map(c=>`<div style="width:64px;height:48px;background:${c}" title="${c}"></div>`).join(''))</script>
+          </div>
+          <p class="ds-note mt-6">สีในแถบโลโก้ใช้เป็น accent เสริมเฉพาะ illustration / data visualization เท่านั้น สี UI หลักยังคงเป็น #39A3CE</p>
+          <span class="ds-label mt-8">Example campaign assets (จากเว็บไซต์ปัจจุบัน)</span>
+          <div class="cols-2">
+            <div class="media" style="aspect-ratio:2560/555;border-radius:var(--r-md)"><img src="../assets/img/lhbank/banner-rmf-thaiesg.jpg" alt="" loading="lazy"></div>
+            <div class="media" style="aspect-ratio:2560/555;border-radius:var(--r-md)"><img src="../assets/img/lhbank/banner-tax2026.jpg" alt="" loading="lazy"></div>
           </div>
         </div>
 

@@ -50,6 +50,6 @@ assets/js/rates.js       Exchange rates table, converter, history chart
 ## Notes
 
 - All rates, fees, branches and market figures are **illustrative example data**.
-- The logo is a placeholder wordmark. Swap in the official LH Bank CI assets.
-- Lifestyle images are hotlinked from Unsplash. If they fail to load, the page shows soft gradient placeholders. Replace them with LH Bank banners for the final deck.
+- Real brand assets live in `assets/img/lhbank/`: the LH Bank logo (`logo.svg`, plus `logo-white.svg` for dark backgrounds), the favicon, campaign banners from lhbank.co.th, and the **LHB You** app icon and App Store screenshots. The brief allows these as example assets (§5).
+- Lifestyle images are hotlinked from Unsplash. If they fail to load, the page shows soft gradient placeholders.
 - Application forms and campaign pages use the bank's existing system, so only the CTAs are designed here (see brief §8).

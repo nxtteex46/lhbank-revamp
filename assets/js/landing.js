@@ -204,52 +204,52 @@
     </section>`;
   };
 
-  S.app = () => `
-    <section class="section" id="app">
-      <div class="container app-band">
-        <div class="reveal">
-          <span class="eyebrow">LH Bank Mobile</span>
-          <h2 class="mt-4">ทุกเรื่องการเงิน<br><em>จบในแอปเดียว</em></h2>
-          <p class="t-lead mt-4" style="max-width:480px">เปิดบัญชี โอนเงิน ลงทุน และติดตามสินเชื่อ ได้ทุกที่ทุกเวลา ปลอดภัยด้วยการยืนยันตัวตนแบบ Biometrics</p>
-          <ul class="check-list mt-8">
-            <li>เปิดบัญชีออนไลน์ใน 5 นาที ด้วย NDID</li>
-            <li>ซื้อขายกองทุนและติดตามพอร์ตแบบเรียลไทม์</li>
-            <li>แจ้งเตือนทุกธุรกรรม พร้อมระบบป้องกันมิจฉาชีพ</li>
-          </ul>
-          <div class="row mt-8" style="gap:16px">
-            <div class="store-badges">
-              <a class="store-badge" href="#" data-toast="ลิงก์ไปยัง App Store">${icon("mobile")}<span>Download on the<strong>App Store</strong></span></a>
-              <a class="store-badge" href="#" data-toast="ลิงก์ไปยัง Google Play">${icon("mobile")}<span>Get it on<strong>Google Play</strong></span></a>
-            </div>
-            <div class="qr hide-mobile" aria-hidden="true">${qrSvg()}</div>
+  const A = (f) => url("assets/img/lhbank/" + f);
+  const APPSTORE = "https://apps.apple.com/th/app/lhb-you/id1632875085";
+  const PLAY = "https://play.google.com/store/apps/details?id=com.lh.lhbu";
+
+  S.campaigns = (c) => `
+    <section class="section--tight" style="padding-top:0">
+      <div class="container reveal">
+        <div class="campaign" data-campaign aria-roledescription="carousel" aria-label="แคมเปญ">
+          <div class="campaign__track">
+            ${c.items.map(([f, mb, alt, h]) => `<a class="campaign__slide" href="${url(h)}" aria-label="${alt}"><picture>${mb ? `<source media="(max-width: 680px)" srcset="${A(mb)}">` : ""}<img src="${A(f)}" alt="${alt}" loading="lazy"></picture></a>`).join("")}
           </div>
-        </div>
-        <div class="reveal">
-          <div class="phone"><div class="phone__screen">
-            <div class="row row--between" style="font-size:11px"><strong style="font-size:13px">สวัสดี, คุณพิมพ์ชนก</strong>${icon("user")}</div>
-            <div class="phone__balance"><div style="font-size:10px;opacity:.8">ยอดเงินรวม</div><div class="t-num" style="font-size:22px;font-weight:600">฿ 1,284,560.25</div><div style="font-size:10px;opacity:.8;margin-top:6px">Smart Savings · 1.80%</div></div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-size:9px">
-              ${[["swap", "โอน"], ["qr", "สแกน"], ["pie", "ลงทุน"], ["home", "สินเชื่อ"]].map(([i, t]) => `<div style="display:grid;gap:4px;justify-items:center"><span style="width:36px;height:36px;border-radius:12px;background:#fff;box-shadow:var(--sh-1);display:grid;place-items:center;color:var(--c-accent-700)">${icon(i)}</span>${t}</div>`).join("")}
-            </div>
-            <div class="phone__row"><span>สินเชื่อบ้าน แสนสบาย</span><strong class="t-num">฿18,420</strong></div>
-            <div class="phone__row"><span>LHGEQ · 1 ปี</span><strong class="t-num chg-up">+12.4%</strong></div>
-            <div class="phone__row"><span>ฝากประจำปลอดภาษี</span><strong class="t-num">12/24</strong></div>
-          </div></div>
+          <button class="campaign__arrow campaign__arrow--prev" data-cprev aria-label="ก่อนหน้า">${icon("chevron-left")}</button>
+          <button class="campaign__arrow campaign__arrow--next" data-cnext aria-label="ถัดไป">${icon("chevron-right")}</button>
+          <div class="campaign__dots">${c.items.map((_, i) => `<button class="${i ? "" : "is-active"}" data-cdot="${i}" aria-label="สไลด์ ${i + 1}"></button>`).join("")}</div>
         </div>
       </div>
     </section>`;
 
-  function qrSvg() {
-    let cells = ""; let s = 7;
-    for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) {
-      const finder = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13);
-      s = (s * 9301 + 49297) % 233280;
-      let on = finder ? ((x % 20 === 0 || x % 20 === 6 || y % 20 === 0 || y % 20 === 6 || x === 14 || x === 20 || y === 14 || y === 20) || ((x % 14 >= 2 && x % 14 <= 4) && (y % 14 >= 2 && y % 14 <= 4))) : s / 233280 > 0.55;
-      if (finder && (x > 13 ? x - 14 : x) >= 1 && (x > 13 ? x - 14 : x) <= 5 && (y > 13 ? y - 14 : y) >= 1 && (y > 13 ? y - 14 : y) <= 5) on = ((x > 13 ? x - 14 : x) >= 2 && (x > 13 ? x - 14 : x) <= 4 && (y > 13 ? y - 14 : y) >= 2 && (y > 13 ? y - 14 : y) <= 4);
-      if (on) cells += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
-    }
-    return `<svg viewBox="0 0 21 21" fill="#0d1d2a" shape-rendering="crispEdges">${cells}</svg>`;
-  }
+  S.app = () => `
+    <section class="section" id="app">
+      <div class="container">
+        <div class="app-real">
+          <div class="reveal">
+            <div class="app-real__head">
+              <img class="app-real__icon" src="${A("lhbyou-icon.jpg")}" alt="ไอคอนแอป LHB You" width="72" height="72">
+              <div><span class="eyebrow">แอป LHB You</span><div class="app-real__rating mt-2"><span class="app-real__stars">★★★★☆</span><strong>3.8</strong> · 739 รีวิวบน App Store</div></div>
+            </div>
+            <h2 class="mt-6">โลกการเงินใหม่<br><em>สไตล์ YOU</em></h2>
+            <p class="t-lead mt-4" style="max-width:480px">เพื่อนใหม่ที่รู้ใจทุกเรื่องการเงิน จาก LH Bank เปิดบัญชี โอนเงิน ลงทุน และดูแลพอร์ตได้ในแอปเดียว</p>
+            <ul class="check-list mt-8">
+              <li>สมาร์ทพอร์ตโฟลิโอ แนะนำผลิตภัณฑ์ที่ใช่สำหรับคุณ</li>
+              <li>ฟังก์ชันเด่น ฟีเจอร์โดน ง่าย สะดวก คล่องตัว ครบครัน</li>
+              <li>ปรับแต่ง Avatar ในแบบที่เป็นคุณ</li>
+            </ul>
+            <div class="store-badges mt-8">
+              <a class="store-badge" href="${APPSTORE}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.2 1-4.1 2.5-1.8 3-.5 7.5 1.2 10 .8 1.2 1.8 2.6 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.3-4.1zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.9-1.4z"/></svg><span>Download on the<strong>App Store</strong></span></a>
+              <a class="store-badge" href="${PLAY}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 2.8v18.4c0 .4.4.7.8.5l10.4-9.7L4.8 2.3c-.4-.2-.8.1-.8.5zm12.2 8.3 2.9-2.7-12-6.6 9.1 9.3zm0 1.8-9.1 9.3 12-6.6-2.9-2.7zm4.3-2.1-2.4-1.3-3.1 2.5 3.1 2.5 2.4-1.3c.7-.5.7-1.9 0-2.4z"/></svg><span>Get it on<strong>Google Play</strong></span></a>
+            </div>
+          </div>
+          <div class="app-shots reveal">
+            ${[1, 2, 3, 4].map((i) => `<a class="app-shot" href="${APPSTORE}" target="_blank" rel="noopener"><img src="${A("lhbyou-screen-" + i + ".jpg")}" alt="ภาพหน้าจอแอป LHB You ${i}" loading="lazy"></a>`).join("")}
+          </div>
+        </div>
+        <a class="app-banner reveal" href="${APPSTORE}" target="_blank" rel="noopener"><img src="${A("banner-lhbyou-joey.jpg")}" alt="LHB You — ตอบโจทย์ทุกเรื่องการเงิน" loading="lazy"></a>
+      </div>
+    </section>`;
 
   S.articles = (c) => `
     <section class="section" style="padding-top:0">
@@ -298,6 +298,12 @@
         trust: [["30+ ปี", "ความเชี่ยวชาญด้านที่อยู่อาศัย"], ["1.80%", "ดอกเบี้ยออมทรัพย์สูงสุด"], ["2.75%", "ดอกเบี้ยสินเชื่อบ้านเริ่มต้น"]],
         quick: [["piggy", "เปิดบัญชีออนไลน์", "ใน 5 นาที ผ่านแอป", "personal/product/?id=smart-savings"], ["home", "สินเชื่อบ้าน", "ดอกเบี้ยเริ่มต้น 2.75%", "personal/products/?cat=home-loan"], ["calc", "คำนวณค่างวด", "รู้ผลทันที", "personal/calculator/home-loan/"], ["pie", "เริ่มลงทุน", "กองทุนคัดสรร", "personal/investments/"]],
       }],
+      ["campaigns", { items: [
+        ["banner-rmf-thaiesg.jpg", "banner-rmf-thaiesg-mb.jpg", "LH Fund Pro RMF / ThaiESG 2026", "personal/investments/"],
+        ["banner-tax2026.jpg", "", "ลดหย่อนภาษี 2026", "personal/investments/"],
+        ["banner-vision.jpg", "", "LH Bank Vision", "personal/"],
+        ["banner-ipo-lhset100rmf.jpg", "", "IPO LHSET100RMF", "personal/investments/#funds"],
+      ] }],
       ["discovery", {
         eyebrow: "Product Discovery", title: "วันนี้คุณกำลัง<em>วางแผน</em>เรื่องอะไร", lead: "เลือกเป้าหมายของคุณ แล้วเราจะแนะนำผลิตภัณฑ์ที่เหมาะสมที่สุด", all: "personal/products/",
         goals: [
@@ -373,4 +379,19 @@
     $$("[data-featured-filter] button", main).forEach((b, _, all) => b.addEventListener("click", () => { all.forEach((x) => x.classList.toggle("is-active", x === b)); render(b.dataset.cat); }));
     render("all");
   }
+
+  /* Campaign carousel (autoplay, pauses on hover) */
+  $$("[data-campaign]", main).forEach((c) => {
+    const track = $(".campaign__track", c), dots = $$("[data-cdot]", c), n = dots.length;
+    let i = 0, t;
+    const go = (k) => { i = (k + n) % n; track.style.transform = `translateX(${-i * 100}%)`; dots.forEach((d, j) => d.classList.toggle("is-active", j === i)); };
+    const play = () => { clearInterval(t); t = setInterval(() => go(i + 1), 5000); };
+    dots.forEach((d) => d.addEventListener("click", () => { go(+d.dataset.cdot); play(); }));
+    $("[data-cprev]", c).addEventListener("click", () => { go(i - 1); play(); });
+    $("[data-cnext]", c).addEventListener("click", () => { go(i + 1); play(); });
+    c.addEventListener("mouseenter", () => clearInterval(t)); c.addEventListener("mouseleave", play);
+    let sx = null; c.addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
+    c.addEventListener("touchend", (e) => { if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); play(); } sx = null; });
+    play();
+  });
 })();

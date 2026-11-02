@@ -997,3 +997,53 @@ mark { background: var(--c-accent-100); color: inherit; border-radius: 3px; padd
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* 20 — Real brand assets (LH Bank CI) ------------------------------------ */
+.logo__img { height: 30px; width: auto; display: block; }
+.logo__seg { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--c-accent-700); background: var(--c-accent-50); border-radius: var(--r-pill); padding: 4px 10px; line-height: 1; }
+@media (max-width: 680px) { .logo__img { height: 24px; } .logo__seg { display: none; } }
+.mega__feature img { object-position: top center; }
+
+/* Campaign banner carousel (real LH Bank banners, 2560×555) */
+.campaign { position: relative; border-radius: var(--r-xl); overflow: hidden; background: var(--c-navy); }
+.campaign__track { display: flex; transition: transform .6s var(--ease); }
+.campaign__slide { flex: 0 0 100%; display: block; aspect-ratio: 2560 / 555; position: relative; }
+.campaign__slide img, .campaign__slide picture { width: 100%; height: 100%; object-fit: cover; display: block; }
+.campaign__dots { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px 10px; border-radius: var(--r-pill); background: rgba(13,29,42,.35); backdrop-filter: blur(8px); }
+.campaign__dots button { width: 8px; height: 8px; border-radius: 8px; background: rgba(255,255,255,.5); transition: all .3s var(--ease); }
+.campaign__dots button.is-active { width: 24px; background: #fff; }
+.campaign__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.9); display: grid; place-items: center; box-shadow: var(--sh-2); opacity: 0; transition: opacity .25s; }
+.campaign:hover .campaign__arrow { opacity: 1; }
+.campaign__arrow--prev { left: 16px; } .campaign__arrow--next { right: 16px; }
+.campaign__label { position: absolute; top: 14px; left: 14px; }
+@media (max-width: 680px) {
+  .campaign { border-radius: var(--r-lg); }
+  .campaign__slide { aspect-ratio: 1280 / 550; }
+  .campaign__arrow { display: none; }
+  .campaign__dots { bottom: 8px; }
+}
+
+/* LHB You app band */
+.app-real { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+.app-real__head { display: flex; align-items: center; gap: 16px; }
+.app-real__icon { width: 72px; height: 72px; border-radius: 18px; box-shadow: var(--sh-2); }
+.app-real__rating { display: flex; gap: 6px; align-items: center; font-size: var(--t-sm); color: var(--c-muted); }
+.app-real__rating strong { color: var(--c-ink); font-family: var(--f-num); }
+.app-real__stars { color: var(--c-gold); letter-spacing: 1px; }
+.app-shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: start; }
+.app-shot { border-radius: 22px; overflow: hidden; box-shadow: var(--sh-3); background: var(--c-mist); aspect-ratio: 828 / 1472; transition: transform .5s var(--ease); }
+.app-shot img { width: 100%; height: 100%; object-fit: cover; }
+.app-shot:nth-child(even) { transform: translateY(36px); }
+.app-shot:hover { transform: translateY(-6px); }
+.app-shot:nth-child(even):hover { transform: translateY(30px); }
+.app-banner { border-radius: var(--r-xl); overflow: hidden; margin-top: 56px; display: block; aspect-ratio: 1800 / 773; background: var(--c-mist); }
+.app-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.app-banner:hover img { transform: scale(1.02); }
+.store-badge .ico { width: 22px; height: 22px; }
+@media (max-width: 960px) {
+  .app-real { grid-template-columns: 1fr; gap: 40px; }
+  .app-shots { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--pad-x) * -1); padding: 4px var(--pad-x) 44px; }
+  .app-shots::-webkit-scrollbar { display: none; }
+  .app-shot { flex: 0 0 62%; scroll-snap-align: start; }
+}
+.mega__feature .badge, .discovery__lead .badge { align-self: flex-start; }

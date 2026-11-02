@@ -158,7 +158,7 @@
         id: "services", label: "บริการ",
         cols: [
           { h: "ดิจิทัล", items: [
-            ["mobile", "LH Bank Mobile", "ทำธุรกรรมได้ทุกที่", "personal/#app"],
+            ["mobile", "แอป LHB You", "ทำธุรกรรมได้ทุกที่", "personal/#app"],
             ["globe", "โอนเงินต่างประเทศ", "รวดเร็ว ค่าธรรมเนียมโปร่งใส", "exchange-rates/"],
           ]},
           { h: "ข้อมูลและช่องทาง", items: [
@@ -167,7 +167,7 @@
             ["percent", "อัตราดอกเบี้ยและค่าธรรมเนียม", "ข้อมูลล่าสุด", "personal/products/"],
           ]},
         ],
-        feature: { img: "photo-1563986768609-322da13575f3", tag: "แอปใหม่", title: "จัดการทุกบัญชีในแอปเดียว ปลอดภัยด้วย Biometrics", href: "personal/#app" },
+        feature: { local: "assets/img/lhbank/lhbyou-screen-1.jpg", tag: "LHB You", title: "โลกการเงินใหม่สไตล์ YOU — ทุกเรื่องการเงินในแอปเดียว", href: "personal/#app" },
       },
     ],
   };
@@ -213,7 +213,7 @@
               <div class="mega__col"><h6>${c.h}</h6><ul>
                 ${c.items.map(([ic, t, d, h]) => `<li><a class="mega__link" href="${url(h)}">${icon(ic)}<div><strong>${t}</strong><span>${d}</span></div></a></li>`).join("")}
               </ul></div>`).join("")}
-            ${m.feature ? `<a class="mega__feature" style="${m.cols.length < 3 ? "grid-column: span " + (4 - m.cols.length) : ""}" href="${url(m.feature.href)}">${img(U(m.feature.img, 700))}<span class="badge badge--glass">${m.feature.tag}</span><h5>${m.feature.title}</h5><span class="link" style="color:#fff">ดูรายละเอียด ${icon("arrow-right")}</span></a>` : ""}
+            ${m.feature ? `<a class="mega__feature" style="${m.cols.length < 3 ? "grid-column: span " + (4 - m.cols.length) : ""}" href="${url(m.feature.href)}">${img(m.feature.local ? url(m.feature.local) : U(m.feature.img, 700))}<span class="badge badge--glass">${m.feature.tag}</span><h5>${m.feature.title}</h5><span class="link" style="color:#fff">ดูรายละเอียด ${icon("arrow-right")}</span></a>` : ""}
           </div>
         </div>
       </li>`).join("");
@@ -236,8 +236,8 @@
       <header class="site-header" id="siteHeader">
         <div class="container site-header__bar">
           <a class="logo" href="${url(SEGMENT === "personal" ? "personal/" : SEGMENT + "/")}" aria-label="LH Bank หน้าแรก">
-            <span class="logo__mark">LH</span>
-            <span class="logo__text">LH Bank<small>${SEGMENT === "personal" ? "Personal" : SEGMENT === "sme" ? "SME Banking" : "Business"}</small></span>
+            <img class="logo__img" src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32">
+            <span class="logo__seg">${SEGMENT === "personal" ? "Personal" : SEGMENT === "sme" ? "SME" : "Business"}</span>
           </a>
           <nav aria-label="เมนูหลัก" style="height:100%;flex:1;display:flex"><ul class="nav" role="list" style="margin:0;padding:0">${navItems}</ul></nav>
           <div class="header-actions">
@@ -257,7 +257,7 @@
     return `
       <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="เมนู">
         <div class="mobile-nav__head">
-          <a class="logo" href="${url("personal/")}"><span class="logo__mark">LH</span><span class="logo__text">LH Bank</span></a>
+          <a class="logo" href="${url("personal/")}"><img class="logo__img" src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32"></a>
           <div class="row" style="gap:4px">
             <button class="icon-btn" data-open-search aria-label="ค้นหา">${icon("search")}</button>
             <button class="icon-btn" data-close-menu aria-label="ปิดเมนู">${icon("close")}</button>
@@ -326,7 +326,7 @@
         <div class="container">
           <div class="footer-top">
             <div class="footer-brand">
-              <a class="logo logo--light" href="${url("personal/")}"><span class="logo__mark">LH</span><span class="logo__text">LH Bank<small>Land and Houses Bank</small></span></a>
+              <a class="logo logo--light" href="${url("personal/")}"><img class="logo__img" src="${url("assets/img/lhbank/logo-white.svg")}" alt="LH Bank" width="132" height="32" style="height:38px"></a>
               <p>ที่ปรึกษาทางการเงินที่อยู่เคียงข้างทุกเป้าหมายในชีวิต ด้วยความมั่นคงและความใส่ใจในทุกรายละเอียด</p>
               <a class="footer-contact" href="tel:1327">${icon("headset")}<div><span class="t-xs" style="opacity:.6">LH Bank Contact Center</span><div class="t-num">1327</div></div></a>
             </div>
