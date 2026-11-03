@@ -42,7 +42,7 @@
             <li><a href="${url("personal/products/?cat=" + p.cat)}">${c.label}</a></li>
             <li><span aria-current="page">${p.name}</span></li>
           </ol></nav>
-          <div class="row mt-8" style="gap:8px">${p.badge ? `<span class="badge badge--ink">${p.badge}</span>` : ""}<span class="badge">${c.label}</span>${p.promo ? `<span class="badge badge--gold">${p.promo}</span>` : ""}</div>
+          <div class="row mt-8" style="gap:8px">${p.badge ? `<span class="badge badge--ink">${p.badge}</span>` : ""}<span class="badge">${c.label}</span>${p.promo ? `<span class="badge badge--line">${p.promo}</span>` : ""}</div>
           <h1 class="mt-4" style="max-width:16ch">${p.name}</h1>
           <p class="t-lead mt-4" style="max-width:52ch">${p.desc}</p>
           <div class="pd-keyfacts">${p.keyfacts.map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join("")}</div>

@@ -111,19 +111,19 @@
         <div class="privilege__media reveal">
           ${img(U(c.img, 1400), "")}
           <div class="tier-card" aria-label="ระดับสมาชิก Family Banking">
-            <div class="tier-card__head"><img src="${url("assets/img/lhbank/logo-white.svg")}" alt="LH Bank" width="132" height="32"><span>FAMILY BANKING</span></div>
+            <div class="tier-card__head"><img src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32"><span>FAMILY BANKING</span></div>
             <ol>${c.tiers.map((t, i) => `<li><span>0${c.tiers.length - i}</span><strong>${t}</strong></li>`).join("")}</ol>
           </div>
         </div>
         <div class="privilege__content reveal">
-          <span class="label label--light">${c.eyebrow}</span>
+          <span class="eyebrow">${c.eyebrow}</span>
           <h2>${c.title}</h2>
           <p class="t-lead">${c.lead}</p>
           <ol class="privilege__list">
             ${c.points.map(([t, d], i) => `<li><span class="privilege__num">0${i + 1}</span><div><strong>${t}</strong><p>${d}</p></div></li>`).join("")}
           </ol>
           <div class="row" style="gap:10px;margin-top:8px">
-            <a class="btn btn--gold btn--lg" href="#" data-modal="leadModal">${c.cta} ${icon("arrow-right")}</a>
+            <a class="btn btn--primary btn--lg" href="#" data-modal="leadModal">${c.cta} ${icon("arrow-right")}</a>
             <a class="btn btn--glass btn--lg" href="${url("personal/investments/")}">การลงทุน</a>
           </div>
         </div>
@@ -175,7 +175,7 @@
           </div>
           <div class="advisory__media">
             ${img(U(c.img, 1000))}
-            <div class="advisor-chip"><span class="avatar" style="display:grid;place-items:center;color:var(--c-gold-2);background:var(--c-gold-50)">${c.avatar ? img(U(c.avatar, 120)) : icon("headset")}</span><div><strong class="t-sm" style="display:block;line-height:1.2">${c.advisor}</strong><span class="t-xs t-muted">${c.role}</span></div><span class="live" title="ออนไลน์"></span></div>
+            <div class="advisor-chip"><span class="avatar" style="display:grid;place-items:center;color:var(--c-accent-700);background:var(--c-accent-50)">${c.avatar ? img(U(c.avatar, 120)) : icon("headset")}</span><div><strong class="t-sm" style="display:block;line-height:1.2">${c.advisor}</strong><span class="t-xs t-muted">${c.role}</span></div><span class="live" title="ออนไลน์"></span></div>
           </div>
         </div>
       </div>

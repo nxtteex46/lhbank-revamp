@@ -1186,189 +1186,38 @@ h1 em, h2 em, .t-display em { color: var(--c-accent); }
 @media (min-width: 1101px) { .hero2__frame--shift > img { animation: none; transform: scale(1.24) translateX(8.5%); object-position: center 30%; } }
 
 /* ==========================================================================
-   22 — Design v3 · Luxury refinement
-   Champagne-gold hairlines, warm ivory surfaces, thinner display type,
-   small-caps labels, editorial photo grading, generous whitespace.
+   22 — Family Banking band (real LH Bank tiers) · v2 style, no gold
    ========================================================================== */
-:root {
-  --c-gold: #b39a6b;
-  --c-gold-2: #8c7447;
-  --c-gold-50: #f7f2e8;
-  --c-ivory: #f7f5f0;
-  --c-mist: #f5f3ee;
-  --c-sand: #efebe3;
-  --c-navy: #0a1824;
-  --c-navy-2: #11263a;
-  --c-ink: #0b1620;
-  --c-line: #e7e3da;
-  --c-line-2: #d8d2c6;
-  --r-lg: 20px;
-  --r-xl: 28px;
-  --section-y: clamp(88px, 5rem + 5vw, 168px);
-  --hair: 1px solid rgba(11, 22, 32, .1);
-}
-body { background: #fff; }
-
-/* Display type: thinner, larger, calmer */
-h1, h2, .t-h1, .t-h2 { font-weight: 300; letter-spacing: -0.032em; }
-.t-display, .hero2 h1 { font-weight: 300; letter-spacing: -0.04em; }
-h2 { font-size: clamp(2rem, 1.2rem + 2.3vw, 3.4rem); line-height: 1.12; }
-h1 em, h2 em, .t-display em { color: var(--c-accent-600); }
-.section--dark h2 em, .advisory h2 em, .privilege h2 em { color: #e3cfa6; }
-.t-lead { font-size: clamp(1.02rem, .96rem + .25vw, 1.16rem); line-height: 1.7; color: #4a5560; }
-
-/* Labels: small caps + gold hairline (replaces pill eyebrow) */
-.eyebrow, .label {
-  height: auto; padding: 0; border: 0; background: none !important; border-radius: 0;
-  display: inline-flex; align-items: center; gap: 14px;
-  font-family: var(--f-sans); font-size: 11.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--c-gold-2) !important;
-}
-.eyebrow::before, .label::before { content: ""; width: 28px; height: 1px; border-radius: 0; background: currentColor; opacity: .8; }
-.section--dark .eyebrow, .advisory .eyebrow, .card--dark .eyebrow, .hero-banner .eyebrow, .label--light, .privilege .label { color: #d9c49b !important; }
-.eyebrow--glass { color: #e8d8b6 !important; backdrop-filter: none; }
-.section-head__text h2 { margin-top: 20px; }
-
-/* Photo grading: warm, slightly desaturated, editorial */
-.media img, .hero2__frame > img, .discovery__lead img, .advisory__media img, .mega__feature img, .privilege__media > img, .product-card__media img, .promo-card img, .article-card img, .pd-hero__media img {
-  filter: saturate(.86) contrast(1.05) brightness(.98) sepia(.06);
-}
-
-/* Buttons */
-.btn--primary { background: var(--c-accent-600); }
-.btn--primary:hover { background: var(--c-accent-700); }
-.btn--dark { background: var(--c-navy); }
-.btn--gold { background: linear-gradient(135deg, #d6c08f 0%, #b39a6b 55%, #9a8155 100%); color: #14110b; }
-.btn--gold:hover { filter: brightness(1.06); }
-.btn--secondary { border-color: var(--c-line-2); }
-.btn--secondary:hover { border-color: var(--c-ink); background: #fff; }
-
-/* Header + utility */
-.utility { background: var(--c-navy); }
-.utility__segments a.is-active::after { background: var(--c-gold); }
-.site-header.is-scrolled { border-bottom-color: var(--c-line); }
-.logo__seg { background: transparent; border: 1px solid var(--c-line-2); color: var(--c-gold-2); letter-spacing: .14em; font-weight: 500; }
-
-/* Hero v3: full-bleed feel, gold details */
-.hero2__frame { border-radius: var(--r-xl); }
-.hero2__frame::before { background: linear-gradient(95deg, rgba(6,14,22,.86) 0%, rgba(6,14,22,.58) 36%, rgba(6,14,22,.06) 70%), linear-gradient(0deg, rgba(6,14,22,.6) 0%, rgba(6,14,22,0) 42%); }
-.hero2 h1 em { color: #e6d3ab; }
-.hero2__trust { border-top-color: rgba(227,207,166,.28); }
-.hero2__trust strong { color: #fff; }
-.hero2__trust span { color: rgba(230,215,185,.75); letter-spacing: .02em; }
-.glass-card { background: rgba(12,22,32,.32); border-color: rgba(227,207,166,.28); }
-.glass-card .lbl { color: rgba(236,224,200,.8); }
-.glass-card .bar span { background: linear-gradient(90deg, #d6c08f, #b39a6b); }
-
-/* Quick bar: hairline list */
-.quick-bar { background: #fff; border: var(--hair); border-radius: var(--r-lg); padding: 0; gap: 0; box-shadow: 0 30px 60px -40px rgba(11,22,32,.25); }
-.quick-bar a { background: transparent; border-radius: 0; border-right: var(--hair) !important; }
-.quick-bar a:last-child { border-right: 0 !important; }
-.quick-bar a:hover { background: var(--c-ivory); }
-.quick-bar .tile__icon { background: var(--c-gold-50); color: var(--c-gold-2); }
-
-/* Panels: warm ivory */
-.section--mist { background: var(--c-ivory); }
-.section--sand { background: var(--c-sand); }
-.section--dark { background: var(--c-navy); }
-
-/* Cards: hairline, white, quiet */
-.product-card { background: #fff; border: var(--hair); border-radius: var(--r-lg); }
-.product-card:hover { border-color: transparent; box-shadow: 0 40px 80px -40px rgba(11,22,32,.35); transform: translateY(-4px); }
-.product-card__media { margin: 0; border-radius: 0; aspect-ratio: 5 / 4; }
-.product-card__body { padding: 26px 26px 22px; }
-.product-card__cat { color: var(--c-gold-2); letter-spacing: .14em; font-size: 11px; }
-.product-card__value { font-weight: 300; }
-.product-card__badges .badge { background: rgba(10,24,36,.55) !important; border: 1px solid rgba(227,207,166,.35); color: #f1e6cf; letter-spacing: .04em; }
-.tile { background: #fff; border: var(--hair); }
-.tile:hover { background: var(--c-ivory); }
-.tile__icon { background: var(--c-gold-50); color: var(--c-gold-2); box-shadow: none; }
-.tile:hover .tile__arrow { background: var(--c-navy); }
-.discovery__item { background: #fff; border: var(--hair); }
-.discovery__item:hover { background: var(--c-ivory); }
-.goal.is-active { background: var(--c-navy); }
-.goal.is-active .goal__num { color: #d9c49b; }
-.trust-strip { gap: 0; border-top: var(--hair); border-bottom: var(--hair); }
-.trust-strip > div { background: transparent; border-radius: 0; border-right: var(--hair) !important; padding: 44px 32px; }
-.trust-strip > div:last-child { border-right: 0 !important; }
-.stat__value { font-weight: 200; }
-.stat__label { color: var(--c-gold-2); letter-spacing: .02em; }
-.market-card { background: #fff; border: var(--hair); }
-.cta-band { background: var(--c-ivory); }
-.cta-option { background: #fff; border: var(--hair); }
-.cta-option .tile__icon, .doc-item .tile__icon, .benefit .tile__icon, .cat-btn .tile__icon { background: var(--c-gold-50); color: var(--c-gold-2); }
-.benefit { background: var(--c-ivory); }
-.check-list li::before { background-color: var(--c-gold-50); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%238c7447' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E"); }
-.advisory { background: radial-gradient(120% 140% at 0% 0%, #142d44 0%, var(--c-navy) 55%); }
-.advisory__list .ico { color: #d9c49b; }
-.advisor-chip .live { background: #d9c49b; box-shadow: 0 0 0 4px rgba(217,196,155,.25); }
-.calc { background: var(--c-ivory); }
-.calc__result { background: radial-gradient(120% 120% at 100% 0%, #15314a 0%, var(--c-navy) 60%); }
-.calc__result::before { background: radial-gradient(circle, rgba(214,192,143,.22), transparent 65%); }
-.pd-keyfacts { background: var(--c-ivory); }
-.cat-btn { background: #fff; border: var(--hair); }
-.cat-btn.is-active { background: var(--c-navy); border-color: var(--c-navy); }
-.chip.is-active { background: var(--c-navy); border-color: var(--c-navy); }
-.segmented { background: var(--c-ivory); }
-.fund-card { border: var(--hair); }
-.badge--gold { background: var(--c-gold-50); color: var(--c-gold-2); }
-
-/* Private Wealth band */
-.privilege { margin: 0 var(--inset); border-radius: var(--r-xl); background: radial-gradient(120% 120% at 100% 0%, #1a3047 0%, #0a1824 55%, #070f18 100%); color: #fff; padding-block: clamp(72px, 4rem + 4vw, 140px); overflow: hidden; position: relative; }
-.privilege::after { content: ""; position: absolute; inset: 24px; border: 1px solid rgba(217,196,155,.14); border-radius: calc(var(--r-xl) - 10px); pointer-events: none; }
+.privilege { margin: 0 var(--inset); border-radius: var(--r-xl); background: var(--c-navy); color: #fff; padding-block: clamp(64px, 4rem + 3vw, 120px); overflow: hidden; position: relative; }
 .privilege__inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
 .privilege__media { position: relative; }
-.privilege__media > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 22px; }
+.privilege__media > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 24px; }
+.privilege .eyebrow { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); color: rgba(255,255,255,.9) !important; }
 .privilege__content h2 { color: #fff; margin-top: 22px; }
-.privilege__content .t-lead { color: rgba(236,228,212,.72); margin-top: 20px; max-width: 46ch; }
-.privilege__list { list-style: none; padding: 0; margin: 36px 0 32px; border-top: 1px solid rgba(217,196,155,.2); }
-.privilege__list li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 22px 0; border-bottom: 1px solid rgba(217,196,155,.2); }
-.privilege__num { font-family: var(--f-num); font-weight: 300; font-size: 1.1rem; color: #d9c49b; letter-spacing: .04em; }
-.privilege__list strong { font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; letter-spacing: -0.01em; }
-.privilege__list p { color: rgba(236,228,212,.62); font-size: var(--t-sm); margin-top: 4px; }
-.metal-card { position: absolute; right: -36px; bottom: -36px; width: min(340px, 70%); aspect-ratio: 1.586; border-radius: 18px; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; color: #efe4cc;
-  background: linear-gradient(125deg, #1c2a36 0%, #0d1620 40%, #24323d 62%, #0b131b 100%);
-  box-shadow: 0 40px 80px -20px rgba(0,0,0,.6), inset 0 0 0 1px rgba(217,196,155,.35); transform: rotate(-6deg); }
-.metal-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.08) 45%, transparent 60%); }
-.metal-card__top { display: flex; justify-content: space-between; align-items: center; }
-.metal-card__top img { height: 22px; width: auto; filter: none !important; }
-.metal-card__top span, .metal-card__foot { font-size: 10px; letter-spacing: .24em; color: #d9c49b; }
-.metal-card__chip { width: 40px; height: 30px; border-radius: 6px; background: linear-gradient(135deg, #e7d3a6, #a88d5c); }
-.metal-card__num { font-family: var(--f-num); letter-spacing: .14em; font-size: 15px; color: #f3ead7; }
-.metal-card__foot { display: flex; justify-content: space-between; }
+.privilege__content h2 em { color: #a9dcf0; }
+.privilege__content .t-lead { color: rgba(255,255,255,.72); margin-top: 20px; max-width: 46ch; }
+.privilege__list { list-style: none; padding: 0; margin: 32px 0 30px; border-top: 1px solid rgba(255,255,255,.14); }
+.privilege__list li { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.14); }
+.privilege__num { font-family: var(--f-num); font-weight: 400; font-size: 1.05rem; color: var(--c-accent-200); }
+.privilege__list strong { font-family: var(--f-display); font-weight: 500; font-size: 1.1rem; letter-spacing: -0.01em; }
+.privilege__list p { color: rgba(255,255,255,.65); font-size: var(--t-sm); margin-top: 4px; }
+.tier-card { position: absolute; right: -28px; bottom: -28px; width: min(310px, 72%); padding: 20px 22px 14px; border-radius: 22px; color: var(--c-ink); background: #fff; box-shadow: var(--sh-3); }
+.tier-card__head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--c-line); }
+.tier-card__head img { height: 20px; width: auto; }
+.tier-card__head span { font-size: 11px; font-weight: 600; letter-spacing: .1em; color: var(--c-accent-700); white-space: nowrap; }
+.tier-card ol { list-style: none; margin: 4px 0 0; padding: 0; }
+.tier-card li { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--c-line); }
+.tier-card li:last-child { border-bottom: 0; }
+.tier-card li span { font-family: var(--f-num); font-size: 13px; color: var(--c-accent-700); width: 20px; }
+.tier-card li strong { font-family: var(--f-display); font-weight: 500; font-size: 1rem; letter-spacing: -0.01em; }
 @media (max-width: 960px) {
   .privilege__inner { grid-template-columns: 1fr; }
   .privilege__media > img { aspect-ratio: 4 / 3; }
-  .metal-card { right: 12px; bottom: -28px; width: 62%; }
   .privilege__content { margin-top: 24px; }
-  .privilege::after { inset: 12px; }
+  .tier-card { right: 12px; bottom: -24px; width: 68%; padding: 14px 16px 10px; }
+  .tier-card li { padding: 6px 0; }
+  .tier-card li strong { font-size: .92rem; }
 }
-
-/* Footer */
-.site-footer { background: #070f18; border-top: 1px solid rgba(217,196,155,.18); }
-.footer-top h6 { color: #e8dcc2; font-weight: 500; letter-spacing: .02em; }
-.footer-contact { background: rgba(217,196,155,.06); border: 1px solid rgba(217,196,155,.18); }
-.footer-contact .t-num { color: #e8dcc2; font-weight: 300; }
-
-/* Proto nav: quieter */
-.proto-nav__btn { background: var(--c-navy); }
-.proto-nav__btn .ico { color: #d9c49b; }
-.metal-card__foot span, .metal-card__top span { white-space: nowrap; }
-@media (max-width: 680px) { .metal-card { width: 72%; padding: 14px 16px; border-radius: 14px; } .metal-card__top img { height: 16px; } .metal-card__top span, .metal-card__foot { font-size: 8px; letter-spacing: .18em; } .metal-card__num { font-size: 12px; } .metal-card__chip { width: 30px; height: 22px; } }
-
-/* Family Banking tier card (real LH Bank tiers) */
-.tier-card { position: absolute; right: -32px; bottom: -32px; width: min(320px, 72%); padding: 22px 24px 18px; border-radius: 20px; color: #efe4cc;
-  background: linear-gradient(140deg, rgba(20,34,48,.94), rgba(8,15,23,.96)); border: 1px solid rgba(217,196,155,.32); box-shadow: 0 40px 80px -24px rgba(0,0,0,.6); backdrop-filter: blur(10px); }
-.tier-card__head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(217,196,155,.22); }
-.tier-card__head img { height: 20px; width: auto; filter: none !important; }
-.tier-card__head span { font-size: 10px; letter-spacing: .22em; color: #d9c49b; white-space: nowrap; }
-.tier-card ol { list-style: none; margin: 6px 0 0; padding: 0; }
-.tier-card li { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px solid rgba(217,196,155,.12); }
-.tier-card li:last-child { border-bottom: 0; }
-.tier-card li span { font-family: var(--f-num); font-size: 12px; color: #d9c49b; width: 20px; }
-.tier-card li strong { font-family: var(--f-display); font-weight: 400; font-size: 1.02rem; letter-spacing: -0.005em; }
-.tier-card li:first-child strong { color: #e8d4a8; }
-@media (max-width: 960px) { .tier-card { right: 12px; bottom: -24px; width: 68%; padding: 16px 18px 12px; } .tier-card li { padding: 6px 0; } .tier-card li strong { font-size: .92rem; } }
 .product-card__value--text { font-family: var(--f-display); font-size: 1.35rem !important; font-weight: 400 !important; letter-spacing: -0.015em !important; line-height: 1.2; }
 
 /* ==========================================================================
@@ -1396,7 +1245,7 @@ strong, b { font-weight: 600; }
 .badge { font-size: 13px; height: 28px; padding: 0 12px; }
 .product-card__cat { font-size: 12.5px; letter-spacing: .06em; }
 .product-card__label, .stat__label, .hero2__trust span, .glass-card .lbl, .range-scale, .field__hint, .market-card__top, .branch-card p, .promo-card__meta, .quick-bar span, .mega__link span, .fund-card__returns span, .legend { font-size: 13px; }
-.eyebrow, .label { font-size: 12.5px; letter-spacing: .12em; }
+.eyebrow, .label { font-size: 13px; letter-spacing: 0; }
 .table th { font-size: 13px; letter-spacing: .02em; text-transform: none; }
 .logo__seg { font-size: 11.5px; }
 .fx-mcard__rates span, .tier-card li span { font-size: 12px; }
@@ -1408,6 +1257,7 @@ strong, b { font-weight: 600; }
 .store-badge { font-size: 12px; }
 .bar-tip, .ds-label { font-size: 13px; }
 .product-card__cat, .eyebrow, .label { font-size: 13px; }
+.eyebrow { letter-spacing: 0; }
 .tier-card li span, .fx-mcard__rates span { font-size: 13px; }
 h1 strong, h2 strong, h3 strong, h4 strong { font-weight: 600; }
 .pin__dot span { font-weight: 600; }
