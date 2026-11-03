@@ -133,8 +133,13 @@
   S.stats = (c) => `
     <section class="section--tight">
       <div class="container">
-        <div class="trust-strip reveal">
-          ${c.items.map(([v, l]) => `<div><div class="stat__value">${v}</div><div class="stat__label">${l}</div></div>`).join("")}
+        <div class="stats2 reveal">
+          ${c.items.map(([label, value, unit, sub, star]) => `
+            <div class="stats2__item">
+              <span class="stats2__label">${label}</span>
+              <div class="stats2__value">${value}${star ? `<svg class="stats2__star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>` : ""}${unit ? `<small>${unit}</small>` : ""}</div>
+              <span class="stats2__sub">${sub}</span>
+            </div>`).join("")}
         </div>
       </div>
     </section>`;
@@ -207,17 +212,26 @@
   const PLAY = "https://play.google.com/store/apps/details?id=com.lh.lhbu";
 
   S.campaigns = (c) => `
-    <section class="section--tight" style="padding-top:0">
-      <div class="container reveal">
-        <div class="campaign" data-campaign aria-roledescription="carousel" aria-label="แคมเปญ">
-          <div class="campaign__track">
-            ${c.items.map(([f, mb, alt, h]) => `<a class="campaign__slide" href="${url(h)}" aria-label="${alt}"><picture>${mb ? `<source media="(max-width: 680px)" srcset="${A(mb)}">` : ""}<img src="${A(f)}" alt="${alt}" loading="lazy"></picture></a>`).join("")}
+    <section class="section campaign2" data-campaign2>
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__text"><span class="eyebrow">Campaigns</span><h2>แคมเปญล่าสุด</h2></div>
+          <div class="campaign2__ctrl">
+            <span class="campaign2__count t-num"><b data-ccur>01</b> / ${String(c.items.length).padStart(2, "0")}</span>
+            <div class="carousel__nav"><button data-cprev aria-label="ก่อนหน้า">${icon("arrow-left")}</button><button data-cnext aria-label="ถัดไป">${icon("arrow-right")}</button></div>
           </div>
-          <button class="campaign__arrow campaign__arrow--prev" data-cprev aria-label="ก่อนหน้า">${icon("chevron-left")}</button>
-          <button class="campaign__arrow campaign__arrow--next" data-cnext aria-label="ถัดไป">${icon("chevron-right")}</button>
-          <div class="campaign__dots">${c.items.map((_, i) => `<button class="${i ? "" : "is-active"}" data-cdot="${i}" aria-label="สไลด์ ${i + 1}"></button>`).join("")}</div>
         </div>
       </div>
+      <div class="campaign2__viewport reveal">
+        <div class="campaign2__track">
+          ${c.items.map(([f, mb, alt, h, tag, cap]) => `
+            <a class="campaign2__slide ${mb ? "has-mb" : ""}" href="${url(h)}">
+              <span class="campaign2__media"><picture>${mb ? `<source media="(max-width: 680px)" srcset="${A(mb)}">` : ""}<img src="${A(f)}" alt="${alt}" loading="lazy"></picture></span>
+              <span class="campaign2__cap"><span class="badge badge--line">${tag}</span><span class="campaign2__title">${cap}</span><span class="campaign2__go">${icon("arrow-right")}</span></span>
+            </a>`).join("")}
+        </div>
+      </div>
+      <div class="container"><div class="carousel__progress campaign2__progress"><span></span></div></div>
     </section>`;
 
   S.app = () => `
@@ -297,10 +311,10 @@
         quick: [["home", "สินเชื่อบ้าน", "เริ่มต้น 2.64%*", "personal/products/?cat=home-loan"], ["calc", "คำนวณค่างวด", "รู้ผลทันที", "personal/calculator/home-loan/"], ["piggy", "เงินฝาก", "ฝากประจำพิเศษ 6 เดือน", "personal/products/?cat=deposit"], ["pie", "การลงทุน", "กองทุนแนะนำ", "personal/investments/"]],
       }],
       ["campaigns", { items: [
-        ["banner-rmf-thaiesg.jpg", "banner-rmf-thaiesg-mb.jpg", "LH Fund Pro RMF / ThaiESG 2026", "personal/investments/"],
-        ["banner-tax2026.jpg", "", "ลดหย่อนภาษี 2026", "personal/investments/"],
-        ["banner-vision.jpg", "", "LH Bank Vision", "personal/"],
-        ["banner-ipo-lhset100rmf.jpg", "", "IPO LHSET100RMF", "personal/investments/#funds"],
+        ["banner-rmf-thaiesg.jpg", "banner-rmf-thaiesg-mb.jpg", "LH Fund Pro RMF / ThaiESG 2026", "personal/investments/", "การลงทุน", "LH Fund Pro — กองทุนลดหย่อนภาษี RMF / Thai ESG ปี 2026"],
+        ["banner-tax2026.jpg", "", "ลดหย่อนภาษี 2026", "personal/investments/", "ลดหย่อนภาษี", "วางแผนลดหย่อนภาษีปี 2026 กับ LH Bank"],
+        ["banner-ipo-lhset100rmf.jpg", "", "IPO LHSET100RMF", "personal/investments/#funds", "IPO", "กองทุน LHSET100RMF เปิดเสนอขาย"],
+        ["banner-vision.jpg", "", "LH Bank Vision", "personal/", "เกี่ยวกับเรา", "ธนาคารขนาดกลางชั้นนำ ที่โดดเด่นด้านความเป็นเลิศในการบริการ"],
       ] }],
       ["discovery", {
         eyebrow: "LH Bank Advisory", title: "วันนี้คุณอยู่ใน<em>ช่วงชีวิต</em>ไหน", lead: "เลือกช่วงชีวิตของคุณ แล้วเราจะแนะนำผลิตภัณฑ์ที่เหมาะสม", all: "personal/products/",
@@ -319,7 +333,7 @@
         tiers: ["Elite Privilege", "Elite Plus", "Elite", "Wealth Plus", "Wealth"],
         points: [["5 ระดับสมาชิก", "Wealth · Wealth Plus · Elite · Elite Plus · Elite Privilege — สิทธิประโยชน์ตามระดับสมาชิกที่ธนาคารกำหนด"], ["The Advisory Branch", "บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร"], ["LH Bank Advisory & Weekly Report", "บทวิเคราะห์เศรษฐกิจและมุมมองการลงทุนจากทีมที่ปรึกษา"]],
         cta: "สอบถาม Family Banking" }],
-      ["stats", { items: [["2.64%", "ดอกเบี้ยพิเศษเริ่มต้น* · Home 1st Class"], ["8.88%", "ดอกเบี้ยเริ่มต้นต่อปี* · Happy Cash"], ["3.8★", "LHB You บน App Store · 739 รีวิว"], ["1327", "LH Bank Call Center"]] }],
+      ["stats", { items: [["Home 1st Class", "2.64", "%", "ดอกเบี้ยพิเศษเริ่มต้นปีที่ 1*"], ["Happy Cash", "8.88", "%", "ดอกเบี้ยเริ่มต้นต่อปี*"], ["LHB You", "3.8", "/ 5", "คะแนนบน App Store · 739 รีวิว", true], ["Call Center", "1327", "", "LH Bank Call Center ติดต่อสอบถาม"]] }],
       ["promotions", { eyebrow: "Promotions", title: "ผลิตภัณฑ์แนะนำและโปรโมชัน", items: [
         { img: "photo-1600585154526-990dced4db0d", tag: "สินเชื่อบ้าน", until: "สมัครภายใน 31 ม.ค. 70", title: "สินเชื่อบ้านใหม่ Home 1st Class ดอกเบี้ยพิเศษเริ่มต้น 2.64% ต่อปี*", href: "personal/product/?id=home-1st-class" },
         { img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER มูลค่า 200 บาท", href: "personal/products/?cat=deposit" },
@@ -379,18 +393,21 @@
     render("all");
   }
 
-  /* Campaign carousel (autoplay, pauses on hover) */
-  $$("[data-campaign]", main).forEach((c) => {
-    const track = $(".campaign__track", c), dots = $$("[data-cdot]", c), n = dots.length;
+  /* Campaign peek slider: snap scrolling, counter, progress, autoplay (pauses on hover/touch) */
+  $$("[data-campaign2]", main).forEach((c) => {
+    const vp = $(".campaign2__viewport", c), slides = $$(".campaign2__slide", c), cur = $("[data-ccur]", c), bar = $(".campaign2__progress span", c), n = slides.length;
     let i = 0, t;
-    const go = (k) => { i = (k + n) % n; track.style.transform = `translateX(${-i * 100}%)`; dots.forEach((d, j) => d.classList.toggle("is-active", j === i)); };
-    const play = () => { clearInterval(t); t = setInterval(() => go(i + 1), 5000); };
-    dots.forEach((d) => d.addEventListener("click", () => { go(+d.dataset.cdot); play(); }));
+    const base = () => slides[0].offsetLeft;
+    const idx = () => { const x = vp.scrollLeft; let best = 0, d = 1e9; slides.forEach((sl, k) => { const dd = Math.abs(sl.offsetLeft - base() - x); if (dd < d) { d = dd; best = k; } }); return best; };
+    const go = (k) => { i = (k + n) % n; vp.scrollTo({ left: slides[i].offsetLeft - base(), behavior: "smooth" }); };
+    const sync = () => { i = idx(); cur.textContent = String(i + 1).padStart(2, "0"); bar.style.width = 100 / n + "%"; bar.style.transform = `translateX(${i * 100}%)`; slides.forEach((sl, k) => sl.classList.toggle("is-active", k === i)); };
+    const play = () => { clearInterval(t); t = setInterval(() => go(i + 1), 6000); };
     $("[data-cprev]", c).addEventListener("click", () => { go(i - 1); play(); });
     $("[data-cnext]", c).addEventListener("click", () => { go(i + 1); play(); });
-    c.addEventListener("mouseenter", () => clearInterval(t)); c.addEventListener("mouseleave", play);
-    let sx = null; c.addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
-    c.addEventListener("touchend", (e) => { if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) { go(i + (dx < 0 ? 1 : -1)); play(); } sx = null; });
-    play();
+    vp.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    vp.addEventListener("mouseenter", () => clearInterval(t));
+    vp.addEventListener("mouseleave", play);
+    vp.addEventListener("touchstart", () => clearInterval(t), { passive: true });
+    sync(); play();
   });
 })();
