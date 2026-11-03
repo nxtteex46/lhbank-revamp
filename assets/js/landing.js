@@ -104,6 +104,34 @@
     </a>`;
   window.LH.productCard = productCard;
 
+  /* Private Wealth band (v3 luxury) */
+  S.privilege = (c) => `
+    <section class="privilege">
+      <div class="privilege__inner container">
+        <div class="privilege__media reveal">
+          ${img(U(c.img, 1400), "")}
+          <div class="metal-card" aria-hidden="true">
+            <div class="metal-card__top"><img src="${url("assets/img/lhbank/logo-white.svg")}" alt="" width="132" height="32"><span>WEALTH</span></div>
+            <div class="metal-card__chip"></div>
+            <div class="metal-card__num">••••  ••••  ••••  2027</div>
+            <div class="metal-card__foot"><span>PRIVATE BANKING</span><span>VISA INFINITE</span></div>
+          </div>
+        </div>
+        <div class="privilege__content reveal">
+          <span class="label label--light">${c.eyebrow}</span>
+          <h2>${c.title}</h2>
+          <p class="t-lead">${c.lead}</p>
+          <ol class="privilege__list">
+            ${c.points.map(([t, d], i) => `<li><span class="privilege__num">0${i + 1}</span><div><strong>${t}</strong><p>${d}</p></div></li>`).join("")}
+          </ol>
+          <div class="row" style="gap:10px;margin-top:8px">
+            <a class="btn btn--gold btn--lg" href="#" data-modal="leadModal">${c.cta} ${icon("arrow-right")}</a>
+            <a class="btn btn--glass btn--lg" href="${url("personal/product/?id=wealth-card")}">Wealth Credit Card</a>
+          </div>
+        </div>
+      </div>
+    </section>`;
+
   S.stats = (c) => `
     <section class="section--tight">
       <div class="container">
@@ -287,11 +315,16 @@
         ],
       }],
       ["featured", { eyebrow: "Featured Products", title: "ผลิตภัณฑ์แนะนำ", all: "personal/products/", tabs: [["ทั้งหมด", "all"], ["เงินฝาก", "deposit"], ["สินเชื่อบ้าน", "home-loan"], ["บัตร", "card"]], pick: ["saen-sabai", "smart-savings", "wealth-card", "tax-free-24", "refinance", "travel-card", "happy-home", "fixed-12", "debit-smart"] }],
+      ["privilege", { eyebrow: "LH Bank Private Wealth", img: "photo-1520250497591-112f2f40a3f4",
+        title: "สิทธิพิเศษเหนือระดับ<br>สำหรับคนที่มีมาตรฐาน",
+        lead: "บริการ Private Wealth สำหรับลูกค้าที่มีสินทรัพย์ตั้งแต่ 10 ล้านบาท ดูแลความมั่งคั่งของคุณและครอบครัวอย่างเป็นส่วนตัว",
+        points: [["Relationship Manager ส่วนตัว", "ผู้เชี่ยวชาญหนึ่งคนที่เข้าใจเป้าหมายของคุณ ดูแลทุกเรื่องการเงินแบบครบวงจร"], ["พอร์ตการลงทุนเฉพาะบุคคล", "กองทุน หุ้นกู้ และผลิตภัณฑ์ทางเลือก คัดสรรตามความเสี่ยงที่คุณรับได้"], ["Lifestyle Privileges", "Wealth Lounge, Airport Fast Track, กอล์ฟ และ Concierge 24 ชั่วโมง"]],
+        cta: "นัดหมาย Relationship Manager" }],
       ["stats", { items: [["30+ ปี", "ประสบการณ์ในกลุ่มที่อยู่อาศัย"], ["120+", "สาขาและจุดบริการทั่วประเทศ"], ["2 ล้าน+", "ลูกค้าที่ไว้วางใจ"], ["AA−", "อันดับความน่าเชื่อถือ (ตัวอย่าง)"]] }],
       ["promotions", { eyebrow: "Promotions", title: "สิทธิพิเศษสำหรับคุณ", items: [
-        { img: "photo-1613490493576-7fde63acd811", tag: "สินเชื่อบ้าน", until: "31 มี.ค. 2027", title: "ยื่นกู้บ้านออนไลน์ รับส่วนลดค่าจดจำนอง 50%", href: "personal/product/?id=saen-sabai" },
+        { img: "photo-1600585154526-990dced4db0d", tag: "สินเชื่อบ้าน", until: "31 มี.ค. 2027", title: "ยื่นกู้บ้านออนไลน์ รับส่วนลดค่าจดจำนอง 50%", href: "personal/product/?id=saen-sabai" },
         { img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", until: "30 มิ.ย. 2027", title: "เปิดบัญชี Smart Savings รับดอกเบี้ยพิเศษ 2.00% 3 เดือนแรก", href: "personal/product/?id=smart-savings" },
-        { img: "photo-1530521954074-e64f6810b32d", tag: "บัตรเครดิต", until: "31 ธ.ค. 2027", title: "ช้อปต่างประเทศ รับเครดิตเงินคืนสูงสุด 5,000 บาท", href: "personal/product/?id=travel-card" },
+        { img: "photo-1584132967334-10e028bd69f7", tag: "บัตรเครดิต", until: "31 ธ.ค. 2027", title: "ช้อปต่างประเทศ รับเครดิตเงินคืนสูงสุด 5,000 บาท", href: "personal/product/?id=travel-card" },
         { img: "photo-1526628953301-3e589a6a8b74", tag: "กองทุน", until: "28 ก.พ. 2027", title: "ลงทุนกองทุน Thai ESG ครบ 50,000 บาท รับของสมนาคุณพิเศษ", href: "personal/investments/" },
         { img: "photo-1600607687939-ce8a6c25118c", tag: "รีไฟแนนซ์", until: "30 เม.ย. 2027", title: "รีไฟแนนซ์บ้าน ฟรีค่าประเมินและค่าจดจำนอง", href: "personal/product/?id=refinance" },
       ] }],

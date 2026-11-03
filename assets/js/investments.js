@@ -16,7 +16,7 @@
     </div></section>
     <section class="hero2" style="padding-top:0">
       <div class="hero2__frame" style="min-height:min(76vh,720px)">
-        ${img(U("photo-1530521954074-e64f6810b32d", 2000), "", 'loading="eager"')}
+        ${img(U("photo-1520250497591-112f2f40a3f4", 2000), "", 'loading="eager"')}
         <div class="container hero2__content">
           <span class="eyebrow eyebrow--glass">Wealth &amp; Investment</span>
           <h1>สร้างความมั่งคั่ง<br>อย่าง<em>มีทิศทาง</em></h1>

@@ -18,7 +18,7 @@ window.LHDATA = (function () {
     kitchen: "photo-1617806118233-18e1de247200",
     keys: "photo-1600047509807-ba8f99d2cdde",
     family: "photo-1609220136736-443140cffec6",
-    savings: "photo-1559526324-4b87b5e36e44",
+    savings: "photo-1548142813-c348350df52b",
     docs: "photo-1600210492486-724fe5c67fb0",
     woman: "photo-1573497019236-17f8177b81e8",
     man: "photo-1556157382-97eda2d62296",
@@ -32,6 +32,11 @@ window.LHDATA = (function () {
     market: "photo-1526628953301-3e589a6a8b74",
     friends: "photo-1529333166437-7750a6dd5a70",
     apartment: "photo-1571867424488-4565932edb41",
+    dusk: "photo-1600585154526-990dced4db0d",
+    suit: "photo-1519085360753-af0119f7cbe7",
+    infinity: "photo-1584132967334-10e028bd69f7",
+    resort: "photo-1520250497591-112f2f40a3f4",
+    dining: "photo-1414235077428-338989a2e8c0",
   };
 
   const loanDocs = [
@@ -45,7 +50,7 @@ window.LHDATA = (function () {
   const products = [
     /* ---------------- Home loans ---------------- */
     {
-      id: "saen-sabai", cat: "home-loan", name: "สินเชื่อบ้าน แสนสบาย", badge: "แนะนำ", img: IMG.house,
+      id: "saen-sabai", cat: "home-loan", name: "สินเชื่อบ้าน แสนสบาย", badge: "แนะนำ", img: IMG.dusk,
       tagline: "ผ่อนสบาย ดอกเบี้ยคงที่ 3 ปีแรก",
       desc: "สินเชื่อบ้านสำหรับซื้อบ้านใหม่ บ้านมือสอง หรือคอนโดมิเนียม ด้วยอัตราดอกเบี้ยที่วางแผนได้ และระยะเวลาผ่อนนานสูงสุด 40 ปี",
       highlight: { value: "2.75", unit: "%", label: "ดอกเบี้ยคงที่ปีที่ 1–3" },
@@ -170,7 +175,7 @@ window.LHDATA = (function () {
     },
     /* ---------------- Cards ---------------- */
     {
-      id: "wealth-card", cat: "card", name: "LH Bank Wealth Credit Card", badge: "Premium", img: IMG.card,
+      id: "wealth-card", cat: "card", name: "LH Bank Wealth Credit Card", badge: "Premium", img: IMG.suit,
       tagline: "สิทธิพิเศษไลฟ์สไตล์ระดับพรีเมียม",
       desc: "บัตรเครดิตสำหรับลูกค้าที่มองหาประสบการณ์เหนือระดับ ทั้งเลานจ์สนามบิน กอล์ฟ และ Wealth Concierge",
       highlight: { value: "2", unit: "×", label: "คะแนนสะสมทุกการใช้จ่าย" },
@@ -180,7 +185,7 @@ window.LHDATA = (function () {
       related: ["travel-card", "debit-smart"], cta: "สมัครบัตร", keywords: "credit card บัตรเครดิต",
     },
     {
-      id: "travel-card", cat: "card", name: "LH Bank Travel Credit Card", img: IMG.travel,
+      id: "travel-card", cat: "card", name: "LH Bank Travel Credit Card", img: IMG.infinity,
       tagline: "สะสมไมล์ทุกการใช้จ่าย ทั่วโลก",
       desc: "ทุกการใช้จ่าย 25 บาท รับ 1 ไมล์ พร้อมประกันการเดินทางอัตโนมัติ",
       highlight: { value: "25", unit: "฿", label: "ต่อ 1 ไมล์" },
