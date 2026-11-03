@@ -1865,3 +1865,7 @@ a.fund-card:hover { background: var(--c-navy); }
 :is(.section--mist, .section--sand, .section--dark, .privilege) + :is(.section--mist, .section--sand, .section--dark, .privilege) { margin-top: clamp(16px, 2vw, 28px); }
 .login-dd.is-open .dropdown__trigger .ico:not(.i-chevron-down) { transform: none; }
 .login-dd.is-open .dropdown__trigger .i-chevron-down { transform: rotate(180deg); }
+
+/* Icon-only buttons: no horizontal padding (v2 .btn padding was overriding it) */
+.btn.btn--icon { padding: 0; width: var(--bh); flex: none; }
+.btn.btn--icon svg { width: 18px; height: 18px; }
