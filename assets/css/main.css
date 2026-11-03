@@ -1714,3 +1714,28 @@ a.fund-card:hover { background: var(--c-navy); }
 .pin--logo:hover .pin__logo--white, .pin--logo.is-active .pin__logo--white { display: block; }
 .pin--logo:hover .pin__tag em, .pin--logo.is-active .pin__tag em { background: rgba(255,255,255,.14); color: #fff; }
 .pin--logo:hover { z-index: 6; }
+
+/* ==========================================================================
+   35 — Larger campaign banners
+   Bank banners are 2560×555 with all key content between ~25–78% of the
+   width, so the frame crops the empty side background: taller slides on
+   desktop (3:1, full container width) and mobile (~2.5:1).
+   ========================================================================== */
+.campaign2__slide { width: min(var(--container), calc(100vw - var(--pad-x) * 2 - 48px)); }
+.campaign2__media { aspect-ratio: 3 / 1; border-radius: 28px; }
+.campaign2__media img { object-position: 51.5% 50%; }
+.campaign2__track { gap: 24px; }
+.campaign2__cap { padding-inline: 4px; }
+.campaign2__title { font-size: 1.2rem; }
+@media (max-width: 1024px) {
+  .campaign2__slide { width: 86vw; }
+  .campaign2__media { aspect-ratio: 2.6 / 1; }
+}
+@media (max-width: 680px) {
+  .campaign2__slide { width: 88vw; }
+  .campaign2__media { aspect-ratio: 2.45 / 1; border-radius: 20px; }
+  .campaign2__slide.has-mb .campaign2__media { aspect-ratio: 1280 / 550; }
+  .campaign2__slide.has-mb .campaign2__media img { object-position: 50% 50%; }
+  .campaign2__track { gap: 14px; }
+  .campaign2__title { font-size: 1.02rem; }
+}
