@@ -17,6 +17,10 @@
   let mode = qs.get("mode") === "afford" ? "afford" : "payment";
 
   const V = { price: 4500000, down: 10, years: 30, income: 60000, debt: 5000 };
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  if (qs.get("price")) V.price = clamp(Math.round(+qs.get("price") / 50000) * 50000 || V.price, 2000000, 30000000);
+  if (qs.get("down") !== null) V.down = clamp(+qs.get("down") || 0, 0, 50);
+  if (qs.get("years")) V.years = clamp(+qs.get("years") || V.years, 5, 40);
   const PRODUCT_PAGE = "personal/product/?id=home-1st-class";
 
   /* ---------- Reusable field component ---------- */
