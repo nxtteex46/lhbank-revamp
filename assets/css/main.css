@@ -1739,3 +1739,26 @@ a.fund-card:hover { background: var(--c-navy); }
   .campaign2__track { gap: 14px; }
   .campaign2__title { font-size: 1.02rem; }
 }
+
+/* ==========================================================================
+   36 — Branch filters: single-choice type vs multi-select services
+   ========================================================================== */
+.br-filter { display: grid; gap: 14px; }
+.br-filter__group { display: grid; gap: 8px; }
+.br-filter__label { font-size: 13px; font-weight: 600; color: var(--c-ink); display: flex; align-items: baseline; gap: 8px; }
+.br-filter__label small { font-size: 12.5px; font-weight: 400; color: var(--c-muted); }
+.br-type { width: 100%; }
+.br-type button { flex: 1; padding: 0 10px; height: 38px; }
+.br-svc { display: flex; flex-wrap: wrap; gap: 8px; }
+.check-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 10px; border-radius: 999px; border: 1px solid var(--c-line-2); background: #fff; font-size: 13.5px; color: var(--c-ink-2); transition: background .25s var(--ease), border-color .25s, color .25s; }
+.check-chip:hover { background: var(--c-mist); }
+.check-chip__box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--c-line-2); display: grid; place-items: center; background: #fff; transition: background .25s, border-color .25s; }
+.check-chip__box .ico { width: 12px; height: 12px; stroke-width: 2.6; color: #fff; opacity: 0; transition: opacity .2s; }
+.check-chip.is-on { border-color: var(--c-accent); background: var(--c-accent-50); color: var(--c-accent-700); }
+.check-chip.is-on .check-chip__box { background: var(--c-accent); border-color: var(--c-accent); }
+.check-chip.is-on .check-chip__box .ico { opacity: 1; }
+.br-filter__foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 4px; }
+.br-filter__foot .switch { font-size: 13.5px; }
+.br-filter__clear { font-size: 13px; font-weight: 500; color: var(--c-accent-700); padding: 6px 4px; }
+.br-filter__clear:disabled { color: var(--c-subtle); cursor: default; }
+.br-filter__clear:not(:disabled):hover { color: var(--c-ink); }

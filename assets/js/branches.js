@@ -79,21 +79,37 @@
   initDropdowns($("#locator"));
   $("#provDd").addEventListener("change", (e) => { state.prov = e.detail; render(true); });
 
-  const chips = [["type:all", "ทั้งหมด"], ["type:branch", "สาขา"], ["type:sme", "ศูนย์ธุรกิจ SME"], ["open", "เปิดอยู่ตอนนี้"], ["svc:weekend", "เปิดเสาร์-อาทิตย์"], ["svc:fx", "แลกเงิน"], ["svc:wealth", "Wealth Advisor"]];
+  /* Filters: type = single choice (segmented) · services = multi-select
+     (check chips) · open-now = switch · clear with active count */
+  const TYPES = [["all", "ทั้งหมด"], ["branch", "สาขา"], ["sme", "ศูนย์ธุรกิจ SME"]];
+  const SVCS = [["weekend", "เปิดเสาร์-อาทิตย์"], ["fx", "แลกเงิน"], ["wealth", "ที่ปรึกษาการลงทุน"], ["safe", "ตู้นิรภัย"]];
   const fWrap = $("#brFilters");
+  const activeCount = () => (state.type !== "all" ? 1 : 0) + state.svc.size + (state.openNow ? 1 : 0);
   const renderChips = () => {
-    fWrap.innerHTML = chips.map(([k, l]) => {
-      const [t, v] = k.split(":");
-      const on = t === "type" ? state.type === v : t === "open" ? state.openNow : state.svc.has(v);
-      return `<button class="chip ${on ? "is-active" : ""}" data-f="${k}" style="height:36px;padding:0 14px">${l}</button>`;
-    }).join("");
+    const n = activeCount();
+    fWrap.innerHTML = `
+      <div class="br-filter__group">
+        <span class="br-filter__label">ประเภท <small>เลือก 1</small></span>
+        <div class="segmented br-type" role="radiogroup" aria-label="ประเภทสาขา">${TYPES.map(([v, l]) => `<button type="button" role="radio" aria-checked="${state.type === v}" class="${state.type === v ? "is-active" : ""}" data-type="${v}">${l}</button>`).join("")}</div>
+      </div>
+      <div class="br-filter__group">
+        <span class="br-filter__label">บริการ <small>เลือกได้หลายข้อ</small></span>
+        <div class="br-svc" role="group" aria-label="บริการ">${SVCS.map(([v, l]) => `<button type="button" role="checkbox" aria-checked="${state.svc.has(v)}" class="check-chip ${state.svc.has(v) ? "is-on" : ""}" data-svc="${v}"><span class="check-chip__box">${icon("check")}</span>${l}</button>`).join("")}</div>
+      </div>
+      <div class="br-filter__foot">
+        <label class="switch"><input type="checkbox" data-open ${state.openNow ? "checked" : ""}> เปิดอยู่ตอนนี้</label>
+        <button type="button" class="br-filter__clear" data-clear ${n ? "" : "disabled"}>ล้างตัวกรอง${n ? ` (${n})` : ""}</button>
+      </div>`;
   };
   fWrap.addEventListener("click", (e) => {
-    const c = e.target.closest("[data-f]"); if (!c) return;
-    const [t, v] = c.dataset.f.split(":");
-    if (t === "type") state.type = v; else if (t === "open") state.openNow = !state.openNow; else state.svc.has(v) ? state.svc.delete(v) : state.svc.add(v);
+    const t = e.target.closest("[data-type]"), sv = e.target.closest("[data-svc]"), cl = e.target.closest("[data-clear]");
+    if (t) state.type = t.dataset.type;
+    else if (sv) { const v = sv.dataset.svc; state.svc.has(v) ? state.svc.delete(v) : state.svc.add(v); }
+    else if (cl) { state.type = "all"; state.svc.clear(); state.openNow = false; }
+    else return;
     renderChips(); render(true);
   });
+  fWrap.addEventListener("change", (e) => { if (e.target.matches("[data-open]")) { state.openNow = e.target.checked; renderChips(); render(true); } });
 
   const sWrap = $("#brSearch"), sIn = $("input", sWrap);
   sIn.addEventListener("input", () => { state.q = sIn.value; sWrap.classList.toggle("has-value", !!sIn.value); render(true); });

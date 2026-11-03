@@ -362,7 +362,7 @@ window.LHDATA = (function () {
     { id: 15, name: "สาขาเมกาบางนา", type: "branch", district: "บางพลี", province: "สมุทรปราการ", addr: "ชั้น 1 เมกาบางนา อ.บางพลี", lat: 13.6466, lng: 100.6800, tel: "02-105-1919", hours: "mall", services: ["weekend", "fx"] },
     { id: 16, name: "สาขาฟิวเจอร์พาร์ค รังสิต", type: "branch", district: "ธัญบุรี", province: "ปทุมธานี", addr: "ชั้น 2 ฟิวเจอร์พาร์ค รังสิต", lat: 13.9890, lng: 100.6170, tel: "02-958-0303", hours: "mall", services: ["weekend"] },
   ];
-  const services = { fx: ["globe", "แลกเปลี่ยนเงินตรา"], sme: ["store", "บริการลูกค้าธุรกิจ"], wealth: ["sparkle", "ที่ปรึกษาการลงทุน"], safe: ["lock", "บริการให้เช่าตู้นิรภัย"], weekend: ["calendar", "เปิดเสาร์-อาทิตย์"] };
+  const services = { fx: ["globe", "แลกเปลี่ยนเงินตรา"], sme: ["store", "บริการลูกค้าธุรกิจ"], wealth: ["sparkle", "ที่ปรึกษาการลงทุน"], safe: ["lock", "ตู้นิรภัย"], weekend: ["calendar", "เปิดเสาร์-อาทิตย์"] };
 
   /* ---------------- Exchange rates (THB per 1 unit) ---------------- */
   const currencies = [
