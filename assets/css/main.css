@@ -1659,3 +1659,17 @@ a.fund-card:hover { background: var(--c-navy); }
 .map-mini .logo-pin img { position: relative; z-index: 1; height: 13px; width: auto; display: block; }
 .bento__card--branch:hover .map-mini .logo-pin { transform: translate(-50%, calc(-100% - 4px)); }
 .map-mini { height: 130px; }
+
+/* ==========================================================================
+   32 — Calculator card meters: slider look without a thumb (data, not control)
+   ========================================================================== */
+.meter { display: grid; gap: 10px; }
+.meter__row { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--t-sm); color: rgba(255,255,255,.65); }
+.meter__row strong { color: #fff; font-weight: 500; font-size: 1.05rem; }
+.meter__bar { height: 6px; border-radius: 6px; background: rgba(255,255,255,.12); overflow: hidden; }
+.meter__bar i { display: block; height: 100%; width: var(--w); border-radius: 6px; background: linear-gradient(90deg, #6cc3e3, var(--c-accent)); transform-origin: left center; }
+.bento__card--calc:hover .meter__bar i { animation: meterFill 1.1s var(--ease); }
+@keyframes meterFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.calc-sample { gap: 18px; }
+.calc-sample__value { padding-top: 6px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 18px; }
+@media (prefers-reduced-motion: reduce) { .bento__card--calc:hover .meter__bar i { animation: none; } }

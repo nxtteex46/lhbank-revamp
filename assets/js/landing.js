@@ -199,7 +199,9 @@
             <h3>คำนวณสินเชื่อบ้าน</h3>
             <p>ประเมินค่างวด วงเงินกู้ และตารางผ่อนชำระ ด้วยอัตราดอกเบี้ยจริงของ Home 1st Class</p>
             <div class="calc-sample">
-              <div class="calc-sample__top"><span class="calc-sample__tag">ตัวอย่างการคำนวณ</span><span>วงเงิน ฿3,000,000 · ผ่อน 30 ปี</span></div>
+              <div class="calc-sample__top"><span class="calc-sample__tag">ตัวอย่างการคำนวณ</span></div>
+              <div class="meter"><div class="meter__row"><span>วงเงินกู้</span><strong class="t-num">฿3,000,000</strong></div><div class="meter__bar"><i style="--w:38%"></i></div></div>
+              <div class="meter"><div class="meter__row"><span>ระยะเวลาผ่อน</span><strong class="t-num">30 ปี</strong></div><div class="meter__bar"><i style="--w:71%"></i></div></div>
               <div class="calc-sample__value"><strong class="t-num">฿12,105</strong><span>/เดือน · 3 ปีแรก</span></div>
               <ol class="calc-sample__timeline">
                 <li><span>ปีที่ 1</span><strong class="t-num">2.64%</strong></li>
