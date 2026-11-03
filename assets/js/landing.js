@@ -285,7 +285,7 @@
         <div class="app-real">
           <div class="reveal">
             <div class="app-real__head">
-              <img class="app-real__icon" src="${A("lhbyou-icon.jpg")}" alt="ไอคอนแอป LHB You" width="72" height="72">
+              <img class="app-real__icon" src="${A("lhbyou-logo.svg")}" alt="ไอคอนแอป LHB You" width="72" height="72">
               <div><span class="eyebrow">แอป LHB You</span><div class="app-real__rating mt-2">แอปของ LH Bank · iOS และ Android</div></div>
             </div>
             <h2 class="mt-6">โลกการเงินใหม่<br><em>สไตล์ YOU</em></h2>

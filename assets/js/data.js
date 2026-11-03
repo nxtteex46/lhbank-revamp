@@ -274,7 +274,7 @@ window.LHDATA = (function () {
       tagline: "เปลี่ยนลูกหนี้การค้าเป็นเงินทุน",
       desc: "สินเชื่อแฟคเตอริ่ง ช่วยเปลี่ยนลูกหนี้การค้าให้เป็นเงินทุนหมุนเวียนสำหรับธุรกิจ",
       highlight: { text: "Factoring", label: "ลูกหนี้การค้า → เงินทุน" },
-      facts: ["ใช้ลูกหนี้การค้าเป็นฐานวงเงิน", "เสริมสภาพคล่องได้เร็วขึ้น"],
+      facts: ["ใช้ลูกหนี้การค้าเป็นฐานวงเงิน", "เสริมสภาพคล่องให้ธุรกิจ"],
       keyfacts: [["Factoring", "ประเภทสินเชื่อ"], ["สภาพคล่อง", "ประโยชน์"], ["1327", "ติดต่อผู้ดูแล"]],
       compare: { rate: null, term: "ตามเงื่อนไขธนาคาร", ltv: "ตามลูกหนี้การค้า", fee: "ตามประกาศธนาคาร" },
       related: ["sme-working-capital"], keywords: "factoring แฟคเตอริ่ง",
@@ -338,7 +338,7 @@ window.LHDATA = (function () {
     if (!p.benefits) p.benefits = p.facts.map((f, i) => [["check", "sparkle", "shield", "headset"][i % 4], f, ""]);
     if (!p.eligibility) p.eligibility = ["คุณสมบัติและเงื่อนไขเป็นไปตามหลักเกณฑ์ที่ธนาคารกำหนด", "สอบถามรายละเอียดได้ที่ LH Bank Call Center โทร 1327"];
     if (!p.fees) p.fees = null;
-    if (!p.docs) p.docs = [["บัตรประจำตัวประชาชน", "ตัวจริง"]];
+    if (!p.docs) p.docs = null;
     if (!p.faq) p.faq = [contactFaq];
   });
 

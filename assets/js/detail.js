@@ -28,7 +28,7 @@
   const sections = [
     ["overview", "ภาพรวม"], ["benefits", "สิทธิประโยชน์"], ["eligibility", "คุณสมบัติ"],
     ["rates", p.cat === "deposit" ? "อัตราดอกเบี้ย" : isLoan ? "ดอกเบี้ยและค่าธรรมเนียม" : "อัตราและค่าธรรมเนียม"],
-    ["documents", "เอกสาร"], ["faq", "คำถามที่พบบ่อย"],
+    ...(p.docs ? [["documents", "เอกสาร"]] : []), ["faq", "คำถามที่พบบ่อย"],
   ];
 
   const related = (p.related || []).map((r) => D.products.find((x) => x.id === r)).filter(Boolean);
@@ -79,7 +79,7 @@
           <section class="pd-section" id="eligibility">
             <h2>คุณสมบัติผู้สมัคร</h2>
             <ul class="check-list">${p.eligibility.map((e) => `<li>${e}</li>`).join("")}</ul>
-            ${isLoan && !isBiz ? `<div class="card card--mist mt-8" style="padding:24px"><div class="row row--between"><div><strong>เช็กวงเงินที่กู้ได้ใน 1 นาที</strong><p class="t-sm t-muted">กรอกรายได้และภาระหนี้ เพื่อประเมินวงเงินเบื้องต้น</p></div><a class="btn btn--dark btn--sm" href="${url("personal/calculator/home-loan/?mode=afford&product=" + p.id)}">ประเมินวงเงิน ${icon("arrow-right")}</a></div></div>` : ""}
+            ${isLoan && !isBiz ? `<div class="card card--mist mt-8" style="padding:24px"><div class="row row--between"><div><strong>คำนวณหาวงเงินกู้</strong><p class="t-sm t-muted">กรอกความสามารถในการผ่อนชำระต่อเดือน เพื่อประเมินวงเงินกู้เบื้องต้น</p></div><a class="btn btn--dark btn--sm" href="${url("personal/calculator/home-loan/?mode=afford&product=" + p.id)}">ประเมินวงเงิน ${icon("arrow-right")}</a></div></div>` : ""}
           </section>
 
           <section class="pd-section" id="rates">
@@ -103,13 +103,13 @@
             ${p.payment ? `<h3 class="t-h4 mt-12 mb-4">ช่องทางการชำระเงิน</h3><ul class="check-list">${p.payment.map((x) => `<li>${x}</li>`).join("")}</ul>` : ""}
           </section>
 
-          <section class="pd-section" id="documents">
+          ${p.docs ? `<section class="pd-section" id="documents">
             <h2>เอกสารประกอบการสมัคร</h2>
             <div class="stack" style="--stack:10px">
               ${p.docs.map(([t, s]) => `<div class="doc-item"><span class="tile__icon">${icon("doc")}</span><div><strong>${t}</strong><br><small>${s}</small></div></div>`).join("")}
-              <a class="doc-item" href="#" data-toast="ดาวน์โหลด Product Sheet (PDF)"><span class="tile__icon">${icon("download")}</span><div><strong>รายละเอียดผลิตภัณฑ์ (Sales Sheet)</strong><br><small>PDF · 420 KB</small></div>${icon("arrow-right")}</a>
+              ${p.verified ? `<a class="doc-item" href="${p.source}" target="_blank" rel="noopener"><span class="tile__icon">${icon("download")}</span><div><strong>Sale Sheet - สินเชื่อบ้าน</strong><br><small>ประกาศ ณ วันที่ 01 พฤศจิกายน 2569 · บน lhbank.co.th</small></div>${icon("arrow-up-right")}</a>` : ""}
             </div>
-          </section>
+          </section>` : ""}
 
           <section class="pd-section" id="faq">
             <h2>คำถามที่พบบ่อย</h2>

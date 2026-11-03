@@ -59,25 +59,17 @@
       </div>
     </section>
 
-    <section class="section--tight section--mist">
-      <div class="container">
-        <div class="row row--between mb-6"><div><span class="eyebrow">Market Preview</span><h2 class="t-h3 mt-4">ภาพรวมตลาด</h2></div><span class="fx-updated"><span class="live"></span> ตัวอย่างการแสดงผล · ระบบจริงเชื่อมต่อข้อมูลตลาดแบบเรียลไทม์</span></div>
-        <div class="market-strip" id="marketStrip">${markets.slice(0, 4).map(mCard).join("")}</div>
-        <div class="market-strip mt-3 hide" id="marketMore">${markets.slice(4).map(mCard).join("")}</div>
-        <div class="text-center mt-6"><button class="btn btn--secondary btn--sm" id="toggleMarkets">ดูตลาดเพิ่มเติม ${icon("chevron-down")}</button></div>
-      </div>
-    </section>
 
     <section class="section" id="advisory">
       <div class="container">
-        <div class="advisory reveal" style="grid-template-columns:1fr 1fr">
+        <div class="advisory advisory--quiz reveal">
           <div class="advisory__content">
             <span class="eyebrow">LH Bank Advisory</span>
             <h2>รู้จักสไตล์การลงทุน<br>ของคุณใน 1 นาที</h2>
             <p class="t-lead">ตอบ 3 คำถามสั้นๆ เพื่อเริ่มต้น แล้วปรึกษาต่อที่ The Advisory Branch บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจรของ LH Bank</p>
             <div class="row" style="gap:12px"><a class="btn btn--light" href="#" data-modal="leadModal">ให้ที่ปรึกษาติดต่อกลับ ${icon("arrow-right")}</a></div>
           </div>
-          <div class="advisory__content" style="background:rgba(255,255,255,.04);border-left:1px solid rgba(255,255,255,.08)">
+          <div class="advisory__content advisory__quiz">
             <div class="quiz" id="quiz"></div>
           </div>
         </div>
@@ -98,10 +90,6 @@
     const up = ch >= 0;
     return `<div class="market-card"><div class="market-card__top"><span class="t-muted">${n}</span><span class="${up ? "chg-up" : "chg-down"} t-num t-sm">${up ? "+" : "−"}${Math.abs(ch).toFixed(2)}%</span></div><div class="market-card__val">${v}</div>${sparkline(series(s, 30, 100, 0.03, up ? 0.002 : -0.002), { color: up ? "#1c9a6a" : "#d14b4b" })}</div>`;
   }
-  $("#toggleMarkets").addEventListener("click", (e) => {
-    const more = $("#marketMore"); const open = more.classList.toggle("hide");
-    e.currentTarget.innerHTML = open ? `ดูตลาดเพิ่มเติม ${icon("chevron-down")}` : `ย่อ ${icon("chevron-down", "")}`;
-  });
 
   /* Funds — real codes only; live NAV comes from the AMC feed */
   $("#fundGrid").innerHTML = D.funds.map((f) => `

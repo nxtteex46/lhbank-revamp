@@ -1870,3 +1870,27 @@ a.fund-card:hover { background: var(--c-navy); }
 .btn.btn--icon { padding: 0; width: var(--bh); flex: none; }
 .btn.btn--icon svg { width: 18px; height: 18px; }
 .login-dd__menu { width: 340px; }
+
+/* ==========================================================================
+   41 — Real app logos in digital-banking menu · investment quiz layout
+   ========================================================================== */
+.login-item__icon--logo { background: #fff; border: 1px solid var(--c-line); overflow: hidden; padding: 0; }
+.login-item__icon--logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.login-item__icon--logo.is-wide { padding: 6px 4px; }
+.login-item__icon--logo.is-wide img { object-fit: contain; }
+.login-item:hover .login-item__icon--logo { background: #fff; }
+
+/* Investment quiz panel */
+.advisory--quiz { grid-template-columns: 1fr 1fr; }
+.advisory__quiz { background: rgba(255,255,255,.04); border-left: 1px solid rgba(255,255,255,.08); }
+@media (max-width: 900px) {
+  .advisory--quiz { grid-template-columns: 1fr; }
+  .advisory__quiz { border-left: 0; border-top: 1px solid rgba(255,255,255,.08); }
+}
+@media (max-width: 680px) {
+  .advisory--quiz .advisory__content { padding: 28px 22px; }
+  .advisory--quiz h2 { font-size: 1.85rem; }
+  .advisory--quiz .btn { width: 100%; }
+  .quiz__opt { padding: 14px 18px; }
+}
+.mobile-nav__foot { grid-template-columns: 1fr; }

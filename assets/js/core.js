@@ -232,14 +232,14 @@
   /* Login channels that exist at LH Bank today:
      LHB You (personal mobile banking) and LH Bank Speedy (business internet banking). */
   const LOGIN = [
-    { icon: "mobile", t: "LHB You", d: "แอปพลิเคชันของ LH Bank", h: "personal/#app", tag: "บุคคล" },
-    { icon: "gift", t: "LHB Rewards", d: "โปรโมชันและสิทธิพิเศษ", ext: "https://www.lhbank.co.th/th/personal/recommended-product-all-promotions/lhb-rewards/", tag: "บุคคล" },
-    { icon: "briefcase", t: "LHB Biz Connect", d: "บริการสำหรับลูกค้าธุรกิจ", ext: "https://www.lhbbizconnect.com", tag: "ธุรกิจ" },
-    { icon: "globe", t: "LH Bank Speedy", d: "บริการธนาคารทางอินเทอร์เน็ต", ext: "https://www.lhbankspeedy.com/", tag: "ธุรกิจ" },
+    { logo: "lhbyou-logo.svg", t: "LHB You", d: "แอปพลิเคชันของ LH Bank", h: "personal/#app", tag: "บุคคล" },
+    { logo: "lhb-rewards-logo.png", t: "LHB Rewards", d: "โปรโมชันและสิทธิพิเศษ", ext: "https://www.lhbank.co.th/th/personal/recommended-product-all-promotions/lhb-rewards/", tag: "บุคคล" },
+    { logo: "lhbbizconnect-icon.jpg", t: "LHB Biz Connect", d: "บริการสำหรับลูกค้าธุรกิจ", ext: "https://www.lhbbizconnect.com", tag: "ธุรกิจ" },
+    { logo: "logo-speedy.svg", wide: true, t: "LH Bank Speedy", d: "บริการธนาคารทางอินเทอร์เน็ต", ext: "https://www.lhbankspeedy.com/", tag: "ธุรกิจ" },
   ];
   function loginItems() {
     return LOGIN.map((x) => `<a class="login-item" role="menuitem" href="${x.ext || url(x.h)}" ${x.ext ? 'target="_blank" rel="noopener"' : ""}>
-      <span class="login-item__icon">${icon(x.icon)}</span>
+      <span class="login-item__icon ${x.logo ? "login-item__icon--logo" : ""} ${x.wide ? "is-wide" : ""}">${x.logo ? `<img src="${url("assets/img/lhbank/" + x.logo)}" alt="">` : icon(x.icon)}</span>
       <span class="login-item__text"><strong>${x.t}</strong><small>${x.d}</small></span>
       <span class="login-item__tag">${x.tag}</span></a>`).join("");
   }
@@ -303,7 +303,6 @@
                 ${loginItems()}
               </div>
             </div>
-            <a class="btn btn--primary btn--sm" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
             <button class="icon-btn menu-toggle" data-open-menu aria-label="เปิดเมนู" aria-expanded="false">${icon("menu")}</button>
           </div>
         </div>
@@ -345,7 +344,6 @@
         </div>
         <div class="mobile-nav__foot">
           <button class="btn btn--secondary" data-modal="loginModal">${icon("mobile")} ดิจิทัลแบงก์กิ้ง</button>
-          <a class="btn btn--primary" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
         </div>
       </div>`;
   }
@@ -585,25 +583,30 @@
             <h3 id="leadTitle" class="mt-3">ให้เจ้าหน้าที่ติดต่อกลับ</h3>
             <p class="t-muted t-sm mt-2">แจ้งข้อมูลให้ผู้เชี่ยวชาญของเราติดต่อกลับ เพื่อแนะนำผลิตภัณฑ์ที่เหมาะกับคุณ</p>
             <div class="stack mt-6" style="--stack:16px">
-              <div class="field"><label class="field__label" for="lf-name">ชื่อ-นามสกุล</label><input class="input" id="lf-name" required placeholder="ชื่อ นามสกุล"><span class="field__error">กรุณากรอกชื่อ-นามสกุล</span></div>
-              <div class="field"><label class="field__label" for="lf-tel">เบอร์โทรศัพท์</label><input class="input" id="lf-tel" inputmode="tel" required placeholder="08X-XXX-XXXX" pattern="[0-9\\-\\s]{9,12}"><span class="field__error">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</span></div>
-              <div class="field"><label class="field__label" for="lf-prod">ผลิตภัณฑ์ที่สนใจ</label><select class="select" id="lf-prod"><option>สินเชื่อบ้าน</option><option>บัญชีเงินฝาก</option><option>การลงทุน</option><option>สินเชื่อ SME</option><option>อื่นๆ</option></select></div>
-              <div class="field"><label class="field__label">ช่วงเวลาที่สะดวก</label><div class="segmented" style="width:100%"><button type="button" class="is-active" style="flex:1">เช้า</button><button type="button" style="flex:1">บ่าย</button><button type="button" style="flex:1">เย็น</button></div></div>
-              <label class="check"><input type="checkbox" required id="lf-consent"> ยินยอมให้ธนาคารติดต่อกลับตามนโยบายความเป็นส่วนตัว</label>
+              <div class="cols-2" style="gap:12px">
+                <div class="field"><label class="field__label" for="lf-name">ชื่อ *</label><input class="input" id="lf-name" required autocomplete="given-name"><span class="field__error">กรุณากรอกชื่อ</span></div>
+                <div class="field"><label class="field__label" for="lf-last">นามสกุล *</label><input class="input" id="lf-last" required autocomplete="family-name"><span class="field__error">กรุณากรอกนามสกุล</span></div>
+              </div>
+              <div class="field"><label class="field__label" for="lf-tel">เบอร์โทรศัพท์ *</label><input class="input" id="lf-tel" inputmode="tel" required placeholder="08X-XXX-XXXX" pattern="[0-9\\-\\s]{9,12}" autocomplete="tel"><span class="field__error">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</span></div>
+              <div class="field"><label class="field__label" for="lf-mail">อีเมล *</label><input class="input" id="lf-mail" type="email" required autocomplete="email"><span class="field__error">กรุณากรอกอีเมลให้ถูกต้อง</span></div>
+              <div class="cols-2" style="gap:12px">
+                <div class="field"><label class="field__label" for="lf-time">เวลาที่สะดวกให้ติดต่อ</label><select class="select" id="lf-time"><option value="">เลือกช่วงเวลา</option><option>09:00 - 10:00</option><option>10:00 - 11:00</option><option>11:00 - 12:00</option><option>12:00 - 13:00</option><option>13:00 - 14:00</option><option>14:00 - 15:00</option><option>15:00 - 16:00</option></select></div>
+                <div class="field"><label class="field__label" for="lf-prod">ผลิตภัณฑ์ที่สนใจ</label><select class="select" id="lf-prod"><option>สินเชื่อบ้าน</option><option>สินเชื่อส่วนบุคคล</option><option>เงินฝาก</option><option>การลงทุน</option><option>SME / ธุรกิจ</option></select></div>
+              </div>
+              <label class="check"><input type="checkbox" required id="lf-consent"> ยินยอมให้ธนาคารเก็บรวบรวมและใช้ข้อมูลข้างต้นเพื่อติดต่อกลับ ตามประกาศความเป็นส่วนตัวของธนาคาร</label>
               <button class="btn btn--primary btn--block btn--lg" type="submit">ส่งข้อมูล</button>
             </div>
           </form>
           <div id="leadDone" class="hide text-center" style="padding:24px 0">
             <div class="tile__icon" style="margin:0 auto;background:var(--c-success-bg);color:var(--c-success)">${icon("check")}</div>
             <h3 class="mt-6">ได้รับข้อมูลแล้ว</h3>
-            <p class="t-muted mt-2">เจ้าหน้าที่ของธนาคารจะติดต่อกลับตามช่วงเวลาที่คุณเลือก<br><span class="t-xs">(ตัวอย่างหน้ายืนยันในต้นแบบ)</span></p>
+            <p class="t-muted mt-2">เจ้าหน้าที่ของธนาคารจะติดต่อกลับตามข้อมูลที่แจ้งไว้<br><span class="t-xs">(ตัวอย่างหน้ายืนยันในต้นแบบ)</span></p>
             <button class="btn btn--secondary mt-8" data-close-modal>ปิด</button>
           </div>
         </div>
       </div>`;
     body.appendChild(wrap.firstElementChild);
     const form = $("#leadForm");
-    $$(".segmented button", form).forEach((b, _, all) => b.addEventListener("click", () => all.forEach((x) => x.classList.toggle("is-active", x === b))));
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       let ok = true;
