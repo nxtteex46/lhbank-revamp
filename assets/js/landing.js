@@ -227,10 +227,14 @@
             <div class="bento__head"><span class="bento__icon">${icon("target")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
             <h3>ประเมินสไตล์การลงทุน</h3>
             <p>ตอบ 3 คำถาม เพื่อรับแนวทางการลงทุนเบื้องต้น</p>
-            <div class="quiz-mini" aria-hidden="true">
-              <div class="quiz-mini__steps"><i class="on"></i><i></i><i></i></div>
-              <strong>คุณวางแผนลงทุนนานเท่าไร</strong>
-              <div class="quiz-mini__opts"><span>น้อยกว่า 1 ปี</span><span class="is-on">1–5 ปี</span><span>มากกว่า 5 ปี</span></div>
+            <div class="style-scale" aria-hidden="true">
+              <div class="style-scale__top"><span class="style-scale__tag">ตัวอย่างผลลัพธ์</span><span class="style-scale__meta">${icon("clock")} 3 คำถาม · ประมาณ 1 นาที</span></div>
+              <div class="style-scale__track"><span class="style-scale__marker"><b>Balanced</b></span></div>
+              <div class="style-scale__labels">
+                <div><strong>Conservative</strong><span>เน้นความมั่นคง</span></div>
+                <div class="is-on"><strong>Balanced</strong><span>สมดุลความเสี่ยงและผลตอบแทน</span></div>
+                <div><strong>Growth</strong><span>เน้นการเติบโตระยะยาว</span></div>
+              </div>
             </div>
           </a>
         </div>
