@@ -631,16 +631,34 @@
   document.addEventListener("input", (e) => { if (e.target.classList && e.target.classList.contains("range")) syncRange(e.target); });
 
   /* Carousel */
+  /* Pager: one dot per scroll position; active dot stretches into a pill */
+  function makePager(host, count, onGo) {
+    let pager = host.querySelector(".pager");
+    if (!pager) { pager = document.createElement("div"); pager.className = "pager"; pager.setAttribute("role", "tablist"); host.appendChild(pager); }
+    if (pager.children.length !== count) {
+      pager.innerHTML = Array.from({ length: count }, (_, k) => `<button type="button" role="tab" aria-label="ไปยังหน้า ${k + 1}"><span></span></button>`).join("");
+      Array.from(pager.children).forEach((btn, k) => btn.addEventListener("click", () => onGo(k)));
+    }
+    pager.hidden = count < 2;
+    return (active) => Array.from(pager.children).forEach((btn, k) => { btn.classList.toggle("is-active", k === active); btn.setAttribute("aria-selected", k === active); });
+  }
+
   function initCarousels(scope = document) {
     $$("[data-carousel]", scope).forEach((c) => {
       const track = $(".carousel__track", c);
-      const prev = $("[data-prev]", c), next = $("[data-next]", c), bar = $(".carousel__progress span", c);
+      const prev = $("[data-prev]", c), next = $("[data-next]", c);
+      const progress = $(".carousel__progress", c);
       const step = () => (track.firstElementChild ? track.firstElementChild.getBoundingClientRect().width + 24 : 300);
+      const pages = () => Math.max(1, Math.ceil(Math.max(0, track.scrollWidth - track.clientWidth - 4) / step()) + 1);
+      let setActive = () => {};
+      const go = (k) => track.scrollTo({ left: Math.min(k * step(), track.scrollWidth - track.clientWidth), behavior: "smooth" });
       const update = () => {
         const max = track.scrollWidth - track.clientWidth;
         if (prev) prev.disabled = track.scrollLeft <= 4;
         if (next) next.disabled = track.scrollLeft >= max - 4;
-        if (bar) { const w = Math.max(15, (track.clientWidth / track.scrollWidth) * 100); bar.style.width = w + "%"; bar.style.transform = `translateX(${max ? (track.scrollLeft / max) * ((100 - w) / w) * 100 : 0}%)`; }
+        const n = pages();
+        setActive = makePager(progress || c, n, go);
+        setActive(track.scrollLeft >= max - 4 ? n - 1 : Math.round(track.scrollLeft / step()));
       };
       prev && prev.addEventListener("click", () => track.scrollBy({ left: -step() }));
       next && next.addEventListener("click", () => track.scrollBy({ left: step() }));
@@ -685,7 +703,7 @@
   }
 
   /* Public API */
-  window.LH = { icon, $, $$, fmt, img, U, url, toast, openModal, closeModals, initAccordions, initTabs, initDropdowns, initReveal, initCarousels, sparkline, series, syncRange, ROOT, SEGMENT };
+  window.LH = { makePager, icon, $, $$, fmt, img, U, url, toast, openModal, closeModals, initAccordions, initTabs, initDropdowns, initReveal, initCarousels, sparkline, series, syncRange, ROOT, SEGMENT };
 
   /* Static-page icon placeholders: <i data-icon="name"></i> */
   $$("i[data-icon]").forEach((i) => { i.outerHTML = icon(i.dataset.icon, i.className); });

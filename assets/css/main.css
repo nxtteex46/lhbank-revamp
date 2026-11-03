@@ -1411,3 +1411,47 @@ a.fund-card:hover { background: #12304a; }
 /* Tiles & discovery: soft wash (already) — arrow chip fills */
 .tile:hover { background: var(--c-accent-50); }
 .discovery__item:hover { background: var(--c-accent-50); }
+
+/* ==========================================================================
+   26 — Pager dots (replaces scroll progress line) · Card hover "image reveal"
+   ========================================================================== */
+.carousel__progress { height: auto; background: none; border-radius: 0; overflow: visible; margin-top: 32px; }
+.carousel__progress > span { display: none; }
+.pager { display: flex; justify-content: center; gap: 4px; }
+.pager button { height: 24px; padding: 0 3px; display: grid; place-items: center; }
+.pager span { display: block; width: 8px; height: 8px; border-radius: 8px; background: var(--c-line-2); transition: width .45s var(--ease), background .45s var(--ease); }
+.pager button:hover span { background: var(--c-subtle); }
+.pager button.is-active span { width: 32px; background: var(--c-ink); }
+
+/* Card hover: no background change — image reveal instead */
+.product-card:hover, .fund-card:hover { background: var(--c-mist); }
+.fund-card:hover { background: #fff; }
+a.fund-card:hover { background: var(--c-navy); }
+.product-card::after { display: none; }
+.product-card__media { position: relative; }
+.product-card__media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,22,32,0) 35%, rgba(10,22,32,.55) 100%); opacity: 0; transition: opacity .5s var(--ease); pointer-events: none; }
+.product-card__media::after { content: "ดูรายละเอียด  →"; position: absolute; left: 50%; bottom: 18px; z-index: 2; transform: translate(-50%, 14px); opacity: 0;
+  padding: 10px 18px; border-radius: 999px; background: #fff; color: var(--c-ink); font-size: 14px; font-weight: 500; white-space: nowrap; letter-spacing: -0.005em;
+  transition: opacity .45s var(--ease), transform .45s var(--ease); pointer-events: none; }
+.product-card:hover .product-card__media::before { opacity: 1; }
+.product-card:hover .product-card__media::after { opacity: 1; transform: translate(-50%, 0); }
+.product-card:hover .media img { transform: scale(1.06); }
+
+/* Editorial cards: same reveal on their media (replaces chip) */
+.promo-card .media::after, .article-card .media::after { display: none; }
+.promo-card .media::before, .article-card .media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,22,32,0) 45%, rgba(10,22,32,.45) 100%); opacity: 0; transition: opacity .5s var(--ease); pointer-events: none; }
+.promo-card:hover .media::before, .article-card:hover .media::before { opacity: 1; }
+
+/* Tiles & discovery: keep surface; animate icon and arrow only */
+.tile:hover { background: var(--c-mist); }
+.quick-bar a:hover { background: #fff; }
+.discovery__item:hover { background: var(--c-mist); }
+.discovery__item strong { transition: color .35s var(--ease); }
+.discovery__item:hover strong { color: var(--c-accent-700); }
+.tile .tile__icon { transition: background .35s var(--ease), color .35s var(--ease); }
+.tile:hover .tile__icon { background: var(--c-accent); color: #fff; }
+.cta-option:hover { background: #fff; }
+.cta-option .tile__icon { transition: background .35s var(--ease), color .35s var(--ease); }
+.cta-option:hover .tile__icon { background: var(--c-accent); color: #fff; }
+.cat-btn:hover { background: var(--c-mist); }
+.cat-btn:not(.is-active):hover .tile__icon { background: var(--c-accent); color: #fff; }

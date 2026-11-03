@@ -160,7 +160,7 @@
               <span class="link">ดูรายละเอียด ${icon("arrow-right")}</span>
             </a>`).join("")}
         </div>
-        <div class="carousel__progress"><span></span></div>
+        <div class="carousel__progress"></div>
       </div>
     </section>`;
 
@@ -231,7 +231,7 @@
             </a>`).join("")}
         </div>
       </div>
-      <div class="container"><div class="carousel__progress campaign2__progress"><span></span></div></div>
+      <div class="container"><div class="carousel__progress campaign2__progress"></div></div>
     </section>`;
 
   S.app = () => `
@@ -395,12 +395,13 @@
 
   /* Campaign peek slider: snap scrolling, counter, progress, autoplay (pauses on hover/touch) */
   $$("[data-campaign2]", main).forEach((c) => {
-    const vp = $(".campaign2__viewport", c), slides = $$(".campaign2__slide", c), cur = $("[data-ccur]", c), bar = $(".campaign2__progress span", c), n = slides.length;
+    const vp = $(".campaign2__viewport", c), slides = $$(".campaign2__slide", c), cur = $("[data-ccur]", c), pagerHost = $(".campaign2__progress", c), n = slides.length;
     let i = 0, t;
     const base = () => slides[0].offsetLeft;
     const idx = () => { const x = vp.scrollLeft; let best = 0, d = 1e9; slides.forEach((sl, k) => { const dd = Math.abs(sl.offsetLeft - base() - x); if (dd < d) { d = dd; best = k; } }); return best; };
     const go = (k) => { i = (k + n) % n; vp.scrollTo({ left: slides[i].offsetLeft - base(), behavior: "smooth" }); };
-    const sync = () => { i = idx(); cur.textContent = String(i + 1).padStart(2, "0"); bar.style.width = 100 / n + "%"; bar.style.transform = `translateX(${i * 100}%)`; slides.forEach((sl, k) => sl.classList.toggle("is-active", k === i)); };
+    const setPager = window.LH.makePager(pagerHost, n, (k) => { go(k); play(); });
+    const sync = () => { i = idx(); cur.textContent = String(i + 1).padStart(2, "0"); setPager(i); slides.forEach((sl, k) => sl.classList.toggle("is-active", k === i)); };
     const play = () => { clearInterval(t); t = setInterval(() => go(i + 1), 6000); };
     $("[data-cprev]", c).addEventListener("click", () => { go(i - 1); play(); });
     $("[data-cnext]", c).addEventListener("click", () => { go(i + 1); play(); });
