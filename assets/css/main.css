@@ -1357,3 +1357,57 @@ h1 strong, h2 strong, h3 strong, h4 strong { font-weight: 600; }
   .campaign2__cap .badge { grid-column: 1 / -1; justify-self: start; }
   .stats2__star { align-self: flex-start; margin-top: .2em; }
 }
+
+/* ==========================================================================
+   25 — Hover style: "soft tint + reveal" — no lines on hover
+   (no outlines, no underlines, no top bars). Surface tints to a soft
+   accent wash, imagery zooms slowly, a filled arrow chip fades in,
+   text shifts colour.
+   ========================================================================== */
+/* Remove all hover lines */
+.product-card, .product-card:hover, .fund-card, .fund-card:hover { outline: none !important; }
+.promo-card h3, .article-card h3, .campaign2__title, .link { background-image: none !important; }
+.stats2__item::before { display: none; }
+.card--hover:hover { border-color: var(--c-line); }
+.chip:hover { border-color: var(--c-line-2); background: var(--c-mist); }
+.chip.is-active:hover { background: var(--c-ink); border-color: var(--c-ink); }
+.btn--secondary:hover { border-color: var(--c-line-2); background: var(--c-mist); }
+.cat-btn:hover { border-color: transparent; background: var(--c-accent-50); }
+.cat-btn.is-active:hover { background: var(--c-ink); }
+.dropdown__trigger:hover { border-color: var(--c-line-2); background: var(--c-mist); }
+
+/* Product card: soft accent wash + filled arrow chip */
+.product-card { transition: background .5s var(--ease); }
+.product-card:hover { background: var(--c-accent-50); }
+.product-card::after { background-color: var(--c-ink); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E"); transform: scale(.6); }
+.product-card:hover::after { transform: scale(1); }
+.fund-card { transition: background .5s var(--ease); }
+.fund-card:hover { background: var(--c-accent-50); }
+a.fund-card:hover { background: #12304a; }
+
+/* Editorial cards: colour shift + image zoom + arrow chip on media */
+.promo-card .media, .article-card .media { position: relative; }
+.promo-card .media::after, .article-card .media::after { content: ""; position: absolute; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--c-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / 16px no-repeat;
+  opacity: 0; transform: scale(.6); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.promo-card:hover .media::after, .article-card:hover .media::after { opacity: 1; transform: scale(1); }
+.promo-card h3, .article-card h3, .campaign2__title { transition: color .35s var(--ease); }
+.promo-card:hover h3, .article-card:hover h3, .campaign2__slide:hover .campaign2__title { color: var(--c-accent-700); }
+.promo-card .media img, .article-card .media img { transition: transform 1.4s var(--ease); }
+.promo-card:hover .media img, .article-card:hover .media img { transform: scale(1.05); }
+
+/* Campaign arrow: filled on hover (no outline ring) */
+.campaign2__go { border-color: transparent; background: var(--c-mist); }
+.campaign2__slide:hover .campaign2__go { background: var(--c-accent); border-color: transparent; color: #fff; }
+
+/* Text links: colour + arrow nudge only */
+.link { transition: color .3s var(--ease); }
+.link:hover { color: var(--c-ink); }
+
+/* Stats: number tints on hover */
+.stats2__value { transition: color .4s var(--ease); }
+.stats2__item:hover .stats2__value { color: var(--c-accent-700); }
+
+/* Tiles & discovery: soft wash (already) — arrow chip fills */
+.tile:hover { background: var(--c-accent-50); }
+.discovery__item:hover { background: var(--c-accent-50); }
