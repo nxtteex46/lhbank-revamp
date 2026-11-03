@@ -295,9 +295,9 @@
               <li>ฟังก์ชันเด่น ฟีเจอร์โดน ง่าย สะดวก คล่องตัว ครบครัน</li>
               <li>เป็น YOU ที่ Cool กว่าเดิม ด้วย Avatar ในแบบที่เป็นคุณ</li>
             </ul>
-            <div class="store-badges mt-8">
-              <a class="store-badge" href="${APPSTORE}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.2 1-4.1 2.5-1.8 3-.5 7.5 1.2 10 .8 1.2 1.8 2.6 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.3-4.1zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.9-1.4z"/></svg><span>Download on the<strong>App Store</strong></span></a>
-              <a class="store-badge" href="${PLAY}" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M4 2.8v18.4c0 .4.4.7.8.5l10.4-9.7L4.8 2.3c-.4-.2-.8.1-.8.5zm12.2 8.3 2.9-2.7-12-6.6 9.1 9.3zm0 1.8-9.1 9.3 12-6.6-2.9-2.7zm4.3-2.1-2.4-1.3-3.1 2.5 3.1 2.5 2.4-1.3c.7-.5.7-1.9 0-2.4z"/></svg><span>Get it on<strong>Google Play</strong></span></a>
+            <div class="store-badges store-badges--real mt-8">
+              <a href="${APPSTORE}" target="_blank" rel="noopener" aria-label="Download on the App Store"><img src="${A("badge-app-store.svg")}" alt="Download on the App Store" height="52"></a>
+              <a href="${PLAY}" target="_blank" rel="noopener" aria-label="Get it on Google Play"><img src="${A("badge-google-play.png")}" alt="Get it on Google Play" height="52"></a>
             </div>
           </div>
           <div class="app-shots reveal">

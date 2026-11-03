@@ -1762,3 +1762,79 @@ a.fund-card:hover { background: var(--c-navy); }
 .br-filter__clear { font-size: 13px; font-weight: 500; color: var(--c-accent-700); padding: 6px 4px; }
 .br-filter__clear:disabled { color: var(--c-subtle); cursor: default; }
 .br-filter__clear:not(:disabled):hover { color: var(--c-ink); }
+
+/* ==========================================================================
+   37 — Real store badges · softer category hover · help card contrast ·
+        calculator drawer (side panel desktop / bottom sheet mobile)
+   ========================================================================== */
+/* Official badges */
+.store-badges--real { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.store-badges--real a { display: block; border-radius: 10px; transition: opacity .35s var(--ease), transform .45s var(--ease); }
+.store-badges--real img { height: 52px; width: auto; display: block; }
+.store-badges--real a:hover { opacity: .85; transform: translateY(-2px); }
+
+/* Category buttons (listing): gentle hover */
+.cat-btn { transition: background .5s var(--ease), color .4s var(--ease), border-color .5s var(--ease); }
+.cat-btn .tile__icon { transition: background .5s var(--ease), color .5s var(--ease), transform .6s var(--ease); }
+.cat-btn:not(.is-active):hover { background: #fff; }
+.cat-btn:not(.is-active):hover .tile__icon { background: var(--c-accent-100); color: var(--c-accent-700); transform: translateY(-2px); }
+.cat-btn:not(.is-active):hover strong { color: var(--c-accent-700); }
+.cat-btn strong { transition: color .4s var(--ease); }
+
+/* Help card: navy surface so the button stands out */
+.help-card { padding: 22px; border-radius: var(--r-lg); background: var(--c-navy); color: #fff; }
+.help-card__icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.1); color: #a9dcf0; display: grid; place-items: center; flex: none; }
+.help-card__icon .ico { width: 22px; height: 22px; }
+.help-card__sub { color: rgba(255,255,255,.65); }
+.help-card__actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 16px; }
+
+/* Calculator drawer */
+.calc-drawer { position: fixed; inset: 0; z-index: 190; }
+.calc-drawer[hidden] { display: none; }
+.calc-drawer__backdrop { position: absolute; inset: 0; background: rgba(10,22,32,.42); opacity: 0; transition: opacity .35s var(--ease); }
+.calc-drawer__panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(480px, 100%); background: #fff; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .4s var(--ease); }
+.calc-drawer.is-open .calc-drawer__backdrop { opacity: 1; }
+.calc-drawer.is-open .calc-drawer__panel { transform: none; }
+.calc-drawer__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 24px 24px 16px; border-bottom: 1px solid var(--c-line); }
+.calc-drawer__head h3 { font-size: 1.5rem; }
+.calc-drawer__body { flex: 1; overflow-y: auto; padding: 20px 24px; display: grid; gap: 20px; align-content: start; }
+.calc-drawer__foot { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px 24px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--c-line); }
+.calc-drawer__foot .btn { padding: 0 14px; }
+.cd-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cd-opt { display: grid; gap: 2px; text-align: left; padding: 12px; border-radius: 14px; background: var(--c-mist); border: 1.5px solid transparent; transition: border-color .3s var(--ease), background .3s; }
+.cd-opt strong { font-size: 1.15rem; font-weight: 500; }
+.cd-opt span { font-size: 12.5px; color: var(--c-muted); line-height: 1.35; }
+.cd-opt.is-active { background: var(--c-accent-50); border-color: var(--c-accent); }
+.cd-field { display: grid; gap: 8px; }
+.cd-field__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: var(--t-sm); }
+.cd-field__row label { color: var(--c-ink-2); }
+.cd-field__row strong { font-weight: 600; }
+.cd-result { padding: 20px 22px; border-radius: 20px; background: var(--c-navy); color: #fff; display: grid; gap: 6px; }
+.cd-result > span { font-size: 13px; color: rgba(255,255,255,.65); }
+.cd-result > strong { font-family: var(--f-num); font-weight: 300; font-size: 2.6rem; letter-spacing: -0.04em; line-height: 1.05; }
+.cd-result__rows { display: grid; gap: 6px; margin-top: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13px; }
+.cd-result__rows div { display: flex; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.65); }
+.cd-result__rows b { color: #fff; font-weight: 500; }
+@media (max-width: 680px) {
+  .calc-drawer__panel { top: auto; left: 0; width: 100%; max-height: 92vh; border-radius: 24px 24px 0 0; transform: translateY(100%); }
+  .calc-drawer__panel::before { content: ""; display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--c-line-2); margin: 10px auto 0; }
+  .calc-drawer__head { padding-top: 12px; }
+  .cd-opts { grid-template-columns: 1fr; }
+  .cd-opt { grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; }
+  .cd-opt strong { grid-row: span 2; }
+  .calc-drawer__foot { grid-template-columns: 1fr; }
+}
+
+/* 38 — Mobile overflow fix: grid/flex children may shrink below content width
+   (wide tables and scroll rows were widening the mobile layout viewport) */
+:where(.pd-layout, .pd-hero, .fx-layout, .ds-layout, .grid, .listing, .calc, .hero__grid, .discovery, .discovery__panel, .cta-band, .app-real, .privilege__inner, .advisory, .bento, .locator, .cols-2, .cols-3, .cols-4, .section-head, .hero2__content, .calc-drawer__body, .stack) > * { min-width: 0; }
+.table-wrap { max-width: 100%; }
+.ds-nav { max-width: 100%; }
+.section-head__text { max-width: min(640px, 100%); }
+#fxRound { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+#fxRound::-webkit-scrollbar { display: none; }
+#fxRound button { flex: none; }
+.bar-chart__col:nth-last-child(-n+5) .bar-tip { left: auto; right: 0; transform: none; }
+.section-head .segmented { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.section-head .segmented::-webkit-scrollbar { display: none; }
+.section-head .segmented button { flex: none; }

@@ -127,9 +127,9 @@
             <ul class="check-list" style="gap:10px;font-size:.9rem">${p.facts.map((f) => `<li>${f}</li>`).join("")}</ul>
             <div class="stack mt-6" style="--stack:10px">${primaryBtn("btn--primary btn--block")}${secondaryBtn("btn--secondary btn--block")}</div>
           </div>
-          <div class="card card--mist mt-4" style="padding:22px">
-            <div class="row" style="gap:14px"><span class="tile__icon" style="width:44px;height:44px">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs t-muted">LH Bank Call Center โทร 1327</div></div></div>
-            <button class="btn btn--ghost btn--sm btn--block mt-4" data-modal="leadModal">ให้ติดต่อกลับ</button>
+          <div class="help-card mt-4">
+            <div class="row" style="gap:14px;flex-wrap:nowrap"><span class="help-card__icon">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs help-card__sub">LH Bank Call Center โทร 1327</div></div></div>
+            <div class="help-card__actions"><button class="btn btn--light btn--sm" data-modal="leadModal">ให้ติดต่อกลับ</button><a class="btn btn--outline-light btn--sm" href="tel:1327">${icon("phone")} 1327</a></div>
           </div>
         </aside>
       </div>
@@ -185,4 +185,73 @@
   };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  /* Calculator drawer — opens from "คำนวณค่างวด" so the reader keeps the
+     product context; real Home 1st Class rate options; link to full page. */
+  if (p.calc) {
+    const OPTS = [
+      ["mrta", "ทำประกัน MRTA/MLTA", "ไม่ฟรีค่าจดจำนอง", [2.64, 2.67, 2.67]],
+      ["mrta-free", "ทำประกัน MRTA/MLTA", "ฟรีค่าจดจำนอง", [2.79, 2.82, 2.82]],
+      ["no-mrta", "ไม่ทำประกัน", "ไม่ฟรีค่าจดจำนอง", [3.12, 3.15, 3.15]],
+    ];
+    const FLOAT = 5.17;
+    const st = { opt: "mrta", price: 4500000, down: 10, years: 30 };
+    const wrap = document.createElement("div");
+    wrap.innerHTML = `
+      <div class="calc-drawer" id="calcDrawer" role="dialog" aria-modal="true" aria-labelledby="cdTitle" hidden>
+        <div class="calc-drawer__backdrop" data-cd-close></div>
+        <div class="calc-drawer__panel">
+          <div class="calc-drawer__head">
+            <div><span class="eyebrow">${p.name}</span><h3 id="cdTitle" class="mt-3">คำนวณค่างวด</h3></div>
+            <button class="icon-btn" data-cd-close aria-label="ปิด">${icon("close")}</button>
+          </div>
+          <div class="calc-drawer__body">
+            <div class="cd-opts" role="radiogroup" aria-label="แบบอัตราดอกเบี้ย">${OPTS.map(([k, a, b2, t]) => `<button type="button" class="cd-opt" data-opt="${k}" role="radio"><strong class="t-num">${(t.reduce((x, y) => x + y, 0) / 3).toFixed(2)}%</strong><span>${a}</span><span>${b2}</span></button>`).join("")}</div>
+            <div class="cd-field"><div class="cd-field__row"><label for="cd-price">ราคาบ้าน</label><strong class="t-num" data-out="price"></strong></div><input class="range" type="range" id="cd-price" data-k="price" min="2000000" max="30000000" step="50000"></div>
+            <div class="cd-field"><div class="cd-field__row"><label for="cd-down">เงินดาวน์</label><strong class="t-num" data-out="down"></strong></div><input class="range" type="range" id="cd-down" data-k="down" min="0" max="50" step="1"></div>
+            <div class="cd-field"><div class="cd-field__row"><label for="cd-years">ระยะเวลาผ่อน</label><strong class="t-num" data-out="years"></strong></div><input class="range" type="range" id="cd-years" data-k="years" min="5" max="40" step="1"></div>
+            <div class="cd-result" aria-live="polite">
+              <span>ค่างวดต่อเดือน (ปีที่ 1–3)</span>
+              <strong class="t-num" data-out="pay1"></strong>
+              <div class="cd-result__rows"><div><span>หลังปีที่ 3 (MRR − 3.01% = 5.17%)</span><b class="t-num" data-out="pay2"></b></div><div><span>วงเงินกู้</span><b class="t-num" data-out="loan"></b></div></div>
+            </div>
+            <p class="t-xs t-muted">ผลการคำนวณเป็นการประมาณการเบื้องต้น ภายใต้หลักเกณฑ์และเงื่อนไขของธนาคาร · อัตรา Home 1st Class ประกาศ ณ 1 พ.ย. 2569</p>
+          </div>
+          <div class="calc-drawer__foot">
+            <a class="btn btn--secondary" data-cd-full href="#">เครื่องคำนวณแบบเต็ม ${icon("arrow-up-right")}</a>
+            <button class="btn btn--primary" data-modal="applyModal">${cta} ${icon("arrow-right")}</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap.firstElementChild);
+    const dr = $("#calcDrawer");
+    const pmt = (r, n, pv) => { const i = r / 1200; return (pv * i) / (1 - Math.pow(1 + i, -n)); };
+    const fmtB = (v) => "฿" + Math.round(v).toLocaleString("en-US");
+    const calc = () => {
+      const o = OPTS.find((x) => x[0] === st.opt), avg = o[3].reduce((x, y) => x + y, 0) / 3;
+      const loan = st.price * (1 - st.down / 100), n = st.years * 12, pay1 = pmt(avg, n, loan);
+      let bal = loan; for (let m = 0; m < 36 && m < n; m++) { const r = (o[3][Math.floor(m / 12)] || avg) / 1200; bal -= pay1 - bal * r; }
+      const pay2 = n > 36 ? pmt(FLOAT, n - 36, Math.max(bal, 0)) : 0;
+      $("[data-out=price]", dr).textContent = fmtB(st.price);
+      $("[data-out=down]", dr).textContent = `${st.down}% · ${fmtB(st.price * st.down / 100)}`;
+      $("[data-out=years]", dr).textContent = st.years + " ปี";
+      $("[data-out=pay1]", dr).textContent = fmtB(pay1);
+      $("[data-out=pay2]", dr).textContent = n > 36 ? fmtB(pay2) + " /เดือน" : "–";
+      $("[data-out=loan]", dr).textContent = fmtB(loan);
+      $$(".cd-opt", dr).forEach((b2) => { const on = b2.dataset.opt === st.opt; b2.classList.toggle("is-active", on); b2.setAttribute("aria-checked", on); });
+      $$("input[data-k]", dr).forEach((r) => window.LH.syncRange(r));
+      $("[data-cd-full]", dr).href = url(`personal/calculator/home-loan/?product=${st.opt}&price=${st.price}&down=${st.down}&years=${st.years}`);
+    };
+    $$("input[data-k]", dr).forEach((r) => { r.value = st[r.dataset.k]; r.addEventListener("input", () => { st[r.dataset.k] = +r.value; calc(); }); });
+    dr.addEventListener("click", (e) => { const o = e.target.closest("[data-opt]"); if (o) { st.opt = o.dataset.opt; calc(); } if (e.target.closest("[data-cd-close]")) closeCD(); });
+    let lastFocus = null;
+    const openCD = () => { lastFocus = document.activeElement; dr.hidden = false; requestAnimationFrame(() => dr.classList.add("is-open")); document.body.classList.add("is-locked"); calc(); setTimeout(() => $(".cd-opt.is-active", dr)?.focus({ preventScroll: true }), 350); };
+    function closeCD() { dr.classList.remove("is-open"); document.body.classList.remove("is-locked"); setTimeout(() => { dr.hidden = true; lastFocus && lastFocus.focus({ preventScroll: true }); }, 380); }
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !dr.hidden) closeCD(); });
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest('a[href*="calculator/home-loan"]');
+      if (!a || a.closest("#calcDrawer") || /mode=afford/.test(a.getAttribute("href"))) return;
+      e.preventDefault(); openCD();
+    });
+  }
 })();
