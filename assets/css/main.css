@@ -1698,3 +1698,19 @@ a.fund-card:hover { background: var(--c-navy); }
 @media (max-width: 1024px) { .style-scale { grid-column: 1; grid-row: auto; margin-top: 12px; } }
 @media (max-width: 680px) { .style-scale { padding: 20px; } .style-scale__labels span { display: none; } }
 @media (prefers-reduced-motion: reduce) { .bento__card--quiz:hover .style-scale__marker { animation: none; } }
+
+/* ==========================================================================
+   34 — Branch locator: LH Bank logo pins
+   ========================================================================== */
+.pin--logo { padding: 0; background: none; }
+.pin--logo .pin__dot { display: none; }
+.pin__tag { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 11px; background: #fff; box-shadow: 0 8px 18px -8px rgba(10,22,32,.45); transition: background .3s var(--ease); }
+.pin__tag::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; background: inherit; transform: rotate(45deg); border-radius: 2px; }
+.pin__logo { position: relative; z-index: 1; height: 14px; width: auto; display: block; }
+.pin__logo--white { display: none; }
+.pin__tag em { position: relative; z-index: 1; font-style: normal; font-size: 10px; font-weight: 600; letter-spacing: .04em; color: var(--c-accent-700); background: var(--c-accent-50); padding: 2px 6px; border-radius: 6px; }
+.pin--logo:hover .pin__tag, .pin--logo.is-active .pin__tag { background: var(--c-ink); }
+.pin--logo:hover .pin__logo, .pin--logo.is-active .pin__logo { display: none; }
+.pin--logo:hover .pin__logo--white, .pin--logo.is-active .pin__logo--white { display: block; }
+.pin--logo:hover .pin__tag em, .pin--logo.is-active .pin__tag em { background: rgba(255,255,255,.14); color: #fff; }
+.pin--logo:hover { z-index: 6; }

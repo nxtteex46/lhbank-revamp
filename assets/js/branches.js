@@ -3,7 +3,7 @@
    Map is a stylised vector basemap so the prototype works offline;
    swap for Google Maps / Longdo Map in the full build. */
 (function () {
-  const { icon, $, $$, fmt, toast, initDropdowns } = window.LH;
+  const { icon, $, $$, fmt, toast, initDropdowns, url } = window.LH;
   const D = window.LHDATA;
   const qs = new URLSearchParams(location.search);
   const state = { q: "", prov: "all", type: qs.get("type") === "sme" ? "sme" : "all", svc: new Set(), openNow: false, me: null, active: null };
@@ -44,7 +44,7 @@
       <path d="${path(river)}" fill="none" stroke="#bfdcea" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
       ${labels.map(([t, a, b]) => { const [x, y] = xy(a, b); return `<text x="${x}" y="${y}" font-size="15" fill="#8a9aa5" font-family="Anuphan, sans-serif" text-anchor="middle" font-weight="500">${t}</text>`; }).join("")}
     </svg>
-    ${D.branches.map((b, i) => { const [x, y] = xy(b.lat, b.lng); return `<button class="pin ${b.type === "sme" ? "pin--sme" : ""}" data-pin="${b.id}" style="left:${x}px;top:${y}px" aria-label="${b.name}"><span class="pin__dot"><span>${b.type === "sme" ? "S" : "LH"}</span></span></button>`; }).join("")}
+    ${D.branches.map((b, i) => { const [x, y] = xy(b.lat, b.lng); return `<button class="pin pin--logo ${b.type === "sme" ? "pin--sme" : ""}" data-pin="${b.id}" style="left:${x}px;top:${y}px" aria-label="${b.name}"><span class="pin__tag"><img class="pin__logo" src="${url("assets/img/lhbank/logo.svg")}" alt=""><img class="pin__logo pin__logo--white" src="${url("assets/img/lhbank/logo-white.svg")}" alt="">${b.type === "sme" ? "<em>SME</em>" : ""}</span></button>`; }).join("")}
     <span class="map__me hide" id="meDot"></span>`;
 
   /* ---------- Pan / zoom ---------- */
