@@ -1522,3 +1522,86 @@ a.fund-card:hover { background: var(--c-navy); }
 .cta-option > .ico:last-child { width: 38px; height: 38px; padding: 11px; border-radius: 50%; box-sizing: border-box; flex: none;
   transition: background .4s var(--ease), color .4s var(--ease), transform .45s var(--ease); }
 .cta-option:hover > .ico:last-child { background: var(--c-ink); color: #fff; transform: rotate(-45deg); }
+
+/* ==========================================================================
+   29 — Articles hover (match promotions) · Tools & Services bento
+   ========================================================================== */
+/* Articles: white arrow chip top-right of image, subtle zoom, no overlay / colour */
+.article-card .media::before { display: none; }
+.article-card:hover h3 { color: inherit; }
+.article-card .media::after {
+  display: block; content: ""; position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; border-radius: 50%; z-index: 3; bottom: auto; left: auto;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%230a1620' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / 16px no-repeat;
+  opacity: 0; transform: translate(-6px, 6px) scale(.85); transition: opacity .4s var(--ease), transform .4s var(--ease); pointer-events: none;
+}
+.article-card:hover .media::after { opacity: 1; transform: none; }
+.article-card:hover .media img { transform: scale(1.03); }
+
+/* Bento grid */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+.bento__card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: 28px; background: var(--c-mist); overflow: hidden; min-height: 300px; isolation: isolate; }
+.bento__card--calc { grid-column: span 7; grid-row: span 2; background: var(--c-navy); color: #fff; }
+.bento__card--fx { grid-column: span 5; }
+.bento__card--branch { grid-column: span 5; }
+.bento__card--quiz { grid-column: span 7; }
+.bento__card h3 { font-family: var(--f-display); font-weight: 500; font-size: 1.35rem; letter-spacing: -0.02em; margin-top: 12px; }
+.bento__card p { font-size: var(--t-sm); color: var(--c-muted); max-width: 38ch; }
+.bento__card--calc p { color: rgba(255,255,255,.68); }
+.bento__head { display: flex; justify-content: space-between; align-items: center; }
+.bento__icon { width: 48px; height: 48px; border-radius: 14px; background: #fff; color: var(--c-accent-700); display: grid; place-items: center; transition: transform .45s var(--ease); }
+.bento__icon .ico { width: 22px; height: 22px; }
+.bento__card--calc .bento__icon { background: rgba(255,255,255,.1); color: #a9dcf0; }
+.bento__arrow { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--c-ink); transition: background .4s var(--ease), color .4s var(--ease), transform .45s var(--ease); }
+.bento__arrow .ico { width: 16px; height: 16px; }
+.bento__card--calc .bento__arrow { background: rgba(255,255,255,.1); color: #fff; }
+.bento__card:hover .bento__arrow { background: var(--c-ink); color: #fff; transform: rotate(-45deg); }
+.bento__card--calc:hover .bento__arrow { background: #fff; color: var(--c-ink); }
+.bento__card:hover .bento__icon { transform: scale(1.08); }
+
+/* Calculator preview */
+.calc-mini { margin-top: auto; padding: 22px 24px; border-radius: 20px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); display: grid; gap: 12px; }
+.calc-mini__row { display: flex; justify-content: space-between; font-size: var(--t-sm); color: rgba(255,255,255,.7); }
+.calc-mini__row strong { color: #fff; font-weight: 500; }
+.calc-mini__track { position: relative; height: 4px; border-radius: 4px; background: rgba(255,255,255,.14); margin-bottom: 6px; }
+.calc-mini__track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--c-accent); transition: width .8s var(--ease); }
+.calc-mini__track b { position: absolute; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: #fff; transition: left .8s var(--ease); }
+.bento__card--calc:hover .calc-mini__track:first-of-type i { width: 46% !important; }
+.bento__card--calc:hover .calc-mini__track:first-of-type b { left: 46% !important; }
+.calc-mini__result { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 14px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,.1); font-size: 13px; color: rgba(255,255,255,.65); }
+.calc-mini__result strong { font-family: var(--f-num); font-weight: 300; font-size: 2.4rem; letter-spacing: -0.04em; color: #fff; line-height: 1; }
+
+/* FX preview */
+.fx-mini { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+.fx-mini span { padding: 8px 14px; border-radius: 999px; background: #fff; font-size: 13px; font-weight: 500; font-family: var(--f-num); transition: transform .45s var(--ease); }
+.bento__card--fx:hover .fx-mini span:nth-child(odd) { transform: translateY(-3px); }
+
+/* Map preview */
+.map-mini { position: relative; margin-top: auto; height: 120px; border-radius: 18px; overflow: hidden;
+  background: linear-gradient(transparent 49%, rgba(10,22,32,.06) 50%, transparent 51%) 0 0 / 100% 28px, linear-gradient(90deg, transparent 49%, rgba(10,22,32,.06) 50%, transparent 51%) 0 0 / 28px 100%, #eaf1f4; }
+.map-mini::before { content: ""; position: absolute; left: -10%; right: -10%; top: 40%; height: 14px; background: #fff; transform: rotate(-8deg); }
+.map-mini::after { content: ""; position: absolute; top: -10%; bottom: -10%; left: 62%; width: 12px; background: #cfe5ef; transform: rotate(12deg); }
+.map-mini i { position: absolute; z-index: 1; width: 22px; height: 22px; margin: -22px 0 0 -11px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #fff; border: 2px solid var(--c-accent); transition: transform .45s var(--ease); }
+.map-mini i.me { width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; transform: none; background: var(--c-accent); border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(57,163,206,.2); }
+.bento__card--branch:hover .map-mini i:not(.me) { transform: rotate(-45deg) translate(2px, -2px) scale(1.12); }
+
+/* Quiz preview */
+.quiz-mini { margin-top: auto; padding: 20px 22px; border-radius: 20px; background: #fff; display: grid; gap: 12px; }
+.quiz-mini__steps { display: flex; gap: 6px; }
+.quiz-mini__steps i { height: 3px; flex: 1; border-radius: 3px; background: var(--c-line); }
+.quiz-mini__steps i.on { background: var(--c-accent); }
+.quiz-mini strong { font-family: var(--f-display); font-weight: 500; font-size: 1rem; }
+.quiz-mini__opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.quiz-mini__opts span { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-line-2); font-size: 13px; transition: background .4s var(--ease), color .4s, border-color .4s; }
+.quiz-mini__opts span.is-on { background: var(--c-ink); color: #fff; border-color: var(--c-ink); }
+
+@media (max-width: 1024px) {
+  .bento__card--calc, .bento__card--fx, .bento__card--branch, .bento__card--quiz { grid-column: span 12; grid-row: auto; }
+  .bento__card { min-height: 0; }
+}
+@media (max-width: 680px) { .bento__card { padding: 22px; border-radius: 24px; } .calc-mini__result strong { font-size: 2rem; } }
+.bento__card--quiz { grid-column: span 12; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 48px; row-gap: 10px; min-height: 0; align-content: start; }
+.bento__card--quiz > .bento__head, .bento__card--quiz > h3, .bento__card--quiz > p { grid-column: 1; }
+.bento__card--quiz .quiz-mini { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; align-self: center; }
+@media (max-width: 1024px) { .bento__card--quiz { grid-template-columns: 1fr; } .bento__card--quiz .quiz-mini { grid-column: 1; grid-row: auto; margin-top: 12px; } }
+.bento__card--calc:hover .calc-mini__row:first-child + .calc-mini__track i { width: 46% !important; }
+.bento__card--calc:hover .calc-mini__row:first-child + .calc-mini__track b { left: 46% !important; }

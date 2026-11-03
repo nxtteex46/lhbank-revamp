@@ -186,12 +186,48 @@
       </div>
     </section>`;
 
+  /* Tools & Services — bento grid with live-looking previews */
   S.tools = (c) => `
-    <section class="section section--sand">
+    <section class="section tools2">
       <div class="container">
-        <div class="section-head reveal"><div class="section-head__text"><span class="eyebrow">${c.eyebrow}</span><h2>${c.title}</h2></div></div>
-        <div class="cols-4 reveal">
-          ${c.items.map(([ic, t, d, h]) => `<a class="tile" href="${url(h)}" style="background:#fff"><span class="tile__icon">${icon(ic)}</span><span class="tile__arrow">${icon("arrow-right")}</span><span class="tile__title">${t}</span><span class="t-sm t-muted">${d}</span></a>`).join("")}
+        <div class="section-head reveal">
+          <div class="section-head__text"><span class="eyebrow">${c.eyebrow}</span><h2>${c.title}</h2><p class="t-lead">${c.lead}</p></div>
+        </div>
+        <div class="bento reveal">
+          <a class="bento__card bento__card--calc" href="${url("personal/calculator/home-loan/")}">
+            <div class="bento__head"><span class="bento__icon">${icon("calc")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
+            <h3>คำนวณสินเชื่อบ้าน</h3>
+            <p>ประเมินค่างวดและวงเงินกู้ ด้วยอัตราดอกเบี้ยจริงของ Home 1st Class</p>
+            <div class="calc-mini" aria-hidden="true">
+              <div class="calc-mini__row"><span>วงเงินกู้</span><strong class="t-num">฿3,000,000</strong></div>
+              <div class="calc-mini__track"><i style="width:38%"></i><b style="left:38%"></b></div>
+              <div class="calc-mini__row"><span>ระยะเวลาผ่อน</span><strong class="t-num">30 ปี</strong></div>
+              <div class="calc-mini__track"><i style="width:71%"></i><b style="left:71%"></b></div>
+              <div class="calc-mini__result"><span>ค่างวดต่อเดือน (3 ปีแรก · 2.66%)</span><strong class="t-num">฿12,105</strong></div>
+            </div>
+          </a>
+          <a class="bento__card bento__card--fx" href="${url("exchange-rates/")}">
+            <div class="bento__head"><span class="bento__icon">${icon("swap")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
+            <h3>อัตราแลกเปลี่ยน</h3>
+            <p>ซื้อ-ขาย ธนบัตรและโอน พร้อมข้อมูลย้อนหลัง</p>
+            <div class="fx-mini" aria-hidden="true">${["🇺🇸 USD", "🇪🇺 EUR", "🇯🇵 JPY", "🇬🇧 GBP", "🇸🇬 SGD", "🇨🇳 CNY"].map((x) => `<span>${x}</span>`).join("")}</div>
+          </a>
+          <a class="bento__card bento__card--branch" href="${url("branch-locations/")}">
+            <div class="bento__head"><span class="bento__icon">${icon("pin")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
+            <h3>ค้นหาสาขา</h3>
+            <p>สาขาใกล้คุณ พร้อมเวลาทำการและบริการ</p>
+            <div class="map-mini" aria-hidden="true"><i style="left:22%;top:58%"></i><i style="left:48%;top:34%"></i><i style="left:70%;top:62%"></i><i class="me" style="left:56%;top:52%"></i></div>
+          </a>
+          <a class="bento__card bento__card--quiz" href="${url("personal/investments/#advisory")}">
+            <div class="bento__head"><span class="bento__icon">${icon("target")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
+            <h3>ประเมินสไตล์การลงทุน</h3>
+            <p>ตอบ 3 คำถาม เพื่อรับแนวทางการลงทุนเบื้องต้น</p>
+            <div class="quiz-mini" aria-hidden="true">
+              <div class="quiz-mini__steps"><i class="on"></i><i></i><i></i></div>
+              <strong>คุณวางแผนลงทุนนานเท่าไร</strong>
+              <div class="quiz-mini__opts"><span>น้อยกว่า 1 ปี</span><span class="is-on">1–5 ปี</span><span>มากกว่า 5 ปี</span></div>
+            </div>
+          </a>
         </div>
       </div>
     </section>`;
@@ -342,7 +378,7 @@
         { img: "photo-1529333166437-7750a6dd5a70", tag: "สินเชื่อบุคคล", until: "ตามเงื่อนไขธนาคาร", title: "สินเชื่อส่วนบุคคล Happy Cash ดอกเบี้ยเริ่มเพียง 8.88% ต่อปี นานสูงสุด 5 ปี*", href: "personal/product/?id=happy-cash" },
       ] }],
       ["advisory", { eyebrow: "The Advisory Branch", title: "ที่ปรึกษาการเงิน<br>ที่เข้าใจคุณ", lead: "บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร ช่วยให้คุณเข้าใจผลิตภัณฑ์ เปรียบเทียบทางเลือก และตัดสินใจได้อย่างมั่นใจ", points: ["วางแผนการเงินตามช่วงชีวิตและเป้าหมาย", "แนะนำผลิตภัณฑ์เงินฝาก สินเชื่อ ประกัน และการลงทุน", "ติดต่อได้ทั้งที่สาขา และ LH Bank Call Center 1327"], cta: "ให้ที่ปรึกษาติดต่อกลับ", img: "photo-1573497019236-17f8177b81e8", avatar: null, advisor: "The Advisory Branch", role: "วางแผนการเงินและการลงทุน" }],
-      ["tools", { eyebrow: "Tools & Services", title: "เครื่องมือช่วยตัดสินใจ", items: [["calc", "คำนวณสินเชื่อบ้าน", "อัตราผ่อนชำระ และวงเงินกู้", "personal/calculator/home-loan/"], ["swap", "อัตราแลกเปลี่ยน", "ซื้อ-ขาย และข้อมูลย้อนหลัง", "exchange-rates/"], ["pin", "ค้นหาสาขา", "สาขาและเวลาทำการ", "branch-locations/"], ["target", "ประเมินสไตล์การลงทุน", "แนวทางเบื้องต้นใน 1 นาที", "personal/investments/#advisory"]] }],
+      ["tools", { eyebrow: "Tools & Services", title: "เครื่องมือช่วยตัดสินใจ", lead: "เครื่องมือที่ช่วยให้คุณวางแผน เปรียบเทียบ และตัดสินใจได้ง่ายขึ้น" }],
       ["app", {}],
       ["articles", { eyebrow: "Insights", title: "ความรู้และข่าวสาร", items: [["photo-1600210492486-724fe5c67fb0", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["photo-1573497019236-17f8177b81e8", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"], ["photo-1609220136736-443140cffec6", "ข่าวสารและกิจกรรม", "กลุ่มธุรกิจทางการเงินแลนด์ แอนด์ เฮ้าส์ มอบเงินสนับสนุนการจำหน่ายช่อดอกมะลิโครงการ “รวมใจรักแม่” ให้แก่สภาสังคมสงเคราะห์ฯ", "ข่าวสาร"]] }],
       ["cta", { eyebrow: "เริ่มต้นวันนี้", title: "พร้อมก้าวต่อไป<br>กับ LH Bank", lead: "เลือกช่องทางที่สะดวกสำหรับคุณ เราพร้อมดูแลทุกขั้นตอน", options: [["home", "สมัครสินเชื่อบ้าน", "Home 1st Class เริ่มต้น 2.64%*", "personal/product/?id=home-1st-class"], ["headset", "ให้เจ้าหน้าที่ติดต่อกลับ", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ", "", "leadModal"], ["pin", "ค้นหาสาขา", "สาขาใกล้คุณและเวลาทำการ", "branch-locations/"]] }],
