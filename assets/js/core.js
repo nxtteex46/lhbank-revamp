@@ -228,6 +228,30 @@
     ], feature: null },
   ];
 
+
+  /* Login channels that exist at LH Bank today:
+     LHB You (personal mobile banking) and LH Bank Speedy (business internet banking). */
+  const LOGIN = [
+    { icon: "mobile", t: "LHB You", d: "ลูกค้าบุคคล · Mobile Banking", h: "personal/#app", tag: "บุคคล" },
+    { icon: "briefcase", t: "LH Bank Speedy", d: "ลูกค้าธุรกิจ · Internet Banking", h: "#", toast: "ไปยังระบบ LH Bank Speedy (ระบบเดิมของธนาคาร)", tag: "ธุรกิจ" },
+  ];
+  function loginItems() {
+    return LOGIN.map((x) => `<a class="login-item" role="menuitem" href="${x.h === "#" ? "#" : url(x.h)}" ${x.toast ? `data-toast="${x.toast}"` : ""}>
+      <span class="login-item__icon">${icon(x.icon)}</span>
+      <span class="login-item__text"><strong>${x.t}</strong><small>${x.d}</small></span>
+      <span class="login-item__tag">${x.tag}</span></a>`).join("");
+  }
+  function renderLoginModal() {
+    if (document.getElementById("loginModal")) return;
+    const w = document.createElement("div");
+    w.innerHTML = `<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><div class="modal__backdrop"></div><div class="modal__dialog">
+      <button class="icon-btn modal__close" data-close-modal aria-label="ปิด">${icon("close")}</button>
+      <span class="eyebrow">เข้าสู่ระบบ</span><h3 id="loginTitle" class="mt-3">เลือกช่องทางของคุณ</h3>
+      <div class="login-list mt-6">${loginItems()}</div>
+      <p class="t-xs t-muted mt-6">ระบบเข้าสู่ระบบเป็นระบบเดิมของธนาคาร (นอกขอบเขตงานออกแบบ)</p></div></div>`;
+    document.body.appendChild(w.firstElementChild);
+  }
+
   /* ---------- Header ---------- */
   function renderHeader() {
     const el = $("#site-header");
@@ -271,7 +295,12 @@
           <nav aria-label="เมนูหลัก" style="height:100%;flex:1;display:flex"><ul class="nav" role="list" style="margin:0;padding:0">${navItems}</ul></nav>
           <div class="header-actions">
             <button class="icon-btn" data-open-search aria-label="ค้นหา">${icon("search")}</button>
-            <a class="btn btn--secondary btn--sm hide-tablet" href="#" data-toast="เข้าสู่ระบบ LH Bank Online — ใช้ระบบเดิม">${icon("user")}เข้าสู่ระบบ</a>
+            <div class="dropdown login-dd hide-tablet">
+              <button class="dropdown__trigger btn btn--secondary btn--sm" aria-haspopup="true" aria-expanded="false">${icon("user")}เข้าสู่ระบบ${icon("chevron-down")}</button>
+              <div class="dropdown__menu dropdown__menu--right login-dd__menu" role="menu">
+                ${loginItems()}
+              </div>
+            </div>
             <a class="btn btn--primary btn--sm" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
             <button class="icon-btn menu-toggle" data-open-menu aria-label="เปิดเมนู" aria-expanded="false">${icon("menu")}</button>
           </div>
@@ -313,7 +342,7 @@
           </div>
         </div>
         <div class="mobile-nav__foot">
-          <a class="btn btn--secondary" href="#" data-toast="เข้าสู่ระบบ LH Bank Online — ใช้ระบบเดิม">เข้าสู่ระบบ</a>
+          <button class="btn btn--secondary" data-modal="loginModal">${icon("user")} เข้าสู่ระบบ</button>
           <a class="btn btn--primary" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
         </div>
       </div>`;
@@ -713,6 +742,7 @@
   renderFooter();
   renderLeadModal();
   renderApplyModal();
+  renderLoginModal();
   document.addEventListener("DOMContentLoaded", boot);
   if (document.readyState !== "loading") boot();
   let booted = false;
