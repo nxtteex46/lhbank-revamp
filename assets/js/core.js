@@ -10,7 +10,22 @@
   const SEGMENT = body.dataset.segment || "personal";
   const NAV = body.dataset.nav || "";
   const PAGE = body.dataset.page || "";
-  const url = (p) => ROOT + p;
+  /* file:// support — opening index.html by double-click (no server).
+     Folder links like "personal/" or "products/?cat=x" become ".../index.html". */
+  const IS_FILE = location.protocol === "file:";
+  const fixFileHref = (h) => {
+    if (!IS_FILE || !h || /^(https?:|mailto:|tel:|#|javascript:|data:)/i.test(h)) return h;
+    return h.replace(/^([^?#]*\/)(?=$|[?#])/, "$1index.html");
+  };
+  const url = (p) => fixFileHref(ROOT + p);
+  if (IS_FILE) {
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      const h = a.getAttribute("href"), f = fixFileHref(h);
+      if (f !== h) a.setAttribute("href", f);
+    }, true);
+  }
 
   /* ---------- Icons (24px stroke set) ---------- */
   const P = {

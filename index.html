@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>LH Bank</title>
-<meta http-equiv="refresh" content="0; url=personal/">
-<link rel="canonical" href="personal/">
-<script>location.replace("personal/" + location.search + location.hash);</script>
+<script>
+  var target = location.protocol === "file:" ? "personal/index.html" : "personal/";
+  location.replace(target + location.search + location.hash);
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=personal/index.html"></noscript>
 </head>
-<body><a href="personal/">ไปที่ LH Bank Personal</a></body>
+<body><a href="personal/index.html">ไปที่ LH Bank Personal</a></body>
 </html>

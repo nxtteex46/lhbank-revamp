@@ -5,6 +5,10 @@ Design direction: **Modern Wealth Lifestyle**. It's a static site (HTML/CSS/vani
 
 ## Run locally
 
+**Easiest:** download the ZIP, unzip it, and double-click `index.html`. No server needed.
+
+**Or with a local server:**
+
 ```bash
 python3 -m http.server 8080
 ```
