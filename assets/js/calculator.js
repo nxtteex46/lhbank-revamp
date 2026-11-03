@@ -6,15 +6,18 @@
   const { icon, fmt, $, $$, url, syncRange } = window.LH;
   const qs = new URLSearchParams(location.search);
 
+  /* Real Home 1st Class rate options (lhbank.co.th, ประกาศ 1 พ.ย. 2569; MRR 8.18%) */
   const PRODUCTS = {
-    "saen-sabai": { name: "แสนสบาย", tiers: [2.75, 2.75, 2.75], float: 5.8, note: "คงที่ 3 ปี" },
-    "happy-home": { name: "Happy Home", tiers: [2.49, 2.99, 3.49], float: 5.9, note: "บ้านหลังแรก" },
-    refinance: { name: "รีไฟแนนซ์", tiers: [2.65, 2.85, 3.05], float: 5.85, note: "ผ่อนเดิม 3 ปี+" },
+    "mrta-free": { name: "ทำประกัน MRTA/MLTA", tiers: [2.79, 2.82, 2.82], float: 5.17, note: "ฟรีค่าจดจำนอง" },
+    "mrta": { name: "ทำประกัน MRTA/MLTA", tiers: [2.64, 2.67, 2.67], float: 5.17, note: "ไม่ฟรีค่าจดจำนอง · เริ่มต้น 2.64%" },
+    "no-mrta": { name: "ไม่ทำประกัน MRTA/MLTA", tiers: [3.12, 3.15, 3.15], float: 5.17, note: "ไม่ฟรีค่าจดจำนอง" },
   };
-  let product = PRODUCTS[qs.get("product")] ? qs.get("product") : "saen-sabai";
+
+  let product = PRODUCTS[qs.get("product")] ? qs.get("product") : "mrta";
   let mode = qs.get("mode") === "afford" ? "afford" : "payment";
 
   const V = { price: 4500000, down: 10, years: 30, income: 60000, debt: 5000 };
+  const PRODUCT_PAGE = "personal/product/?id=home-1st-class";
 
   /* ---------- Reusable field component ---------- */
   function calcField({ id, label, min, max, step, value, unit, hint, format = (v) => fmt(v) }) {
@@ -69,25 +72,25 @@
   const form = $("#calcForm");
   const tiersHTML = () => `
     <div class="calc-field">
-      <div class="calc-field__head"><label>เลือกผลิตภัณฑ์ / อัตราดอกเบี้ย</label><a class="link t-sm" href="${url("personal/product/?id=" + product)}">รายละเอียด ${icon("arrow-right")}</a></div>
+      <div class="calc-field__head"><label>แบบอัตราดอกเบี้ย · Home 1st Class</label><a class="link t-sm" href="${url(PRODUCT_PAGE)}">รายละเอียด ${icon("arrow-right")}</a></div>
       <div class="rate-tiers" role="radiogroup">${Object.entries(PRODUCTS).map(([k, p]) => `<button type="button" class="rate-tier ${k === product ? "is-active" : ""}" data-product="${k}" role="radio" aria-checked="${k === product}"><span>${p.name}</span><strong>${(p.tiers.reduce((a, b) => a + b, 0) / 3).toFixed(2)}%</strong><span>เฉลี่ย 3 ปี · ${p.note}</span></button>`).join("")}</div>
     </div>`;
 
   function renderForm() {
     if (mode === "payment") {
       form.innerHTML = `
-        ${calcField({ id: "price", label: "ราคาบ้าน / หลักประกัน", min: 500000, max: 30000000, step: 50000, value: V.price, unit: "บาท" })}
-        ${calcField({ id: "down", label: "เงินดาวน์", min: 0, max: 50, step: 1, value: V.down, unit: "%", hint: "", format: (v) => v })}
-        ${calcField({ id: "years", label: "ระยะเวลาผ่อน", min: 5, max: 40, step: 1, value: V.years, unit: "ปี", format: (v) => v })}
+        ${calcField({ id: "price", label: "ราคาบ้าน / หลักประกัน", min: 2000000, max: 30000000, step: 50000, value: V.price, unit: "บาท", hint: "แนวราบขั้นต่ำ 2.00 ล้าน · คอนโด 2.50 ล้าน" })}
+        ${calcField({ id: "down", label: "เงินดาวน์ (กู้ได้สูงสุด 100%)", min: 0, max: 50, step: 1, value: V.down, unit: "%", hint: "", format: (v) => v })}
+        ${calcField({ id: "years", label: "ระยะเวลาผ่อน (สูงสุด 40 ปี รวมอายุผู้กู้ไม่เกิน 70 ปี)", min: 5, max: 40, step: 1, value: V.years, unit: "ปี", format: (v) => v })}
         ${tiersHTML()}`;
-      bindField("price", 500000, 30000000, (v) => { V.price = v; compute(); });
+      bindField("price", 2000000, 30000000, (v) => { V.price = v; compute(); });
       bindField("down", 0, 50, (v) => { V.down = v; compute(); }, (v) => v);
       bindField("years", 5, 40, (v) => { V.years = v; compute(); }, (v) => v);
     } else {
       form.innerHTML = `
         ${calcField({ id: "income", label: "รายได้ต่อเดือน (รวมผู้กู้ร่วม)", min: 15000, max: 500000, step: 1000, value: V.income, unit: "บาท" })}
         ${calcField({ id: "debt", label: "ภาระหนี้อื่นต่อเดือน", min: 0, max: 200000, step: 500, value: V.debt, unit: "บาท", hint: "ผ่อนรถ บัตรเครดิต ฯลฯ" })}
-        ${calcField({ id: "years", label: "ระยะเวลาผ่อน", min: 5, max: 40, step: 1, value: V.years, unit: "ปี", format: (v) => v })}
+        ${calcField({ id: "years", label: "ระยะเวลาผ่อน (สูงสุด 40 ปี รวมอายุผู้กู้ไม่เกิน 70 ปี)", min: 5, max: 40, step: 1, value: V.years, unit: "ปี", format: (v) => v })}
         ${tiersHTML()}`;
       bindField("income", 15000, 500000, (v) => { V.income = v; compute(); });
       bindField("debt", 0, 200000, (v) => { V.debt = v; compute(); });
@@ -120,7 +123,7 @@
     const P = PRODUCTS[product];
     const totalPay = loan + s.totalInt;
     res.innerHTML = mode === "payment" ? `
-      <div class="calc-result__main"><span class="t-sm" style="opacity:.7">ค่างวดต่อเดือน (ปีที่ 1–3)</span><div class="t-num mt-2">฿${fmt(s.pay1)}</div><span class="t-xs" style="opacity:.6">หลังปีที่ 3 ประมาณ ฿${fmt(s.pay2)} /เดือน (อัตราลอยตัว ${P.float.toFixed(2)}%)</span></div>
+      <div class="calc-result__main"><span class="t-sm" style="opacity:.7">ค่างวดต่อเดือน (ปีที่ 1–3)</span><div class="t-num mt-2">฿${fmt(s.pay1)}</div><span class="t-xs" style="opacity:.6">หลังปีที่ 3 ประมาณ ฿${fmt(s.pay2)} /เดือน (MRR − 3.01% = ${P.float.toFixed(2)}%)</span></div>
       <div class="calc-result__rows">
         <div><span>วงเงินกู้</span><strong>฿${fmt(loan)}</strong></div>
         <div><span>อัตราดอกเบี้ยเฉลี่ย 3 ปีแรก</span><strong>${s.avg3.toFixed(2)}%</strong></div>
@@ -132,7 +135,7 @@
         <a class="btn btn--primary btn--block btn--lg" href="#" data-modal="applyModal">สมัครสินเชื่อบ้าน ${icon("arrow-right")}</a>
         <div class="row" style="gap:10px"><a class="btn btn--outline-light btn--block" style="flex:1" href="#" data-modal="leadModal">ปรึกษาเจ้าหน้าที่</a><button class="btn btn--outline-light btn--icon" data-toast="บันทึกผลการคำนวณเป็น PDF แล้ว" aria-label="บันทึก">${icon("download")}</button><button class="btn btn--outline-light btn--icon" data-share aria-label="แชร์">${icon("share")}</button></div>
       </div>` : `
-      <div class="calc-result__main"><span class="t-sm" style="opacity:.7">วงเงินกู้สูงสุดโดยประมาณ</span><div class="t-num mt-2">฿${fmt(Math.max(loan, 0))}</div><span class="t-xs" style="opacity:.6">คำนวณจากภาระหนี้ต่อรายได้ (DSR) ไม่เกิน 40%</span></div>
+      <div class="calc-result__main"><span class="t-sm" style="opacity:.7">วงเงินกู้สูงสุดโดยประมาณ</span><div class="t-num mt-2">฿${fmt(Math.max(loan, 0))}</div><span class="t-xs" style="opacity:.6">สมมติฐานภาระหนี้ต่อรายได้ (DSR) ไม่เกิน 40% — ใช้ประกอบการประเมินเบื้องต้น</span></div>
       <div class="calc-result__rows">
         <div><span>ค่างวดสูงสุดที่แนะนำ</span><strong>฿${fmt(extra.maxPay)} /เดือน</strong></div>
         <div><span>ราคาบ้านที่เหมาะสม (ดาวน์ 10%)</span><strong>฿${fmt(Math.max(extra.maxPrice, 0))}</strong></div>
@@ -156,7 +159,7 @@
     $("#stickyVal").textContent = mode === "payment" ? `฿${fmt(s.pay1)}` : `฿${fmt(extra.maxPay)}`;
     $("#calcSticky .t-xs").textContent = mode === "payment" ? "ค่างวด/เดือน" : "ค่างวดสูงสุด/เดือน";
     $("#ctaSummary").textContent = mode === "payment"
-      ? `วงเงินกู้ ฿${fmt(loan)} · ผ่อน ${V.years} ปี · ค่างวดประมาณ ฿${fmt(s.pay1)}/เดือน กับสินเชื่อ ${P.name}`
+      ? `วงเงินกู้ ฿${fmt(loan)} · ผ่อน ${V.years} ปี · ค่างวดประมาณ ฿${fmt(s.pay1)}/เดือน กับ Home 1st Class (${P.name} · ${P.note})`
       : `วงเงินกู้สูงสุดประมาณ ฿${fmt(Math.max(loan, 0))} · ค่างวดไม่เกิน ฿${fmt(extra.maxPay)}/เดือน`;
     renderSchedule(s.rows);
     renderTips(loan, s);
@@ -183,8 +186,8 @@
     const tips = [];
     if (mode === "payment" && V.down < 10) tips.push(["piggy", "เพิ่มเงินดาวน์", "ดาวน์ 10% ขึ้นไป ช่วยลดดอกเบี้ยรวมและเพิ่มโอกาสอนุมัติ"]);
     if (V.years > 30) tips.push(["calendar", "ผ่อนสั้นลง ประหยัดกว่า", `ผ่อน 30 ปีแทน ${V.years} ปี ประหยัดดอกเบี้ยได้ประมาณ ฿${fmt(s.totalInt - schedule(loan, 30).totalInt)}`]);
-    tips.push(["swap", "รีไฟแนนซ์หลังปีที่ 3", "เมื่อหมดช่วงดอกเบี้ยคงที่ พิจารณารีไฟแนนซ์เพื่อลดค่างวด"]);
-    tips.push(["shield", "คุ้มครองวงเงินกู้", "ทำประกัน MRTA เพื่อดูแลครอบครัวหากเกิดเหตุไม่คาดฝัน"]);
+    tips.push(["swap", "อยู่ครบ 1 ปี ก็รีได้", "โปรแกรม Retention ของ LH Bank ปลดล็อกสัญญากู้บ้านแบบเดิมๆ"]);
+    tips.push(["shield", "ทำประกัน MRTA/MLTA", "รับอัตราดอกเบี้ยพิเศษ และคุ้มครองวงเงินกู้ให้ครอบครัว"]);
     $("#tips").innerHTML = tips.slice(0, 3).map(([ic, t, d]) => `<div class="benefit" style="padding:20px"><span class="tile__icon" style="width:44px;height:44px">${icon(ic)}</span><div><h4 style="font-size:1rem">${t}</h4><p>${d}</p></div></div>`).join("");
   }
 

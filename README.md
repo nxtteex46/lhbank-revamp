@@ -53,7 +53,13 @@ assets/js/rates.js       Exchange rates table, converter, history chart
 
 ## Notes
 
-- All rates, fees, branches and market figures are **illustrative example data**.
+- **Product content is real**, from lhbank.co.th (Nov 2026):
+  - **Home 1st Class**: full detail sourced from the bank's product page. That covers rates by option, EIR, MRR, fees, documents, FAQ, the payment example and the promo period. The brief's `saen-sabai-home-loan` URL now serves this product.
+  - **Other products**: real names and headlines from the bank's menus and listing pages (Home 2nd Hand, Home Refinance, Home 4Cash, Retention, Happy Cash, Happy Cash Balance Transfer, deposits, debit card, Cardless, SME loans, Cash Management, trade). Their full terms come from the bank's CMS in the real build.
+  - **Also real**: Family Banking tiers, life stages, promotions, the bank tagline and the contact details.
+  - **No invented products**: there is no credit card or private-wealth card, because LH Bank's site lists only a debit card.
+- **Sample data (live feeds)**: exchange rates, market indices and the branch list are labelled as samples on the pages.
+- **Typography**: Thai text is at least 13px, weights are limited to the loaded 300/400/500/600, and light 300 is used only at display sizes.
 - Real brand assets live in `assets/img/lhbank/`: the LH Bank logo (`logo.svg`, plus `logo-white.svg` for dark backgrounds), the favicon, campaign banners from lhbank.co.th, and the **LHB You** app icon and App Store screenshots. The brief allows these as example assets (§5).
 - Lifestyle images are hotlinked from Unsplash. If they fail to load, the page shows soft gradient placeholders.
 - Application forms and campaign pages use the bank's existing system, so only the CTAs are designed here (see brief §8).

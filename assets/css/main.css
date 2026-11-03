@@ -1355,3 +1355,61 @@ h1 em, h2 em, .t-display em { color: var(--c-accent-600); }
 .proto-nav__btn .ico { color: #d9c49b; }
 .metal-card__foot span, .metal-card__top span { white-space: nowrap; }
 @media (max-width: 680px) { .metal-card { width: 72%; padding: 14px 16px; border-radius: 14px; } .metal-card__top img { height: 16px; } .metal-card__top span, .metal-card__foot { font-size: 8px; letter-spacing: .18em; } .metal-card__num { font-size: 12px; } .metal-card__chip { width: 30px; height: 22px; } }
+
+/* Family Banking tier card (real LH Bank tiers) */
+.tier-card { position: absolute; right: -32px; bottom: -32px; width: min(320px, 72%); padding: 22px 24px 18px; border-radius: 20px; color: #efe4cc;
+  background: linear-gradient(140deg, rgba(20,34,48,.94), rgba(8,15,23,.96)); border: 1px solid rgba(217,196,155,.32); box-shadow: 0 40px 80px -24px rgba(0,0,0,.6); backdrop-filter: blur(10px); }
+.tier-card__head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(217,196,155,.22); }
+.tier-card__head img { height: 20px; width: auto; filter: none !important; }
+.tier-card__head span { font-size: 10px; letter-spacing: .22em; color: #d9c49b; white-space: nowrap; }
+.tier-card ol { list-style: none; margin: 6px 0 0; padding: 0; }
+.tier-card li { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px solid rgba(217,196,155,.12); }
+.tier-card li:last-child { border-bottom: 0; }
+.tier-card li span { font-family: var(--f-num); font-size: 12px; color: #d9c49b; width: 20px; }
+.tier-card li strong { font-family: var(--f-display); font-weight: 400; font-size: 1.02rem; letter-spacing: -0.005em; }
+.tier-card li:first-child strong { color: #e8d4a8; }
+@media (max-width: 960px) { .tier-card { right: 12px; bottom: -24px; width: 68%; padding: 16px 18px 12px; } .tier-card li { padding: 6px 0; } .tier-card li strong { font-size: .92rem; } }
+.product-card__value--text { font-family: var(--f-display); font-size: 1.35rem !important; font-weight: 400 !important; letter-spacing: -0.015em !important; line-height: 1.2; }
+
+/* ==========================================================================
+   23 — Type audit fixes (Thai legibility + loaded weights only)
+   Rules: Thai text ≥ 13px · weights limited to the loaded 300/400/500/600 ·
+   Light (300) only for display sizes ≥ 40px.
+   ========================================================================== */
+:root { --t-xs: .8125rem; /* 13px */ --t-sm: .9375rem; /* 15px */ }
+
+/* Only loaded weights */
+strong, b { font-weight: 600; }
+.nav__link, .goal__label, .promo-card h3, .article-card h3 { font-weight: 400; }
+.stat__value { font-weight: 300; }
+
+/* Light weight only at display sizes */
+.pd-section > h2, .t-h3, h2.t-h3, .ds-block > h2 { font-weight: 400; letter-spacing: -0.02em; }
+.privilege__num, .footer-contact .t-num, .hero2__trust strong { font-weight: 400; }
+@media (max-width: 680px) {
+  h2, .t-h2 { font-weight: 400; letter-spacing: -0.025em; }
+  .stat__value { font-weight: 400; }
+}
+
+/* Thai minimum 13px for small UI text */
+.utility { font-size: 13px; }
+.badge { font-size: 13px; height: 28px; padding: 0 12px; }
+.product-card__cat { font-size: 12.5px; letter-spacing: .06em; }
+.product-card__label, .stat__label, .hero2__trust span, .glass-card .lbl, .range-scale, .field__hint, .market-card__top, .branch-card p, .promo-card__meta, .quick-bar span, .mega__link span, .fund-card__returns span, .legend { font-size: 13px; }
+.eyebrow, .label { font-size: 12.5px; letter-spacing: .12em; }
+.table th { font-size: 13px; letter-spacing: .02em; text-transform: none; }
+.logo__seg { font-size: 11.5px; }
+.fx-mcard__rates span, .tier-card li span { font-size: 12px; }
+.tier-card__head span { font-size: 11px; }
+.cat-btn small, .chip .count { font-size: 13px; }
+.check { font-size: var(--t-sm); }
+.product-card__foot .check { font-size: 13px; }
+.mega__col h6 { font-size: 12.5px; letter-spacing: .08em; }
+.store-badge { font-size: 12px; }
+.bar-tip, .ds-label { font-size: 13px; }
+.product-card__cat, .eyebrow, .label { font-size: 13px; }
+.tier-card li span, .fx-mcard__rates span { font-size: 13px; }
+h1 strong, h2 strong, h3 strong, h4 strong { font-weight: 600; }
+.pin__dot span { font-weight: 600; }
+.glass-card .val { font-weight: 400; }
+.hero2 .glass-card .val { font-weight: 300; }

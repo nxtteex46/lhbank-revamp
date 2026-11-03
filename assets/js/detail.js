@@ -4,7 +4,9 @@
 (function () {
   const { icon, img, U, url, $, $$, toast } = window.LH;
   const D = window.LHDATA;
-  const id = new URLSearchParams(location.search).get("id") || "saen-sabai";
+  const ALIAS = { "saen-sabai": "home-1st-class", "happy-home": "home-1st-class", refinance: "home-refinance", "home-for-cash": "home-4cash" };
+  const qid = new URLSearchParams(location.search).get("id") || "home-1st-class";
+  const id = ALIAS[qid] || qid;
   const p = D.products.find((x) => x.id === id) || D.products[0];
   const c = D.categories[p.cat];
   const cta = p.cta || c.cta;
@@ -13,7 +15,7 @@
   const segHome = p.cat === "sme" ? ["SME", "sme/"] : p.cat === "business" ? ["ธุรกิจ", "business/"] : ["บุคคล", "personal/"];
   if (isBiz) document.body.dataset.segment = p.cat; // header context (rendered already; affects nothing else)
   document.title = `${p.name} | LH Bank`;
-  const navMap = { deposit: "deposit", "home-loan": "loans", "personal-loan": "loans", card: "cards" };
+  const navMap = { deposit: "deposit", "home-loan": "loans", "personal-loan": "loans", card: "services" };
   $$(".nav__link").forEach((l) => l.classList.toggle("is-current", l.closest(".nav__item").dataset.menu === navMap[p.cat]));
 
   const primaryBtn = (cls = "btn--primary btn--lg") => isBiz
@@ -40,7 +42,7 @@
             <li><a href="${url("personal/products/?cat=" + p.cat)}">${c.label}</a></li>
             <li><span aria-current="page">${p.name}</span></li>
           </ol></nav>
-          <div class="row mt-8" style="gap:8px">${p.badge ? `<span class="badge badge--ink">${p.badge}</span>` : ""}<span class="badge">${c.label}</span></div>
+          <div class="row mt-8" style="gap:8px">${p.badge ? `<span class="badge badge--ink">${p.badge}</span>` : ""}<span class="badge">${c.label}</span>${p.promo ? `<span class="badge badge--gold">${p.promo}</span>` : ""}</div>
           <h1 class="mt-4" style="max-width:16ch">${p.name}</h1>
           <p class="t-lead mt-4" style="max-width:52ch">${p.desc}</p>
           <div class="pd-keyfacts">${p.keyfacts.map(([v, l]) => `<div><strong>${v}</strong><span>${l}</span></div>`).join("")}</div>
@@ -66,11 +68,12 @@
               <div class="prose t-lead" style="font-size:1.05rem"><p>${p.desc}</p><p class="t-muted t-sm mt-4">${p.tagline}</p></div>
               <ul class="check-list">${p.facts.map((f) => `<li>${f}</li>`).join("")}</ul>
             </div>
+            <p class="t-xs t-muted mt-6">${p.verified ? "ข้อมูลจากหน้าผลิตภัณฑ์บน lhbank.co.th (ประกาศ ณ 1 พ.ย. 2569)" : "ชื่อและจุดเด่นจากเว็บไซต์ lhbank.co.th · รายละเอียดฉบับเต็มแสดงจาก CMS ในระบบจริง"}</p>
           </section>
 
           <section class="pd-section" id="benefits">
             <h2>สิทธิประโยชน์</h2>
-            <div class="cols-2">${p.benefits.map(([ic, t, d]) => `<div class="benefit"><span class="tile__icon">${icon(ic)}</span><div><h4>${t}</h4><p>${d}</p></div></div>`).join("")}</div>
+            <div class="cols-2">${p.benefits.map(([ic, t, d]) => `<div class="benefit"><span class="tile__icon">${icon(ic)}</span><div><h4>${t}</h4>${d ? `<p>${d}</p>` : ""}</div></div>`).join("")}</div>
           </section>
 
           <section class="pd-section" id="eligibility">
@@ -81,16 +84,23 @@
 
           <section class="pd-section" id="rates">
             <h2>${sections[3][1]}</h2>
+            ${p.rates ? `
             <div data-tabs>
-              <div class="tabs mb-6" role="tablist"><button class="tab is-active" data-tab="r" role="tab">อัตราดอกเบี้ย</button><button class="tab" data-tab="f" role="tab">ค่าธรรมเนียม</button></div>
+              <div class="tabs mb-6" role="tablist"><button class="tab is-active" data-tab="r" role="tab">อัตราดอกเบี้ย</button>${p.fees ? `<button class="tab" data-tab="f" role="tab">ค่าธรรมเนียม</button>` : ""}${p.example ? `<button class="tab" data-tab="e" role="tab">ตัวอย่างการผ่อนชำระ</button>` : ""}</div>
               <div class="tab-panel is-active" data-panel="r">
-                <div class="table-wrap"><table class="table table--simple"><thead><tr>${p.rates.head.map((h, i) => `<th class="${i ? "num" : ""}">${h}</th>`).join("")}</tr></thead><tbody>${p.rates.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${i ? "num" : ""}" style="${i ? "font-weight:600" : ""}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+                <div class="table-wrap"><table class="table table--simple"><thead><tr>${p.rates.head.map((h, i) => `<th class="${i ? "num" : ""}">${h}</th>`).join("")}</tr></thead><tbody>${p.rates.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${i ? "num" : ""}" style="${i ? "" : "white-space:normal;min-width:200px"}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
               </div>
-              <div class="tab-panel" data-panel="f">
-                <div class="table-wrap"><table class="table table--simple"><thead><tr><th>รายการ</th><th class="num">ค่าธรรมเนียม</th></tr></thead><tbody>${p.fees.map(([k, v]) => `<tr><td style="white-space:normal">${k}</td><td class="num" style="font-weight:600">${v}</td></tr>`).join("")}</tbody></table></div>
-              </div>
+              ${p.fees ? `<div class="tab-panel" data-panel="f">
+                <div class="table-wrap"><table class="table table--simple"><thead><tr><th>ประเภทค่าธรรมเนียม</th><th class="num">จำนวนเงินที่เรียกเก็บ</th></tr></thead><tbody>${p.fees.map(([k, v]) => `<tr><td style="white-space:normal">${k}</td><td class="num">${v}</td></tr>`).join("")}</tbody></table></div>
+              </div>` : ""}
+              ${p.example ? `<div class="tab-panel" data-panel="e">
+                <p class="t-sm t-muted mb-4">${p.example.title}</p>
+                <div class="table-wrap"><table class="table table--simple"><thead><tr>${p.example.head.map((h, i) => `<th class="${i ? "num" : ""}">${h}</th>`).join("")}</tr></thead><tbody>${p.example.rows.map((r) => `<tr>${r.map((v, i) => `<td class="${i ? "num" : ""}">${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+              </div>` : ""}
             </div>
-            <div class="note mt-6">${icon("info")}<span>อัตราดอกเบี้ยและค่าธรรมเนียมเป็นข้อมูลตัวอย่างสำหรับต้นแบบ อาจมีการเปลี่ยนแปลงตามประกาศธนาคาร ข้อมูล ณ วันที่ 2 ม.ค. 2027 · <a class="link" href="#" data-toast="ดาวน์โหลดประกาศอัตราดอกเบี้ย (PDF)">ดูประกาศฉบับเต็ม</a></span></div>
+            ${p.rateNote ? `<div class="note mt-6">${icon("info")}<span>${p.rateNote}</span></div>` : ""}` : `
+            <div class="note">${icon("info")}<span>อัตราดอกเบี้ยและค่าธรรมเนียมของผลิตภัณฑ์นี้เป็นไปตามประกาศของธนาคาร ในระบบจริงหน้านี้แสดงข้อมูลล่าสุดจาก CMS ของธนาคาร · สอบถามได้ที่ LH Bank Call Center 1327</span></div>`}
+            ${p.payment ? `<h3 class="t-h4 mt-12 mb-4">ช่องทางการชำระเงิน</h3><ul class="check-list">${p.payment.map((x) => `<li>${x}</li>`).join("")}</ul>` : ""}
           </section>
 
           <section class="pd-section" id="documents">
@@ -112,13 +122,13 @@
         <aside class="pd-aside">
           <div class="aside-card">
             <span class="t-xs t-muted">${p.highlight.label}</span>
-            <div class="t-num mt-2">${p.highlight.value}<span style="font-size:.45em;font-weight:500;margin-left:4px">${p.highlight.unit}</span></div>
+            ${p.highlight.text ? `<div class="product-card__value--text mt-2" style="font-size:1.8rem!important">${p.highlight.text}</div>` : `<div class="t-num mt-2">${p.highlight.value}<span style="font-size:.45em;font-weight:500;margin-left:4px">${p.highlight.unit}</span></div>`}
             <hr class="divider" style="margin:20px 0">
             <ul class="check-list" style="gap:10px;font-size:.9rem">${p.facts.map((f) => `<li>${f}</li>`).join("")}</ul>
             <div class="stack mt-6" style="--stack:10px">${primaryBtn("btn--primary btn--block")}${secondaryBtn("btn--secondary btn--block")}</div>
           </div>
           <div class="card card--mist mt-4" style="padding:22px">
-            <div class="row" style="gap:14px"><span class="tile__icon" style="width:44px;height:44px">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs t-muted">โทร 1327 ทุกวัน 24 ชม.</div></div></div>
+            <div class="row" style="gap:14px"><span class="tile__icon" style="width:44px;height:44px">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs t-muted">LH Bank Call Center โทร 1327</div></div></div>
             <button class="btn btn--ghost btn--sm btn--block mt-4" data-modal="leadModal">ให้ติดต่อกลับ</button>
           </div>
         </aside>
@@ -133,7 +143,7 @@
           <a class="product-card" href="${url("personal/product/?id=" + r.id)}">
             <div class="media product-card__media">${img(U(r.img, 700), r.name)}</div>
             <div class="product-card__body"><span class="product-card__cat">${D.categories[r.cat].label}</span><h3 class="product-card__title">${r.name}</h3><p class="product-card__desc">${r.tagline}</p>
-            <div class="product-card__highlight"><span class="product-card__value">${r.highlight.value}<small>${r.highlight.unit}</small></span><span class="product-card__label">${r.highlight.label}</span></div></div>
+            <div class="product-card__highlight">${r.highlight.text ? `<span class="product-card__value product-card__value--text">${r.highlight.text}</span>` : `<span class="product-card__value">${r.highlight.value}<small>${r.highlight.unit}</small></span>`}<span class="product-card__label">${r.highlight.label}</span></div></div>
           </a>`).join("")}</div>
       </div>
     </section>` : ""}
@@ -145,7 +155,7 @@
           <div class="cta-band__actions">
             ${isBiz ? "" : `<a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>${cta}ออนไลน์</strong><span>ไปยังระบบสมัครของธนาคาร</span></div>${icon("arrow-up-right")}</a>`}
             ${p.calc ? `<a class="cta-option" href="${url("personal/calculator/home-loan/?product=" + p.id)}"><span class="tile__icon">${icon("calc")}</span><div><strong>คำนวณค่างวด</strong><span>ประเมินค่างวดก่อนตัดสินใจ</span></div>${icon("arrow-right")}</a>` : ""}
-            <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>ภายใน 1 วันทำการ</span></div>${icon("arrow-right")}</a>
+            <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ</span></div>${icon("arrow-right")}</a>
             <a class="cta-option" href="${url("branch-locations/" + (isBiz ? "?type=sme" : ""))}"><span class="tile__icon">${icon("pin")}</span><div><strong>ติดต่อที่สาขา</strong><span>ค้นหาสาขาใกล้คุณ</span></div>${icon("arrow-right")}</a>
           </div>
         </div>

@@ -108,109 +108,123 @@
     { id: "business", th: "ธุรกิจ", href: "business/" },
   ];
 
+  /* Menus mirror the real LH Bank navigation (lhbank.co.th, Nov 2026) */
+  const P_ = (id) => "personal/product/?id=" + id;
   const MENUS = {
     personal: [
       {
-        id: "deposit", label: "บัญชีเงินฝาก",
+        id: "deposit", label: "เงินฝาก",
         cols: [
-          { h: "ประเภทบัญชี", items: [
-            ["piggy", "ออมทรัพย์", "ดอกเบี้ยสูง ถอนได้ทุกเมื่อ", "personal/products/?cat=deposit"],
-            ["calendar", "ฝากประจำ", "ล็อกผลตอบแทนตามระยะเวลา", "personal/products/?cat=deposit"],
-            ["shield", "ฝากประจำปลอดภาษี", "ออมสม่ำเสมอ 24 เดือน", "personal/product/?id=tax-free-24"],
+          { h: "ผลิตภัณฑ์เงินฝาก", items: [
+            ["piggy", "เงินฝากออมทรัพย์ดิจิทัล", "บัญชีออมทรัพย์รูปแบบดิจิทัล", P_("digital-savings")],
+            ["sparkle", "ออมทรัพย์ดอกเบี้ยสูง", "บัญชีออมทรัพย์ดอกเบี้ยสูง", P_("high-yield-savings")],
+            ["shield", "เงินฝากปลอดภาษี", "ดอกเบี้ยยกเว้นภาษีตามเงื่อนไข", P_("tax-free")],
           ]},
-          { h: "เงินตราต่างประเทศ", items: [
-            ["globe", "บัญชี FCD", "ฝาก-ถอน 9 สกุลเงินหลัก", "personal/product/?id=fcd"],
-            ["swap", "อัตราแลกเปลี่ยน", "อัปเดตแบบเรียลไทม์", "exchange-rates/"],
+          { h: "เงินฝากประจำและต่างประเทศ", items: [
+            ["calendar", "เงินฝากประจำ", "เลือกระยะเวลาฝากได้", P_("fixed")],
+            ["gift", "เงินฝากประจำพิเศษ 6 เดือน", "ฝากสั้น รับดอกเบี้ยสูง", P_("fixed-special")],
+            ["globe", "บัญชีเงินตราต่างประเทศ (FCD)", "ฝากเงินสกุลต่างประเทศ", P_("fcd")],
           ]},
         ],
-        feature: { img: "photo-1559526324-4b87b5e36e44", tag: "ดอกเบี้ยพิเศษ", title: "ออมทรัพย์ดิจิทัล รับดอกเบี้ยสูงสุด 1.80% ต่อปี", href: "personal/product/?id=smart-savings" },
+        feature: { img: "photo-1559526324-4b87b5e36e44", tag: "โปรโมชัน", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER 200 บาท", href: "personal/products/?cat=deposit" },
       },
       {
         id: "loans", label: "สินเชื่อ",
         cols: [
           { h: "สินเชื่อบ้าน", items: [
-            ["home", "สินเชื่อบ้าน แสนสบาย", "ผ่อนสบาย ดอกเบี้ยคงที่ 3 ปีแรก", "personal/product/?id=saen-sabai"],
-            ["key", "Happy Home", "สำหรับบ้านหลังแรก", "personal/product/?id=happy-home"],
-            ["swap", "รีไฟแนนซ์บ้าน", "ลดภาระค่างวดต่อเดือน", "personal/product/?id=refinance"],
+            ["home", "สินเชื่อบ้านใหม่ Home 1st Class", "ดอกเบี้ยพิเศษเริ่มต้น 2.64%*", P_("home-1st-class")],
+            ["key", "สินเชื่อบ้านมือสอง Home 2nd Hand", "วงเงินกู้สูงสุด 100%", P_("home-2nd-hand")],
+            ["swap", "สินเชื่อบ้าน Home Refinance", "100% ของภาระหนี้คงเหลือ", P_("home-refinance")],
+            ["coins", "สินเชื่อบ้านแลกเงิน Home 4Cash", "อนุมัติง่าย ได้เงินไว", P_("home-4cash")],
           ]},
-          { h: "สินเชื่ออื่นๆ", items: [
-            ["coins", "บ้านแลกเงิน", "ใช้บ้านค้ำ วงเงินสูง", "personal/product/?id=home-for-cash"],
-            ["wallet", "สินเชื่อส่วนบุคคล", "อนุมัติไว ไม่ต้องมีหลักประกัน", "personal/product/?id=personal-loan"],
-            ["calc", "คำนวณสินเชื่อบ้าน", "ประเมินค่างวดและวงเงิน", "personal/calculator/home-loan/"],
-          ]},
-        ],
-        feature: { img: "photo-1613490493576-7fde63acd811", tag: "ดอกเบี้ยเริ่มต้น 2.75%", title: "บ้านที่ใช่ กับสินเชื่อที่ออกแบบมาเพื่อคุณ", href: "personal/products/?cat=home-loan" },
-      },
-      {
-        id: "cards", label: "บัตร",
-        cols: [
-          { h: "บัตรเครดิต", items: [
-            ["card", "LH Bank Wealth Card", "สิทธิพิเศษไลฟ์สไตล์ระดับพรีเมียม", "personal/product/?id=wealth-card"],
-            ["plane", "LH Bank Travel Card", "สะสมไมล์ทุกการใช้จ่าย", "personal/product/?id=travel-card"],
-          ]},
-          { h: "บัตรเดบิต", items: [
-            ["lock", "บัตรเดบิต Smart", "ประกันอุบัติเหตุในตัว", "personal/product/?id=debit-smart"],
+          { h: "สินเชื่อบุคคลและเครื่องมือ", items: [
+            ["wallet", "สินเชื่อส่วนบุคคล Happy Cash", "ดอกเบี้ยเริ่มต้น 8.88%*", P_("happy-cash")],
+            ["layers", "Happy Cash Balance Transfer", "สินเชื่อส่วนบุคคลรวมหนี้", P_("happy-cash-bt")],
+            ["calc", "เครื่องมือคำนวณสินเชื่อบ้าน", "อัตราผ่อนชำระ / วงเงินกู้", "personal/calculator/home-loan/"],
           ]},
         ],
-        feature: { img: "photo-1563013544-824ae1b704d3", tag: "สมาชิกใหม่", title: "รับเครดิตเงินคืน 10% สำหรับการใช้จ่ายครั้งแรก", href: "personal/products/?cat=card" },
+        feature: { img: "photo-1600585154526-990dced4db0d", tag: "ถึง 31 ม.ค. 70", title: "Home 1st Class ดอกเบี้ยพิเศษเริ่มต้น 2.64% ต่อปี* กู้ได้ 100% นานสูงสุด 40 ปี", href: P_("home-1st-class") },
       },
       {
         id: "invest", label: "การลงทุน",
         cols: [
-          { h: "ผลิตภัณฑ์", items: [
-            ["pie", "กองทุนรวม", "คัดสรรกว่า 200 กองทุน", "personal/investments/#funds"],
-            ["layers", "หุ้นกู้", "ผลตอบแทนคงที่ สม่ำเสมอ", "personal/investments/#categories"],
-            ["shield", "ประกันชีวิตและสุขภาพ", "วางแผนคุ้มครองครอบครัว", "personal/investments/#categories"],
+          { h: "การลงทุน", items: [
+            ["pie", "กองทุนแนะนำ", "การขายและรับซื้อคืนหน่วยลงทุน", "personal/investments/#funds"],
+            ["chart", "Shares Saving Plan", "โครงการสะสมหุ้น", "personal/investments/#categories"],
+            ["layers", "ตราสารทางการเงิน", "บริการจำหน่ายตราสารทางการเงิน", "personal/investments/#categories"],
           ]},
-          { h: "ที่ปรึกษา", items: [
-            ["target", "ประเมินความเสี่ยง", "รู้จักสไตล์การลงทุนของคุณ", "personal/investments/#advisory"],
-            ["headset", "นัดหมายผู้เชี่ยวชาญ", "Wealth Advisor ส่วนตัว", "personal/investments/#advisory"],
+          { h: "ที่ปรึกษาและประกัน", items: [
+            ["target", "LH Bank Advisory", "Weekly Report และบทวิเคราะห์", "personal/investments/#advisory"],
+            ["headset", "The Advisory Branch", "วางแผนการเงินและการลงทุนครบวงจร", "personal/investments/#advisory"],
+            ["shield", "ประกันชีวิตควบการลงทุน", "ประกันยูนิตลิงค์", "personal/investments/#categories"],
           ]},
         ],
-        feature: { img: "photo-1526628953301-3e589a6a8b74", tag: "Market Insight", title: "มุมมองการลงทุนไตรมาสที่ 1 / 2027", href: "personal/investments/" },
+        feature: { local: "assets/img/lhbank/banner-rmf-thaiesg-mb.jpg", tag: "ลดหย่อนภาษี 2026", title: "LH Fund Pro RMF / Thai ESG", href: "personal/investments/" },
       },
       {
         id: "services", label: "บริการ",
         cols: [
-          { h: "ดิจิทัล", items: [
-            ["mobile", "แอป LHB You", "ทำธุรกรรมได้ทุกที่", "personal/#app"],
-            ["globe", "โอนเงินต่างประเทศ", "รวดเร็ว ค่าธรรมเนียมโปร่งใส", "exchange-rates/"],
+          { h: "ดิจิทัลแบงก์กิ้ง", items: [
+            ["mobile", "LHB You", "แอปของ LH Bank", "personal/#app"],
+            ["gift", "LHB Rewards", "สิทธิพิเศษสำหรับลูกค้า", "personal/#app"],
+            ["card", "บริการบัตรเดบิต LH Bank", "ใช้จ่ายและกดเงินจากบัญชี", P_("debit")],
+            ["lock", "LH Bank Cardless", "กดเงินไม่ใช้บัตร", P_("cardless")],
           ]},
           { h: "ข้อมูลและช่องทาง", items: [
             ["swap", "อัตราแลกเปลี่ยน", "ซื้อ-ขาย และย้อนหลัง", "exchange-rates/"],
-            ["pin", "ค้นหาสาขา", "สาขาและศูนย์ธุรกิจ", "branch-locations/"],
-            ["percent", "อัตราดอกเบี้ยและค่าธรรมเนียม", "ข้อมูลล่าสุด", "personal/products/"],
+            ["pin", "ค้นหาสาขา", "สาขาและเวลาทำการ", "branch-locations/"],
+            ["shield", "บริการยืนยันตัวตนผ่านระบบ NDID", "บริการดิจิทัลของธนาคาร", "#"],
           ]},
         ],
-        feature: { local: "assets/img/lhbank/lhbyou-screen-1.jpg", tag: "LHB You", title: "โลกการเงินใหม่สไตล์ YOU — ทุกเรื่องการเงินในแอปเดียว", href: "personal/#app" },
+        feature: { local: "assets/img/lhbank/lhbyou-screen-1.jpg", tag: "LHB You", title: "โลกการเงินใหม่สไตล์ YOU — เพื่อนใหม่ที่รู้ใจทุกเรื่องการเงิน", href: "personal/#app" },
+      },
+      {
+        id: "family", label: "Family Banking",
+        cols: [
+          { h: "ระดับสมาชิก", items: [
+            ["sparkle", "Elite Privilege", "Family Banking", "personal/#family"],
+            ["sparkle", "Elite Plus", "Family Banking", "personal/#family"],
+            ["sparkle", "Elite", "Family Banking", "personal/#family"],
+          ]},
+          { h: "Wealth", items: [
+            ["star", "Wealth Plus", "Family Banking", "personal/#family"],
+            ["star", "Wealth", "Family Banking", "personal/#family"],
+          ]},
+        ],
+        feature: { img: "photo-1520250497591-112f2f40a3f4", tag: "Family Banking", title: "ดูแลความมั่งคั่งของทั้งครอบครัว 5 ระดับสมาชิก", href: "personal/#family" },
       },
     ],
   };
   MENUS.sme = [
     { id: "sme-loans", label: "สินเชื่อธุรกิจ", cols: [
-      { h: "สินเชื่อ SME", items: [
-        ["store", "สินเชื่อ SME เริ่มต้นธุรกิจ", "สำหรับกิจการ 1 ปีขึ้นไป", "personal/product/?id=sme-start"],
-        ["building", "สินเชื่อ SME ขยายกิจการ", "วงเงินสูงสุด 50 ล้านบาท", "personal/product/?id=sme-growth"],
+      { h: "สินเชื่อธุรกิจ", items: [
+        ["bolt", "สินเชื่อเพื่อหมุนเวียนในธุรกิจ", "เสริมสภาพคล่อง", P_("sme-working-capital")],
+        ["building", "สินเชื่อเพื่อการลงทุนในธุรกิจ", "ขยายกิจการ", P_("sme-investment")],
+        ["coins", "สินเชื่อแฟคเตอริ่ง", "ลูกหนี้การค้า → เงินทุน", P_("sme-factoring")],
       ]},
-      { h: "เครื่องมือ", items: [
-        ["calc", "คำนวณสินเชื่อ", "ประเมินค่างวด", "personal/calculator/home-loan/"],
-        ["grid", "ผลิตภัณฑ์ทั้งหมด", "SME Banking", "personal/products/?cat=sme"],
+      { h: "สินเชื่อแนะนำ", items: [
+        ["leaf", "Green Transition Advisory Loan", "สู่ความยั่งยืนด้านสิ่งแวดล้อม", P_("sme-green")],
+        ["globe", "สินเชื่อและบริการการค้าระหว่างประเทศ", "นำเข้า · ส่งออก", P_("trade")],
+        ["grid", "ผลิตภัณฑ์ SME ทั้งหมด", "SME Banking", "personal/products/?cat=sme"],
       ]},
-    ], feature: { img: "photo-1551836022-4c4c79ecde51", tag: "SME", title: "ทุนหมุนเวียนสำหรับธุรกิจที่กำลังเติบโต", href: "personal/products/?cat=sme" } },
-    { id: "sme-dep", label: "บัญชีธุรกิจ", cols: [
-      { h: "บัญชี", items: [["wallet", "บัญชีกระแสรายวัน", "บริหารสภาพคล่อง", "personal/products/?cat=sme"], ["piggy", "ออมทรัพย์ธุรกิจ", "ดอกเบี้ยพิเศษ", "personal/products/?cat=sme"]] },
-      { h: "บริการ", items: [["globe", "การค้าระหว่างประเทศ", "L/C, T/R", "business/"], ["swap", "อัตราแลกเปลี่ยน", "อัปเดตเรียลไทม์", "exchange-rates/"]] },
-    ], feature: { img: "photo-1600880292089-90a7e086ee0c", tag: "Business Account", title: "บัญชีเดียว จัดการธุรกิจได้ครบ", href: "personal/products/?cat=sme" } },
-    { id: "sme-help", label: "ที่ปรึกษาธุรกิจ", cols: [
-      { h: "บริการ", items: [["headset", "นัดหมาย RM", "ผู้ดูแลธุรกิจส่วนตัว", "sme/#advisory"], ["pin", "ศูนย์ธุรกิจ SME", "ใกล้คุณ", "branch-locations/?type=sme"]] },
+    ], feature: { img: "photo-1551836022-4c4c79ecde51", tag: "SME", title: "สินเชื่อธุรกิจสำหรับทุกช่วงของการเติบโต", href: "personal/products/?cat=sme" } },
+    { id: "sme-acc", label: "บัญชีและบริการ", cols: [
+      { h: "บัญชีเพื่อธุรกิจ", items: [["wallet", "เงินฝากออมทรัพย์ธุรกิจคุ้มค่า", "ออมทรัพย์สำหรับธุรกิจ", P_("sme-savings")], ["layers", "บริการ Cash Management", "Payment & Collection", P_("cash-management")]] },
+      { h: "บริการ", items: [["mobile", "LH Bank Speedy", "บริการธนาคารทางอินเทอร์เน็ต", "#"], ["swap", "อัตราแลกเปลี่ยน", "ซื้อ-ขาย และย้อนหลัง", "exchange-rates/"]] },
+    ], feature: { img: "photo-1600880292089-90a7e086ee0c", tag: "Cash Management", title: "บริหารการรับ-จ่ายเงินของธุรกิจในที่เดียว", href: P_("cash-management") } },
+    { id: "sme-advisory", label: "Advisory Service", cols: [
+      { h: "Advisory Service", items: [["target", "LHB GAFE", "Advisory Service", "#"], ["building", "Business Expand", "Business Expand Hub", "#"]] },
+      { h: "", items: [["globe", "Import x Export Hub", "Export and Import", P_("trade")], ["doc", "SME Playbook", "คู่มือผู้ประกอบการ", "#"]] },
     ], feature: null },
   ];
   MENUS.business = [
-    { id: "biz-fin", label: "สินเชื่อองค์กร", cols: [
-      { h: "สินเชื่อ", items: [["building", "สินเชื่อโครงการ", "Project Finance", "personal/product/?id=project-finance"], ["briefcase", "สินเชื่อระยะยาว", "Term Loan", "personal/products/?cat=business"]] },
-    ], feature: { img: "photo-1582407947304-fd86f028f716", tag: "Corporate", title: "พันธมิตรทางการเงินสำหรับองค์กรชั้นนำ", href: "personal/products/?cat=business" } },
-    { id: "biz-cash", label: "Cash Management", cols: [
-      { h: "บริการ", items: [["layers", "Cash Management", "บริหารเงินสดองค์กร", "personal/product/?id=cash-management"], ["globe", "Trade Finance", "การค้าระหว่างประเทศ", "personal/products/?cat=business"]] },
+    { id: "biz-pay", label: "บริการชำระเงิน", cols: [
+      { h: "Payment", items: [["users", "บริการจ่ายเงินเดือน Payroll", "โอนเงินเดือนพนักงาน", P_("payroll")], ["layers", "LHB BULK PAYMENT", "โอนเงินเข้าบัญชีต่างธนาคารอัตโนมัติ", P_("cash-management")], ["swap", "ORFT · Bahtnet", "บริการโอนเงิน", P_("cash-management")]] },
+      { h: "Collection", items: [["wallet", "Bill Payment", "บริการรับชำระเงิน", P_("cash-management")], ["check", "LHB Direct Debit", "หักบัญชีอัตโนมัติเพื่อรับชำระ", P_("cash-management")]] },
+    ], feature: { img: "photo-1582407947304-fd86f028f716", tag: "Cash Management", title: "บริการชำระเงินและรับชำระเงินสำหรับธุรกิจ", href: P_("cash-management") } },
+    { id: "biz-intl", label: "บริการระหว่างประเทศ", cols: [
+      { h: "ระหว่างประเทศ", items: [["globe", "บริการด้านการนำเข้า / ส่งออก", "สินเชื่อการค้าระหว่างประเทศ", P_("trade")], ["swap", "บริหารความเสี่ยงอัตราแลกเปลี่ยน", "FX", P_("fx-risk")]] },
+      { h: "ดิจิทัล", items: [["mobile", "LHB Biz Connect", "บริการธุรกิจ", "#"], ["mobile", "LH Bank Speedy", "Internet Banking", "#"]] },
     ], feature: null },
   ];
 
@@ -258,7 +272,7 @@
           <div class="header-actions">
             <button class="icon-btn" data-open-search aria-label="ค้นหา">${icon("search")}</button>
             <a class="btn btn--secondary btn--sm hide-tablet" href="#" data-toast="เข้าสู่ระบบ LH Bank Online — ใช้ระบบเดิม">${icon("user")}เข้าสู่ระบบ</a>
-            <a class="btn btn--primary btn--sm" href="${url("personal/product/?id=smart-savings")}">เปิดบัญชี</a>
+            <a class="btn btn--primary btn--sm" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
             <button class="icon-btn menu-toggle" data-open-menu aria-label="เปิดเมนู" aria-expanded="false">${icon("menu")}</button>
           </div>
         </div>
@@ -300,7 +314,7 @@
         </div>
         <div class="mobile-nav__foot">
           <a class="btn btn--secondary" href="#" data-toast="เข้าสู่ระบบ LH Bank Online — ใช้ระบบเดิม">เข้าสู่ระบบ</a>
-          <a class="btn btn--primary" href="${url("personal/product/?id=smart-savings")}">เปิดบัญชี</a>
+          <a class="btn btn--primary" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
         </div>
       </div>`;
   }
@@ -331,10 +345,10 @@
     const el = $("#site-footer");
     if (!el) return;
     const cols = [
-      ["ผลิตภัณฑ์", [["บัญชีเงินฝาก", "personal/products/?cat=deposit"], ["สินเชื่อบ้าน", "personal/products/?cat=home-loan"], ["สินเชื่อส่วนบุคคล", "personal/products/?cat=personal-loan"], ["บัตรเครดิต", "personal/products/?cat=card"], ["การลงทุน", "personal/investments/"]]],
-      ["ธุรกิจ", [["SME Banking", "sme/"], ["Business Banking", "business/"], ["สินเชื่อ SME", "personal/products/?cat=sme"], ["Cash Management", "personal/product/?id=cash-management"]]],
-      ["เครื่องมือ", [["คำนวณสินเชื่อบ้าน", "personal/calculator/home-loan/"], ["อัตราแลกเปลี่ยน", "exchange-rates/"], ["ค้นหาสาขา", "branch-locations/"], ["Design System", "design-system/"]]],
-      ["เกี่ยวกับเรา", [["ข้อมูลธนาคาร", "#"], ["นักลงทุนสัมพันธ์", "#"], ["ร่วมงานกับเรา", "#"], ["ข่าวสารและกิจกรรม", "#"]]],
+      ["ผลิตภัณฑ์ของเรา", [["เงินฝาก", "personal/products/?cat=deposit"], ["สินเชื่อ", "personal/products/?cat=home-loan"], ["การลงทุน", "personal/investments/"], ["บริการ", "personal/products/?cat=card"], ["ดิจิทัลแบงก์กิ้ง", "personal/#app"], ["Family Banking", "personal/#family"]]],
+      ["ธุรกิจ", [["SME Banking", "sme/"], ["บริการธุรกิจ", "business/"], ["สินเชื่อธุรกิจ", "personal/products/?cat=sme"], ["บริการ Cash Management", "personal/product/?id=cash-management"]]],
+      ["ข้อมูลอื่นๆ", [["อัตราแลกเปลี่ยนเงินตราต่างประเทศ", "exchange-rates/"], ["เครื่องมือคำนวณ", "personal/calculator/home-loan/"], ["กองทุนแนะนำ", "personal/investments/#funds"], ["ค้นหาสาขา", "branch-locations/"], ["Design System", "design-system/"]]],
+      ["เกี่ยวกับเรา", [["ความเป็นมา", "#"], ["ข่าวสารและกิจกรรม", "#"], ["Responsible Lending", "#"], ["สมัครงาน", "#"], ["ติดต่อเรา", "#"]]],
     ];
     el.outerHTML = `
       <footer class="site-footer">
@@ -342,13 +356,13 @@
           <div class="footer-top">
             <div class="footer-brand">
               <a class="logo logo--light" href="${url("personal/")}"><img class="logo__img" src="${url("assets/img/lhbank/logo-white.svg")}" alt="LH Bank" width="132" height="32" style="height:38px"></a>
-              <p>ที่ปรึกษาทางการเงินที่อยู่เคียงข้างทุกเป้าหมายในชีวิต ด้วยความมั่นคงและความใส่ใจในทุกรายละเอียด</p>
-              <a class="footer-contact" href="tel:1327">${icon("headset")}<div><span class="t-xs" style="opacity:.6">LH Bank Contact Center</span><div class="t-num">1327</div></div></a>
+              <p>ธนาคารขนาดกลางชั้นนำที่โดดเด่นในการส่งมอบความเป็นเลิศด้านบริการ ด้วยโซลูชันที่ทันสมัยและตอบโจทย์เฉพาะบุคคล</p>
+              <a class="footer-contact" href="tel:1327">${icon("headset")}<div><span class="t-xs" style="opacity:.6">LH Bank Call Center · callcenter@lhbank.co.th</span><div class="t-num">1327</div></div></a>
             </div>
             ${cols.map(([h, ls]) => `<div><h6>${h}</h6><ul>${ls.map(([t, hr]) => `<li><a href="${hr === "#" ? "#" : url(hr)}">${t}</a></li>`).join("")}</ul></div>`).join("")}
           </div>
           <div class="footer-bottom">
-            <span>© 2027 Land and Houses Bank Public Company Limited. Prototype for bid presentation.</span>
+            <span>© 2569 ธนาคารแลนด์ แอนด์ เฮ้าส์ จำกัด (มหาชน) · Prototype for bid presentation</span>
             <nav><a href="#">นโยบายความเป็นส่วนตัว</a><a href="#">ข้อกำหนดการใช้งาน</a><a href="#">นโยบายคุกกี้</a><a href="#">แจ้งเบาะแส</a></nav>
             <div class="social"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="LINE">L</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Instagram">◎</a></div>
           </div>
@@ -361,7 +375,7 @@
     const pages = [
       ["P0", "1. Personal Landing", "personal/", "personal"],
       ["P0", "2. Product Listing", "personal/products/?cat=home-loan", "listing"],
-      ["P0", "3. Product Detail", "personal/product/?id=saen-sabai", "detail"],
+      ["P0", "3. Product Detail", "personal/product/?id=home-1st-class", "detail"],
       ["P0", "4. Loan Calculator", "personal/calculator/home-loan/", "calculator"],
       ["P1", "5. Investment Landing", "personal/investments/", "investments"],
       ["P1", "6. Branch Locator", "branch-locations/", "branches"],
@@ -447,10 +461,10 @@
     const idx = [
       { t: "คำนวณสินเชื่อบ้าน", s: "เครื่องมือ · ค่างวด วงเงินกู้", h: "personal/calculator/home-loan/", ic: "calc", k: "คำนวณค่างวด calculator ผ่อน" },
       { t: "อัตราแลกเปลี่ยน", s: "บริการ · USD EUR JPY", h: "exchange-rates/", ic: "swap", k: "exchange rate fx ค่าเงิน" },
-      { t: "ค้นหาสาขา", s: "บริการ · สาขาและศูนย์ธุรกิจ", h: "branch-locations/", ic: "pin", k: "branch สาขาใกล้ฉัน atm" },
+      { t: "ค้นหาสาขา", s: "บริการ · สาขาและเวลาทำการ", h: "branch-locations/", ic: "pin", k: "branch สาขาใกล้ฉัน atm" },
       { t: "การลงทุน", s: "กองทุนรวม หุ้นกู้ ประกัน", h: "personal/investments/", ic: "pie", k: "กองทุนรวม fund invest" },
       { t: "SME Banking", s: "ธุรกิจ · สินเชื่อ SME", h: "sme/", ic: "store", k: "sme ธุรกิจ" },
-      { t: "Business Banking", s: "องค์กร · Corporate", h: "business/", ic: "building", k: "corporate business" },
+      { t: "บริการธุรกิจ", s: "Cash Management · ระหว่างประเทศ", h: "business/", ic: "building", k: "business cash management" },
     ];
     if (D) D.products.forEach((p) => idx.push({ t: p.name, s: `${D.categories[p.cat].label} · ${p.tagline}`, h: `personal/product/?id=${p.id}`, ic: D.categories[p.cat].icon, k: p.keywords || "" }));
     return idx;
@@ -538,7 +552,7 @@
           <form id="leadForm" novalidate>
             <span class="eyebrow">ให้เราช่วยแนะนำ</span>
             <h3 id="leadTitle" class="mt-3">ให้เจ้าหน้าที่ติดต่อกลับ</h3>
-            <p class="t-muted t-sm mt-2">ผู้เชี่ยวชาญของเราจะติดต่อกลับภายใน 1 วันทำการ เพื่อแนะนำผลิตภัณฑ์ที่เหมาะกับคุณ</p>
+            <p class="t-muted t-sm mt-2">แจ้งข้อมูลให้ผู้เชี่ยวชาญของเราติดต่อกลับ เพื่อแนะนำผลิตภัณฑ์ที่เหมาะกับคุณ</p>
             <div class="stack mt-6" style="--stack:16px">
               <div class="field"><label class="field__label" for="lf-name">ชื่อ-นามสกุล</label><input class="input" id="lf-name" required placeholder="ชื่อ นามสกุล"><span class="field__error">กรุณากรอกชื่อ-นามสกุล</span></div>
               <div class="field"><label class="field__label" for="lf-tel">เบอร์โทรศัพท์</label><input class="input" id="lf-tel" inputmode="tel" required placeholder="08X-XXX-XXXX" pattern="[0-9\\-\\s]{9,12}"><span class="field__error">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</span></div>
@@ -551,7 +565,7 @@
           <div id="leadDone" class="hide text-center" style="padding:24px 0">
             <div class="tile__icon" style="margin:0 auto;background:var(--c-success-bg);color:var(--c-success)">${icon("check")}</div>
             <h3 class="mt-6">ได้รับข้อมูลแล้ว</h3>
-            <p class="t-muted mt-2">เจ้าหน้าที่จะติดต่อกลับภายใน 1 วันทำการ<br>หมายเลขอ้างอิง <strong class="t-num">LH-27-04821</strong></p>
+            <p class="t-muted mt-2">เจ้าหน้าที่ของธนาคารจะติดต่อกลับตามช่วงเวลาที่คุณเลือก<br><span class="t-xs">(ตัวอย่างหน้ายืนยันในต้นแบบ)</span></p>
             <button class="btn btn--secondary mt-8" data-close-modal>ปิด</button>
           </div>
         </div>
@@ -583,9 +597,9 @@
           <span class="eyebrow">เลือกช่องทางสมัคร</span>
           <h3 class="mt-3">สมัครได้ง่าย ในแบบที่คุณสะดวก</h3>
           <div class="stack mt-6" style="--stack:10px">
-            <a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>สมัครออนไลน์</strong><span>ไปยังระบบสมัครของธนาคาร · ใช้เวลาประมาณ 10 นาที</span></div>${icon("arrow-up-right")}</a>
-            <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>ปรึกษาก่อนตัดสินใจ ภายใน 1 วันทำการ</span></div>${icon("arrow-right")}</a>
-            <a class="cta-option" href="${url("branch-locations/")}"><span class="tile__icon">${icon("pin")}</span><div><strong>สมัครที่สาขา</strong><span>ค้นหาสาขาใกล้คุณ เปิดทุกวัน</span></div>${icon("arrow-right")}</a>
+            <a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>สมัครออนไลน์</strong><span>ไปยังระบบสมัครของธนาคาร (ระบบเดิม)</span></div>${icon("arrow-up-right")}</a>
+            <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ</span></div>${icon("arrow-right")}</a>
+            <a class="cta-option" href="${url("branch-locations/")}"><span class="tile__icon">${icon("pin")}</span><div><strong>สมัครที่สาขา</strong><span>ค้นหาสาขาใกล้คุณและเวลาทำการ</span></div>${icon("arrow-right")}</a>
           </div>
           <p class="t-xs t-muted mt-6">* ระบบสมัครสินเชื่อและแบบฟอร์มใช้ระบบเดิมของธนาคาร (นอกขอบเขตงานออกแบบ)</p>
         </div>

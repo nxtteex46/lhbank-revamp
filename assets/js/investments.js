@@ -20,14 +20,14 @@
         <div class="container hero2__content">
           <span class="eyebrow eyebrow--glass">Wealth &amp; Investment</span>
           <h1>สร้างความมั่งคั่ง<br>อย่าง<em>มีทิศทาง</em></h1>
-          <p class="t-lead">กองทุนคัดสรร หุ้นกู้ และประกัน พร้อม Wealth Advisor ที่ช่วยออกแบบพอร์ตให้สอดคล้องกับเป้าหมายและความเสี่ยงที่คุณรับได้</p>
+          <p class="t-lead">กองทุนรวม ตราสารทางการเงิน และประกันชีวิตควบการลงทุน พร้อมบริการวางแผนการเงินและการลงทุนแบบครบวงจรที่ The Advisory Branch</p>
           <div class="hero2__actions"><a class="btn btn--primary btn--lg" href="#advisory">ประเมินความเสี่ยง ${icon("arrow-right")}</a><a class="btn btn--glass btn--lg" href="#funds">ดูกองทุนแนะนำ</a></div>
         </div>
         <div class="hero2__cards">
           <div class="glass-card">
-            <div class="row row--between"><span class="lbl">พอร์ตตัวอย่าง · Balanced</span><span class="lbl" style="color:#9be7c4">+8.6% YTD</span></div>
-            <div class="mt-3">${sparkline(series(5, 40, 100, 0.025, 0.003), { w: 240, h: 56, color: "#a9dcf0" })}</div>
-            <div class="row mt-2 lbl" style="gap:12px"><span>หุ้น 50%</span><span>ตราสารหนี้ 40%</span><span>ทอง 10%</span></div>
+            <div class="lbl">แคมเปญลดหย่อนภาษี 2026</div>
+            <div class="val" style="font-size:1.7rem;font-weight:400">RMF / Thai ESG</div>
+            <div class="lbl">LH Fund Pro · สอบถามได้ที่สาขาและ 1327</div>
           </div>
         </div>
       </div>
@@ -39,20 +39,11 @@
       </a>
     </section>
 
-    <section class="section--tight section--mist">
-      <div class="container">
-        <div class="row row--between mb-6"><div><span class="eyebrow">Market Preview</span><h2 class="t-h3 mt-2">ภาพรวมตลาด</h2></div><span class="fx-updated"><span class="live"></span> อัปเดต 2 ม.ค. 2027 · 16:30 น. <span class="t-xs">(ข้อมูลตัวอย่าง)</span></span></div>
-        <div class="market-strip" id="marketStrip">${markets.slice(0, 4).map(mCard).join("")}</div>
-        <div class="market-strip mt-3 hide" id="marketMore">${markets.slice(4).map(mCard).join("")}</div>
-        <div class="text-center mt-6"><button class="btn btn--secondary btn--sm" id="toggleMarkets">ดูตลาดเพิ่มเติม ${icon("chevron-down")}</button></div>
-      </div>
-    </section>
-
     <section class="section" id="categories">
       <div class="container">
-        <div class="section-head reveal"><div class="section-head__text"><span class="eyebrow">Investment Categories</span><h2>เลือกการลงทุนที่ใช่สำหรับคุณ</h2></div></div>
+        <div class="section-head reveal"><div class="section-head__text"><span class="eyebrow">Investment</span><h2>ผลิตภัณฑ์การลงทุน<br>จาก LH Bank</h2></div></div>
         <div class="cols-4 reveal">
-          ${[["pie", "กองทุนรวม", "กว่า 200 กองทุนจาก บลจ. ชั้นนำ เริ่มต้น 500 บาท", "#funds"], ["layers", "หุ้นกู้", "ผลตอบแทนคงที่ สม่ำเสมอ จากบริษัทชั้นนำ", "#funds"], ["shield", "ประกันชีวิตและสุขภาพ", "วางแผนคุ้มครองและลดหย่อนภาษี", "#advisory"], ["sparkle", "Wealth Advisory", "บริการที่ปรึกษาสำหรับพอร์ต 5 ล้านบาทขึ้นไป", "#advisory"]]
+          ${[["pie", "กองทุนรวม", "การขายและรับซื้อคืนหน่วยลงทุน พร้อมกองทุนแนะนำ", "#funds"], ["layers", "ตราสารทางการเงิน", "บริการจำหน่ายตราสารทางการเงิน", "#advisory"], ["shield", "ประกันชีวิตควบการลงทุน", "ประกันยูนิตลิงค์ ร่วมกับเมืองไทยประกันชีวิต", "#advisory"], ["chart", "Shares Saving Plan", "โครงการสะสมหุ้น", "#advisory"]]
             .map(([ic, t, d, h]) => `<a class="tile" href="${h}"><span class="tile__icon">${icon(ic)}</span><span class="tile__arrow">${icon("arrow-right")}</span><span class="tile__title">${t}</span><span class="t-sm t-muted">${d}</span></a>`).join("")}
         </div>
       </div>
@@ -61,13 +52,19 @@
     <section class="section section--sand" id="funds">
       <div class="container">
         <div class="section-head reveal">
-          <div class="section-head__text"><span class="eyebrow">Featured Funds</span><h2>กองทุนแนะนำ</h2><p class="t-lead">คัดสรรโดยทีมวิเคราะห์ ตามผลการดำเนินงานและความสม่ำเสมอ</p></div>
-          <div class="segmented" id="fundFilter" style="max-width:100%;overflow-x:auto">
-            ${["ทั้งหมด", "หุ้นไทย", "หุ้นต่างประเทศ", "ตราสารหนี้", "ผสม"].map((t, i) => `<button class="${i ? "" : "is-active"}" data-type="${i ? t : "all"}">${t}</button>`).join("")}
-          </div>
+          <div class="section-head__text"><span class="eyebrow">Recommended Funds</span><h2>กองทุนแนะนำ</h2><p class="t-lead">กองทุนลดหย่อนภาษี RMF / Thai ESG ปี 2026 และกองทุนที่เปิดเสนอขาย (IPO)</p></div>
         </div>
         <div class="cols-3" id="fundGrid"></div>
-        <p class="t-xs t-muted mt-6">ผลการดำเนินงานในอดีตมิได้เป็นสิ่งยืนยันถึงผลการดำเนินงานในอนาคต · ผู้ลงทุนควรทำความเข้าใจลักษณะสินค้า เงื่อนไขผลตอบแทน และความเสี่ยงก่อนตัดสินใจลงทุน · ข้อมูลตัวอย่างสำหรับต้นแบบ</p>
+        <p class="t-xs t-muted mt-6">NAV และผลการดำเนินงานแสดงจากข้อมูลของ บลจ. แบบรายวันในระบบจริง · ผลการดำเนินงานในอดีตมิได้เป็นสิ่งยืนยันถึงผลการดำเนินงานในอนาคต · ผู้ลงทุนควรทำความเข้าใจลักษณะสินค้า เงื่อนไขผลตอบแทน และความเสี่ยงก่อนตัดสินใจลงทุน</p>
+      </div>
+    </section>
+
+    <section class="section--tight section--mist">
+      <div class="container">
+        <div class="row row--between mb-6"><div><span class="eyebrow">Market Preview</span><h2 class="t-h3 mt-4">ภาพรวมตลาด</h2></div><span class="fx-updated"><span class="live"></span> ตัวอย่างการแสดงผล · ระบบจริงเชื่อมต่อข้อมูลตลาดแบบเรียลไทม์</span></div>
+        <div class="market-strip" id="marketStrip">${markets.slice(0, 4).map(mCard).join("")}</div>
+        <div class="market-strip mt-3 hide" id="marketMore">${markets.slice(4).map(mCard).join("")}</div>
+        <div class="text-center mt-6"><button class="btn btn--secondary btn--sm" id="toggleMarkets">ดูตลาดเพิ่มเติม ${icon("chevron-down")}</button></div>
       </div>
     </section>
 
@@ -75,10 +72,10 @@
       <div class="container">
         <div class="advisory reveal" style="grid-template-columns:1fr 1fr">
           <div class="advisory__content">
-            <span class="eyebrow" style="color:var(--c-accent-200)">Advisory</span>
+            <span class="eyebrow">LH Bank Advisory</span>
             <h2>รู้จักสไตล์การลงทุน<br>ของคุณใน 1 นาที</h2>
-            <p class="t-lead">ตอบ 3 คำถามสั้นๆ เพื่อรับคำแนะนำพอร์ตเบื้องต้น จากนั้นนัดหมาย Wealth Advisor เพื่อวางแผนแบบเจาะลึก</p>
-            <div class="row" style="gap:12px"><a class="btn btn--light" href="#" data-modal="leadModal">นัดหมาย Wealth Advisor ${icon("arrow-right")}</a></div>
+            <p class="t-lead">ตอบ 3 คำถามสั้นๆ เพื่อเริ่มต้น แล้วปรึกษาต่อที่ The Advisory Branch บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจรของ LH Bank</p>
+            <div class="row" style="gap:12px"><a class="btn btn--light" href="#" data-modal="leadModal">ให้ที่ปรึกษาติดต่อกลับ ${icon("arrow-right")}</a></div>
           </div>
           <div class="advisory__content" style="background:rgba(255,255,255,.04);border-left:1px solid rgba(255,255,255,.08)">
             <div class="quiz" id="quiz"></div>
@@ -89,9 +86,9 @@
 
     <section class="section" style="padding-top:0">
       <div class="container">
-        <div class="section-head"><div class="section-head__text"><span class="eyebrow">Insights</span><h2>มุมมองการลงทุน</h2></div><a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">ดูบทวิเคราะห์ทั้งหมด ${icon("arrow-right")}</a></div>
+        <div class="section-head"><div class="section-head__text"><span class="eyebrow">Insights</span><h2>บทวิเคราะห์และข่าวสาร</h2></div><a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">ดูทั้งหมด ${icon("arrow-right")}</a></div>
         <div class="cols-3">
-          ${[["photo-1526628953301-3e589a6a8b74", "Market Outlook", "มุมมองการลงทุนไตรมาส 1/2027: โอกาสในหุ้นเทคโนโลยีโลก", "2 ม.ค. 2027"], ["photo-1600210492486-724fe5c67fb0", "Tax Planning", "Thai ESG vs SSF: เลือกกองทุนลดหย่อนภาษีให้เหมาะกับคุณ", "28 ธ.ค. 2026"], ["photo-1559526324-4b87b5e36e44", "Fixed Income", "หุ้นกู้ในยุคดอกเบี้ยขาลง ยังน่าสนใจหรือไม่", "20 ธ.ค. 2026"]]
+          ${[["photo-1526628953301-3e589a6a8b74", "Weekly Report", "Weekly Report — บทวิเคราะห์เศรษฐกิจและการลงทุนประจำสัปดาห์ จาก LH Bank Advisory", "รายสัปดาห์"], ["photo-1600210492486-724fe5c67fb0", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["photo-1573497019236-17f8177b81e8", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"]]
             .map(([im, tag, t, d]) => `<a class="article-card" href="#" data-toast="Article template — reusable pattern"><div class="media media--zoom">${img(U(im, 700))}</div><div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${d}</span></div><h3>${t}</h3></a>`).join("")}
         </div>
       </div>
@@ -106,56 +103,20 @@
     e.currentTarget.innerHTML = open ? `ดูตลาดเพิ่มเติม ${icon("chevron-down")}` : `ย่อ ${icon("chevron-down", "")}`;
   });
 
-  /* Funds */
-  const risk = (lvl) => `<span class="risk" data-level="${lvl}" title="ระดับความเสี่ยง ${lvl}/8">${Array.from({ length: 8 }, (_, i) => `<i class="${i < lvl ? "on" : ""}"></i>`).join("")}</span>`;
-  const ret = (v) => (v ? `<strong class="${v >= 0 ? "chg-up" : "chg-down"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</strong>` : `<strong class="t-muted">—</strong>`);
-  function renderFunds(type) {
-    const list = D.funds.filter((f) => type === "all" || f.type === type);
-    $("#fundGrid").innerHTML = list.map((f) => `
+  /* Funds — real codes only; live NAV comes from the AMC feed */
+  $("#fundGrid").innerHTML = D.funds.map((f) => `
       <article class="fund-card">
-        <div class="row row--between"><span class="badge badge--line">${f.type}</span>${f.tag ? `<span class="badge badge--gold">${f.tag}</span>` : ""}</div>
-        <div><div class="t-num t-xs t-muted">${f.code}</div><h3 class="t-h4 mt-2" style="font-size:1.05rem;line-height:1.45">${f.name}</h3></div>
-        ${sparkline(series(f.seed, 50, 100, 0.03, f.r1 / 5000), { w: 300, h: 56 })}
-        <div class="fund-card__returns t-num"><div><span>1 ปี</span>${ret(f.r1)}</div><div><span>3 ปี (ต่อปี)</span>${ret(f.r3)}</div><div><span>5 ปี (ต่อปี)</span>${ret(f.r5)}</div></div>
-        <div class="row row--between"><div class="t-xs t-muted">ความเสี่ยง ${risk(f.risk)}</div><div class="t-xs t-muted">NAV <strong class="t-num" style="color:var(--c-ink)">${f.nav.toFixed(4)}</strong></div></div>
-        <div class="row" style="gap:8px"><button class="btn btn--secondary btn--sm" style="flex:1" data-fund="${f.code}">รายละเอียด</button><button class="btn btn--dark btn--sm" style="flex:1" data-toast="ซื้อกองทุนผ่านแอป LHB You">ลงทุน</button></div>
-      </article>`).join("") || `<div class="listing__empty">ไม่มีกองทุนในหมวดนี้</div>`;
-  }
-  $$("#fundFilter button").forEach((b, _, all) => b.addEventListener("click", () => { all.forEach((x) => x.classList.toggle("is-active", x === b)); renderFunds(b.dataset.type); }));
-  renderFunds("all");
-
-  /* Fund drawer */
-  const drawer = $("#fundDrawer"), ov = $("#drawerOverlay");
-  const closeDrawer = () => { drawer.classList.remove("is-open"); ov.classList.remove("is-on"); document.body.classList.remove("is-locked"); };
-  ov.addEventListener("click", closeDrawer);
-  document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-fund]"); if (!b) return;
-    const f = D.funds.find((x) => x.code === b.dataset.fund);
-    drawer.innerHTML = `
-      <div class="branch-detail">
-        <div class="row row--between"><span class="badge badge--line">${f.type}</span><button class="icon-btn" data-close-drawer aria-label="ปิด">${icon("close")}</button></div>
-        <div class="t-num t-xs t-muted mt-6">${f.code}</div>
-        <h3 class="mt-2">${f.name}</h3>
-        <div class="row mt-4" style="gap:24px"><div><div class="t-xs t-muted">NAV</div><div class="t-num" style="font-size:1.6rem;font-weight:600">${f.nav.toFixed(4)}</div></div><div><div class="t-xs t-muted">1 ปี</div><div class="t-num chg-up" style="font-size:1.6rem;font-weight:600">+${f.r1.toFixed(1)}%</div></div></div>
-        <div class="segmented mt-6" id="fundRange">${["1M", "6M", "1Y", "3Y"].map((r, i) => `<button class="${i === 2 ? "is-active" : ""}" data-n="${[22, 120, 250, 750][i]}">${r}</button>`).join("")}</div>
-        <div class="mt-4" id="fundChart" style="height:140px">${sparkline(series(f.seed, 120, 100, 0.02, f.r1 / 25000), { w: 400, h: 140 })}</div>
-        <dl class="kv mt-6">
-          <dt>ระดับความเสี่ยง</dt><dd>${risk(f.risk)} ${f.risk}/8</dd>
-          <dt>ลงทุนขั้นต่ำ</dt><dd>500 บาท</dd>
-          <dt>ค่าธรรมเนียมการจัดการ</dt><dd>1.07% ต่อปี</dd>
-          <dt>นโยบายปันผล</dt><dd>ไม่จ่าย</dd>
-          <dt>บลจ.</dt><dd>บลจ. แลนด์ แอนด์ เฮ้าส์</dd>
-        </dl>
-        <div class="stack mt-8" style="--stack:10px">
-          <button class="btn btn--primary btn--block" data-toast="ซื้อกองทุนผ่านแอป LHB You">ลงทุนในกองทุนนี้</button>
-          <a class="btn btn--secondary btn--block" href="#" data-toast="ดาวน์โหลด Fund Fact Sheet (PDF)">${icon("download")} Fund Fact Sheet</a>
-        </div>
-      </div>`;
-    drawer.classList.add("is-open"); ov.classList.add("is-on"); document.body.classList.add("is-locked");
-    $("[data-close-drawer]", drawer).addEventListener("click", closeDrawer);
-    $$("#fundRange button", drawer).forEach((rb, _, all) => rb.addEventListener("click", () => { all.forEach((x) => x.classList.toggle("is-active", x === rb)); $("#fundChart").innerHTML = sparkline(series(f.seed + +rb.dataset.n, Math.min(+rb.dataset.n, 160), 100, 0.02, f.r1 / 25000), { w: 400, h: 140 }); }));
-  });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
+        <div class="row row--between"><span class="badge badge--line">${f.type}</span><span class="badge badge--gold">IPO</span></div>
+        <div><div class="t-xs t-muted">บลจ. แลนด์ แอนด์ เฮ้าส์</div><h3 class="t-h4 mt-2 t-num" style="font-size:1.5rem;letter-spacing:-0.02em">${f.code}</h3><p class="t-xs t-muted mt-2">${f.note}</p></div>
+        <div class="fund-card__returns"><div><span>NAV</span><strong class="t-muted">Live</strong></div><div><span>ผลตอบแทน</span><strong class="t-muted">Live</strong></div><div><span>ความเสี่ยง</span><strong class="t-muted">Fact Sheet</strong></div></div>
+        <div class="row" style="gap:8px"><a class="btn btn--secondary btn--sm" style="flex:1" href="https://www.lhfund.co.th/" target="_blank" rel="noopener">ข้อมูลกองทุน ${icon("arrow-up-right")}</a><button class="btn btn--dark btn--sm" style="flex:1" data-modal="leadModal">ปรึกษาที่ปรึกษา</button></div>
+      </article>`).join("") + `
+      <a class="fund-card" href="#" data-modal="leadModal" style="background:var(--c-navy);color:#fff;border:0">
+        <span class="eyebrow">ลดหย่อนภาษี 2026</span>
+        <h3 class="t-h4" style="color:#fff;font-size:1.4rem;font-weight:400">LH Fund Pro<br>RMF / Thai ESG</h3>
+        <p class="t-sm" style="color:rgba(236,228,212,.7)">แคมเปญกองทุนลดหย่อนภาษีปี 2026 จาก LH Bank ดูเงื่อนไขและระยะเวลาแคมเปญได้ที่สาขาหรือ 1327</p>
+        <span class="link" style="color:#e3cfa6;margin-top:auto">สอบถามรายละเอียด ${icon("arrow-right")}</span>
+      </a>`;
 
   /* Risk quiz */
   const Q = [
@@ -164,9 +125,9 @@
     ["หากพอร์ตลดลง 15% คุณจะ…", [["ขายทันที", 1], ["รอดูสถานการณ์", 2], ["ลงทุนเพิ่ม", 3]]],
   ];
   const PROFILES = [
-    [3, "Conservative", "เน้นความมั่นคง", "ตราสารหนี้ 70% · หุ้น 20% · ทอง 10%", "LHFIXED"],
-    [6, "Balanced", "สมดุลระหว่างความเสี่ยงและผลตอบแทน", "หุ้น 50% · ตราสารหนี้ 40% · ทอง 10%", "LHMIX"],
-    [9, "Growth", "เน้นการเติบโตระยะยาว", "หุ้น 75% · ตราสารหนี้ 15% · ทางเลือก 10%", "LHGEQ"],
+    [3, "Conservative", "เน้นความมั่นคง รักษาเงินต้น", "สนใจเงินฝากและตราสารหนี้เป็นหลัก"],
+    [6, "Balanced", "สมดุลระหว่างความเสี่ยงและผลตอบแทน", "กระจายลงทุนในกองทุนหลายประเภท"],
+    [9, "Growth", "เน้นการเติบโตระยะยาว", "รับความผันผวนได้ เพื่อผลตอบแทนระยะยาว"],
   ];
   let step = 0, score = 0;
   const quiz = $("#quiz");
@@ -181,18 +142,16 @@
       $$(".quiz__opt", quiz).forEach((o) => o.addEventListener("click", () => { score += +o.dataset.s; step++; renderQuiz(); }));
     } else {
       const p = PROFILES.find(([max]) => score <= max);
-      const f = D.funds.find((x) => x.code === p[4]);
       quiz.innerHTML = `
         <div class="quiz__progress">${Q.map(() => `<i class="on"></i>`).join("")}</div>
         <span class="t-xs" style="opacity:.6">ผลการประเมินเบื้องต้น</span>
         <h3 style="font-size:2rem">${p[1]}</h3>
         <p style="opacity:.75">${p[2]}</p>
         <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);padding:20px;color:#fff">
-          <div class="t-xs" style="opacity:.6">พอร์ตแนะนำ</div><strong>${p[3]}</strong>
-          <hr style="border:0;border-top:1px solid rgba(255,255,255,.1);margin:14px 0">
-          <div class="t-xs" style="opacity:.6">กองทุนเริ่มต้น</div><button class="link" style="color:var(--c-accent-200)" data-fund="${f.code}">${f.name} ${icon("arrow-right")}</button>
+          <div class="t-xs" style="opacity:.6">แนวทางเบื้องต้น</div><strong style="font-weight:400">${p[3]}</strong>
+          <p class="t-xs mt-3" style="opacity:.6">ผลนี้เป็นแนวทางเบื้องต้นเท่านั้น ไม่ใช่การประเมินความเสี่ยงตามเกณฑ์ ก.ล.ต. ปรึกษาที่ปรึกษาเพื่อทำแบบประเมินฉบับเต็ม</p>
         </div>
-        <div class="row" style="gap:10px"><a class="btn btn--primary" href="#" data-modal="leadModal">คุยกับ Wealth Advisor</a><button class="btn btn--outline-light" id="quizReset">ทำใหม่</button></div>`;
+        <div class="row" style="gap:10px"><a class="btn btn--primary" href="#" data-modal="leadModal">คุยกับที่ปรึกษา</a><button class="btn btn--outline-light" id="quizReset">ทำใหม่</button></div>`;
       $("#quizReset").addEventListener("click", () => { step = 0; score = 0; renderQuiz(); });
     }
   }

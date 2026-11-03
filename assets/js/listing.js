@@ -7,21 +7,24 @@
   const state = { cat: D.categories[params.get("cat")] ? params.get("cat") : "all", q: params.get("q") || "", tags: new Set(), maxRate: null, featured: false, sort: "rec", compare: [] };
 
   const TAGS = {
-    "saen-sabai": ["ซื้อบ้านใหม่", "บ้านมือสอง"], "happy-home": ["ซื้อบ้านใหม่", "บ้านหลังแรก"], refinance: ["รีไฟแนนซ์"], "home-for-cash": ["บ้านแลกเงิน"],
-    "personal-loan": ["ไม่ใช้หลักประกัน"], "car-for-cash": ["ใช้หลักประกัน"],
-    "smart-savings": ["ออมทรัพย์", "เปิดผ่านแอป"], "fixed-12": ["ฝากประจำ"], "tax-free-24": ["ฝากประจำ", "ปลอดภาษี"], fcd: ["เงินตราต่างประเทศ"],
-    "wealth-card": ["บัตรเครดิต", "Premium"], "travel-card": ["บัตรเครดิต", "ท่องเที่ยว"], "debit-smart": ["บัตรเดบิต"],
-    "sme-start": ["เงินทุนหมุนเวียน"], "sme-growth": ["ขยายกิจการ"], "project-finance": ["สินเชื่อ"], "cash-management": ["บริการ"],
+    "home-1st-class": ["บ้านใหม่"], "home-2nd-hand": ["บ้านมือสอง"], "home-refinance": ["รีไฟแนนซ์"], "home-4cash": ["บ้านแลกเงิน"], retention: ["รีไฟแนนซ์", "ลูกค้าเดิม"],
+    "happy-cash": ["สินเชื่อบุคคล"], "happy-cash-bt": ["รวมหนี้"],
+    "fixed-special": ["ฝากประจำ"], "digital-savings": ["ออมทรัพย์"], "high-yield-savings": ["ออมทรัพย์"], "tax-free": ["ปลอดภาษี"], fixed: ["ฝากประจำ"], fcd: ["เงินตราต่างประเทศ"],
+    debit: ["บัตรเดบิต"], cardless: ["บริการ"],
+    "sme-working-capital": ["สินเชื่อธุรกิจ"], "sme-investment": ["สินเชื่อธุรกิจ"], "sme-green": ["สินเชื่อธุรกิจ", "ยั่งยืน"], "sme-factoring": ["สินเชื่อธุรกิจ"], "sme-savings": ["บัญชีธุรกิจ"],
+    "cash-management": ["Payment & Collection"], payroll: ["Payment & Collection"], trade: ["ระหว่างประเทศ"], "fx-risk": ["ระหว่างประเทศ"],
   };
+
   const LEADS = {
     all: ["ผลิตภัณฑ์ทั้งหมด", "เลือกดู เปรียบเทียบ และค้นหาผลิตภัณฑ์ที่เหมาะกับเป้าหมายของคุณ"],
-    deposit: ["บัญชีเงินฝาก", "ให้เงินออมเติบโตอย่างมั่นคง ด้วยดอกเบี้ยที่แข่งขันได้ และความยืดหยุ่นที่คุณเลือกได้"],
-    "home-loan": ["สินเชื่อบ้าน", "ทุกเส้นทางสู่บ้านที่ใช่ ทั้งซื้อบ้านใหม่ รีไฟแนนซ์ หรือบ้านแลกเงิน"],
-    "personal-loan": ["สินเชื่อส่วนบุคคล", "เงินก้อนสำหรับทุกเป้าหมาย อนุมัติไว ดอกเบี้ยโปร่งใส"],
-    card: ["บัตรเครดิตและเดบิต", "สิทธิพิเศษที่ออกแบบมาเพื่อไลฟ์สไตล์ของคุณ"],
-    sme: ["สินเชื่อและบริการ SME", "เงินทุนและที่ปรึกษาสำหรับธุรกิจที่กำลังเติบโต"],
-    business: ["Business Banking", "โซลูชันทางการเงินสำหรับองค์กร"],
+    "home-loan": ["สินเชื่อบ้าน", "Home 1st Class, Home 2nd Hand, Home Refinance และ Home 4Cash — ทุกเส้นทางสู่บ้านที่ใช่"],
+    "personal-loan": ["สินเชื่อส่วนบุคคล", "Happy Cash ชีวิตไปต่อได้ ไม่สะดุด และ Happy Cash Balance Transfer ภาระหนัก เบาใจได้"],
+    deposit: ["เงินฝาก", "ออมทรัพย์ ฝากประจำ เงินฝากปลอดภาษี และบัญชีเงินตราต่างประเทศ"],
+    card: ["บัตรเดบิตและบริการ", "บริการบัตรเดบิต LH Bank และบริการกดเงินไม่ใช้บัตร LH Bank Cardless"],
+    sme: ["SME Banking", "สินเชื่อธุรกิจ บัญชีเพื่อธุรกิจ และบริการสำหรับผู้ประกอบการ"],
+    business: ["บริการธุรกิจ", "บริการชำระเงิน รับชำระเงิน และบริการระหว่างประเทศ"],
   };
+
   const rateCats = ["home-loan", "personal-loan", "deposit", "sme"];
 
   /* Category nav */
@@ -82,7 +85,7 @@
         <h3 class="product-card__title"><a href="${url("personal/product/?id=" + p.id)}">${hl(p.name)}</a></h3>
         <p class="product-card__desc">${p.tagline}</p>
         <ul class="product-card__facts" role="list">${p.facts.map((f) => `<li>${icon("check")}<span>${f}</span></li>`).join("")}</ul>
-        <div class="product-card__highlight"><span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span><span class="product-card__label">${p.highlight.label}</span></div>
+        <div class="product-card__highlight">${p.highlight.text ? `<span class="product-card__value product-card__value--text">${p.highlight.text}</span>` : `<span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span>`}<span class="product-card__label">${p.highlight.label}</span></div>
       </div>
       <div class="product-card__foot">
         <label class="check"><input type="checkbox" data-compare="${p.id}" ${inCmp ? "checked" : ""}> เปรียบเทียบ</label>
@@ -149,9 +152,9 @@
       <thead><tr><th></th>${ps.map((p) => `<th style="text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--c-ink);font-weight:600">${p.name}</th>`).join("")}</tr></thead>
       <tbody>
         ${row("ประเภท", (p) => D.categories[p.cat].label)}
-        ${row("ไฮไลต์", (p) => `<strong class="t-num" style="font-size:1.4rem">${p.highlight.value}${p.highlight.unit}</strong><br><span class="t-xs t-muted">${p.highlight.label}</span>`)}
-        ${row("อัตราดอกเบี้ย", (p) => (typeof p.compare.rate === "number" ? (p.compare.rate ? p.compare.rate.toFixed(2) + "%" : "—") : p.compare.rate))}
-        ${row("ระยะเวลา", (p) => (typeof p.compare.term === "number" ? p.compare.term + " ปี" : p.compare.term))}
+        ${row("ไฮไลต์", (p) => `<strong class="t-num" style="font-size:1.4rem">${p.highlight.text || p.highlight.value + p.highlight.unit}</strong><br><span class="t-xs t-muted">${p.highlight.label}</span>`)}
+        ${row("อัตราดอกเบี้ย", (p) => (typeof p.compare.rate === "number" ? "เริ่มต้น " + p.compare.rate.toFixed(2) + "%*" : "ตามประกาศธนาคาร"))}
+        ${row("ระยะเวลา", (p) => p.compare.term)}
         ${row("วงเงิน / เงื่อนไข", (p) => p.compare.ltv)}
         ${row("ค่าธรรมเนียม", (p) => p.compare.fee)}
         ${row("จุดเด่น", (p) => `<ul class="check-list" style="gap:8px;font-size:.85rem">${p.facts.map((f) => `<li>${f}</li>`).join("")}</ul>`)}

@@ -54,7 +54,7 @@
       </div>`).join("") || `<div class="listing__empty">ไม่พบสกุลเงินที่ค้นหา</div>`;
     $$("#fxTable th.sortable").forEach((th) => { th.classList.toggle("sort-asc", th.dataset.sort === state.sort && state.dir === 1); th.classList.toggle("sort-desc", th.dataset.sort === state.sort && state.dir === -1); });
     const d = new Date(dateIn.value);
-    $("#fxUpdated").textContent = `อัปเดตล่าสุด ${d.toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })} · รอบ ${ROUNDS[state.round]} น.`;
+    $("#fxUpdated").textContent = `ข้อมูลตัวอย่าง · อัปเดตล่าสุด ${d.toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })} · รอบ ${ROUNDS[state.round]} น.`;
     convert(); renderHist();
   }
 
