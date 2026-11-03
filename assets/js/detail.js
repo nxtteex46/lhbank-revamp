@@ -129,7 +129,7 @@
           </div>
           <div class="help-card mt-4">
             <div class="row" style="gap:14px;flex-wrap:nowrap"><span class="help-card__icon">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs help-card__sub">LH Bank Call Center โทร 1327</div></div></div>
-            <div class="help-card__actions"><button class="btn btn--light btn--sm" data-modal="leadModal">ให้ติดต่อกลับ</button><a class="btn btn--outline-light btn--sm" href="tel:1327">${icon("phone")} 1327</a></div>
+            <div class="help-card__actions"><button class="btn btn--primary btn--sm" data-modal="leadModal">ให้ติดต่อกลับ</button><a class="btn btn--outline-light btn--sm" href="tel:1327">${icon("phone")} 1327</a></div>
           </div>
         </aside>
       </div>

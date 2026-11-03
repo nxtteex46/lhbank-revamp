@@ -67,7 +67,7 @@
             <span class="eyebrow">LH Bank Advisory</span>
             <h2>รู้จักสไตล์การลงทุน<br>ของคุณใน 1 นาที</h2>
             <p class="t-lead">ตอบ 3 คำถามสั้นๆ เพื่อเริ่มต้น แล้วปรึกษาต่อที่ The Advisory Branch บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจรของ LH Bank</p>
-            <div class="row" style="gap:12px"><a class="btn btn--light" href="#" data-modal="leadModal">ให้ที่ปรึกษาติดต่อกลับ ${icon("arrow-right")}</a></div>
+            <div class="row" style="gap:12px"><a class="btn btn--primary" href="#" data-modal="leadModal">ให้ที่ปรึกษาติดต่อกลับ ${icon("arrow-right")}</a></div>
           </div>
           <div class="advisory__content advisory__quiz">
             <div class="quiz" id="quiz"></div>
