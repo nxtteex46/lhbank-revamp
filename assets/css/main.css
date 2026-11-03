@@ -1455,3 +1455,42 @@ a.fund-card:hover { background: var(--c-navy); }
 .cta-option:hover .tile__icon { background: var(--c-accent); color: #fff; }
 .cat-btn:hover { background: var(--c-mist); }
 .cat-btn:not(.is-active):hover .tile__icon { background: var(--c-accent); color: #fff; }
+
+/* ==========================================================================
+   27 — Hover refinements
+   Product & promo cards: only an arrow chip in the image's top-right corner.
+   Campaign arrow: ink, not blue. Tools tiles: icon scale + title nudge +
+   arrow fills ink and turns.
+   ========================================================================== */
+/* Shared white arrow chip */
+.product-card::after, .promo-card .media::after {
+  display: block; content: ""; position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; border-radius: 50%; z-index: 3;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%230a1620' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E") center / 16px no-repeat;
+  opacity: 0; transform: translate(-6px, 6px) scale(.85); transition: opacity .4s var(--ease), transform .4s var(--ease); pointer-events: none; bottom: auto; left: auto;
+}
+.product-card:hover::after, .promo-card:hover .media::after { opacity: 1; transform: none; }
+.product-card::after { top: 24px; right: 24px; }
+
+/* Featured products: arrow only — no pill, no overlay, no title colour */
+.product-card__media::before, .product-card__media::after { display: none !important; }
+.product-card:hover .product-card__title { color: inherit; }
+.product-card:hover .media img { transform: scale(1.03); }
+
+/* Promotions: arrow only — no overlay, no title colour */
+.promo-card .media::before { display: none; }
+.promo-card:hover h3 { color: inherit; }
+.promo-card:hover .media img { transform: scale(1.03); }
+
+/* Campaign banner arrow: ink */
+.campaign2__slide:hover .campaign2__go { background: var(--c-ink); color: #fff; }
+.campaign2__slide:hover .campaign2__title { color: inherit; }
+
+/* Tools & Services tiles */
+.tile .tile__icon { transition: transform .45s var(--ease); }
+.tile:hover .tile__icon { background: #fff; color: var(--c-accent-700); transform: scale(1.08); }
+.tile .tile__title { transition: transform .45s var(--ease); }
+.tile:hover .tile__title { transform: translateX(4px); }
+.tile .tile__arrow { transition: background .4s var(--ease), color .4s var(--ease), transform .45s var(--ease); }
+.tile:hover .tile__arrow { background: var(--c-ink); color: #fff; transform: rotate(-45deg); }
+.tile:hover { background: #fff; }
+.section--sand .tile:hover, .section--mist .tile:hover { background: #fff; }
