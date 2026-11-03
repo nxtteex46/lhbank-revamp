@@ -1869,3 +1869,4 @@ a.fund-card:hover { background: var(--c-navy); }
 /* Icon-only buttons: no horizontal padding (v2 .btn padding was overriding it) */
 .btn.btn--icon { padding: 0; width: var(--bh); flex: none; }
 .btn.btn--icon svg { width: 18px; height: 18px; }
+.login-dd__menu { width: 340px; }

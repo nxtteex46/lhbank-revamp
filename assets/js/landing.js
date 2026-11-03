@@ -180,7 +180,7 @@
           </div>
           <div class="advisory__media">
             ${img(U(c.img, 1000))}
-            <div class="advisor-chip"><span class="avatar" style="display:grid;place-items:center;color:var(--c-accent-700);background:var(--c-accent-50)">${c.avatar ? img(U(c.avatar, 120)) : icon("headset")}</span><div><strong class="t-sm" style="display:block;line-height:1.2">${c.advisor}</strong><span class="t-xs t-muted">${c.role}</span></div><span class="live" title="ออนไลน์"></span></div>
+            <div class="advisor-chip"><span class="avatar" style="display:grid;place-items:center;color:var(--c-accent-700);background:var(--c-accent-50)">${c.avatar ? img(U(c.avatar, 120)) : icon("headset")}</span><div><strong class="t-sm" style="display:block;line-height:1.2">${c.advisor}</strong><span class="t-xs t-muted">${c.role}</span></div></div>
           </div>
         </div>
       </div>

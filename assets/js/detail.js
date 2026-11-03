@@ -153,7 +153,7 @@
         <div class="cta-band">
           <div><span class="eyebrow">Next step</span><h2 class="mt-4">พร้อมเริ่มต้นกับ<br>${p.name}</h2><p class="t-lead mt-4">เลือกช่องทางที่สะดวก เราพร้อมดูแลทุกขั้นตอน</p></div>
           <div class="cta-band__actions">
-            ${isBiz ? "" : `<a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>${cta}ออนไลน์</strong><span>ไปยังระบบสมัครของธนาคาร</span></div>${icon("arrow-up-right")}</a>`}
+            ${isBiz ? "" : `<a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>${cta}</strong><span>ไปยังระบบสมัครเดิมของธนาคาร</span></div>${icon("arrow-up-right")}</a>`}
             ${p.calc ? `<a class="cta-option" href="${url("personal/calculator/home-loan/?product=" + p.id)}"><span class="tile__icon">${icon("calc")}</span><div><strong>คำนวณค่างวด</strong><span>ประเมินค่างวดก่อนตัดสินใจ</span></div>${icon("arrow-right")}</a>` : ""}
             <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ</span></div>${icon("arrow-right")}</a>
             <a class="cta-option" href="${url("branch-locations/" + (isBiz ? "?type=sme" : ""))}"><span class="tile__icon">${icon("pin")}</span><div><strong>ติดต่อที่สาขา</strong><span>ค้นหาสาขาใกล้คุณ</span></div>${icon("arrow-right")}</a>

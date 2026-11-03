@@ -166,7 +166,7 @@
         cols: [
           { h: "ดิจิทัลแบงก์กิ้ง", items: [
             ["mobile", "LHB You", "แอปของ LH Bank", "personal/#app"],
-            ["gift", "LHB Rewards", "สิทธิพิเศษสำหรับลูกค้า", "personal/#app"],
+            ["gift", "LHB Rewards", "โปรโมชันและสิทธิพิเศษ", "personal/#app"],
             ["card", "บริการบัตรเดบิต LH Bank", "ใช้จ่ายและกดเงินจากบัญชี", P_("debit")],
             ["lock", "LH Bank Cardless", "กดเงินไม่ใช้บัตร", P_("cardless")],
           ]},
@@ -232,11 +232,13 @@
   /* Login channels that exist at LH Bank today:
      LHB You (personal mobile banking) and LH Bank Speedy (business internet banking). */
   const LOGIN = [
-    { icon: "mobile", t: "LHB You", d: "ลูกค้าบุคคล · Mobile Banking", h: "personal/#app", tag: "บุคคล" },
-    { icon: "briefcase", t: "LH Bank Speedy", d: "ลูกค้าธุรกิจ · Internet Banking", h: "#", toast: "ไปยังระบบ LH Bank Speedy (ระบบเดิมของธนาคาร)", tag: "ธุรกิจ" },
+    { icon: "mobile", t: "LHB You", d: "แอปพลิเคชันของ LH Bank", h: "personal/#app", tag: "บุคคล" },
+    { icon: "gift", t: "LHB Rewards", d: "โปรโมชันและสิทธิพิเศษ", ext: "https://www.lhbank.co.th/th/personal/recommended-product-all-promotions/lhb-rewards/", tag: "บุคคล" },
+    { icon: "briefcase", t: "LHB Biz Connect", d: "บริการสำหรับลูกค้าธุรกิจ", ext: "https://www.lhbbizconnect.com", tag: "ธุรกิจ" },
+    { icon: "globe", t: "LH Bank Speedy", d: "บริการธนาคารทางอินเทอร์เน็ต", ext: "https://www.lhbankspeedy.com/", tag: "ธุรกิจ" },
   ];
   function loginItems() {
-    return LOGIN.map((x) => `<a class="login-item" role="menuitem" href="${x.h === "#" ? "#" : url(x.h)}" ${x.toast ? `data-toast="${x.toast}"` : ""}>
+    return LOGIN.map((x) => `<a class="login-item" role="menuitem" href="${x.ext || url(x.h)}" ${x.ext ? 'target="_blank" rel="noopener"' : ""}>
       <span class="login-item__icon">${icon(x.icon)}</span>
       <span class="login-item__text"><strong>${x.t}</strong><small>${x.d}</small></span>
       <span class="login-item__tag">${x.tag}</span></a>`).join("");
@@ -246,9 +248,9 @@
     const w = document.createElement("div");
     w.innerHTML = `<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle"><div class="modal__backdrop"></div><div class="modal__dialog">
       <button class="icon-btn modal__close" data-close-modal aria-label="ปิด">${icon("close")}</button>
-      <span class="eyebrow">เข้าสู่ระบบ</span><h3 id="loginTitle" class="mt-3">เลือกช่องทางของคุณ</h3>
+      <span class="eyebrow">ดิจิทัลแบงก์กิ้ง</span><h3 id="loginTitle" class="mt-3">บริการดิจิทัลของ LH Bank</h3>
       <div class="login-list mt-6">${loginItems()}</div>
-      <p class="t-xs t-muted mt-6">ระบบเข้าสู่ระบบเป็นระบบเดิมของธนาคาร (นอกขอบเขตงานออกแบบ)</p></div></div>`;
+      <p class="t-xs t-muted mt-6">ลิงก์ไปยังบริการดิจิทัลเดิมของธนาคาร ตามเมนู “ดิจิทัลแบงก์กิ้ง” บน lhbank.co.th</p></div></div>`;
     document.body.appendChild(w.firstElementChild);
   }
 
@@ -296,7 +298,7 @@
           <div class="header-actions">
             <button class="icon-btn" data-open-search aria-label="ค้นหา">${icon("search")}</button>
             <div class="dropdown login-dd hide-tablet">
-              <button class="dropdown__trigger btn btn--secondary btn--sm" aria-haspopup="true" aria-expanded="false">${icon("user")}เข้าสู่ระบบ${icon("chevron-down")}</button>
+              <button class="dropdown__trigger btn btn--secondary btn--sm" aria-haspopup="true" aria-expanded="false">${icon("mobile")}ดิจิทัลแบงก์กิ้ง${icon("chevron-down")}</button>
               <div class="dropdown__menu dropdown__menu--right login-dd__menu" role="menu">
                 ${loginItems()}
               </div>
@@ -342,7 +344,7 @@
           </div>
         </div>
         <div class="mobile-nav__foot">
-          <button class="btn btn--secondary" data-modal="loginModal">${icon("user")} เข้าสู่ระบบ</button>
+          <button class="btn btn--secondary" data-modal="loginModal">${icon("mobile")} ดิจิทัลแบงก์กิ้ง</button>
           <a class="btn btn--primary" href="${url("personal/products/?cat=deposit")}">เปิดบัญชี</a>
         </div>
       </div>`;
@@ -626,7 +628,7 @@
           <span class="eyebrow">เลือกช่องทางสมัคร</span>
           <h3 class="mt-3">สมัครได้ง่าย ในแบบที่คุณสะดวก</h3>
           <div class="stack mt-6" style="--stack:10px">
-            <a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>สมัครออนไลน์</strong><span>ไปยังระบบสมัครของธนาคาร (ระบบเดิม)</span></div>${icon("arrow-up-right")}</a>
+            <a class="cta-option" href="https://campaign.lhbank.co.th/" target="_blank" rel="noopener"><span class="tile__icon">${icon("mobile")}</span><div><strong>สมัครผ่านระบบของธนาคาร</strong><span>ไปยังระบบสมัครเดิมของธนาคาร</span></div>${icon("arrow-up-right")}</a>
             <a class="cta-option" href="#" data-modal="leadModal"><span class="tile__icon">${icon("headset")}</span><div><strong>ให้เจ้าหน้าที่ติดต่อกลับ</strong><span>แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ</span></div>${icon("arrow-right")}</a>
             <a class="cta-option" href="${url("branch-locations/")}"><span class="tile__icon">${icon("pin")}</span><div><strong>สมัครที่สาขา</strong><span>ค้นหาสาขาใกล้คุณและเวลาทำการ</span></div>${icon("arrow-right")}</a>
           </div>
