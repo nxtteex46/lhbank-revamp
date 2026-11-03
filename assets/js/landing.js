@@ -286,7 +286,7 @@
           <div class="reveal">
             <div class="app-real__head">
               <img class="app-real__icon" src="${A("lhbyou-icon.jpg")}" alt="ไอคอนแอป LHB You" width="72" height="72">
-              <div><span class="eyebrow">แอป LHB You</span><div class="app-real__rating mt-2"><span class="app-real__stars">★★★★☆</span><strong>3.8</strong> · 739 รีวิวบน App Store</div></div>
+              <div><span class="eyebrow">แอป LHB You</span><div class="app-real__rating mt-2">แอปของ LH Bank · iOS และ Android</div></div>
             </div>
             <h2 class="mt-6">โลกการเงินใหม่<br><em>สไตล์ YOU</em></h2>
             <p class="t-lead mt-4" style="max-width:480px">เพื่อนใหม่ที่รู้ใจทุกเรื่องการเงิน จาก LH Bank ใช้ชำระค่างวดสินเชื่อและจัดการการเงินได้ในแอปเดียว</p>
@@ -378,7 +378,7 @@
         tiers: ["Elite Privilege", "Elite Plus", "Elite", "Wealth Plus", "Wealth"],
         points: [["5 ระดับสมาชิก", "Wealth · Wealth Plus · Elite · Elite Plus · Elite Privilege — สิทธิประโยชน์ตามระดับสมาชิกที่ธนาคารกำหนด"], ["The Advisory Branch", "บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร"], ["LH Bank Advisory & Weekly Report", "บทวิเคราะห์เศรษฐกิจและมุมมองการลงทุนจากทีมที่ปรึกษา"]],
         cta: "สอบถาม Family Banking" }],
-      ["stats", { items: [["Home 1st Class", "2.64", "%", "ดอกเบี้ยพิเศษเริ่มต้นปีที่ 1*"], ["Happy Cash", "8.88", "%", "ดอกเบี้ยเริ่มต้นต่อปี*"], ["LHB You", "3.8", "/ 5", "คะแนนบน App Store · 739 รีวิว", true], ["Call Center", "1327", "", "LH Bank Call Center ติดต่อสอบถาม"]] }],
+      ["stats", { items: [["Home 1st Class", "2.64", "%", "ดอกเบี้ยพิเศษเริ่มต้นปีที่ 1*"], ["Happy Cash", "8.88", "%", "ดอกเบี้ยเริ่มต้นต่อปี*"], ["Family Banking", "5", "ระดับ", "สมาชิก ตั้งแต่ Wealth ถึง Elite Privilege"], ["Call Center", "1327", "", "LH Bank Call Center ติดต่อสอบถาม"]] }],
       ["promotions", { eyebrow: "Promotions", title: "ผลิตภัณฑ์แนะนำและโปรโมชัน", items: [
         { img: "photo-1600585154526-990dced4db0d", tag: "สินเชื่อบ้าน", until: "สมัครภายใน 31 ม.ค. 70", title: "สินเชื่อบ้านใหม่ Home 1st Class ดอกเบี้ยพิเศษเริ่มต้น 2.64% ต่อปี*", href: "personal/product/?id=home-1st-class" },
         { img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER มูลค่า 200 บาท", href: "personal/products/?cat=deposit" },
