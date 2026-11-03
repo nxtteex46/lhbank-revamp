@@ -95,7 +95,7 @@
   $("#fundGrid").innerHTML = D.funds.map((f) => `
       <article class="fund-card">
         <div class="row row--between"><span class="badge badge--line">${f.type}</span><span class="badge">IPO</span></div>
-        <div><div class="t-xs t-muted">บลจ. แลนด์ แอนด์ เฮ้าส์</div><h3 class="t-h4 mt-2 t-num" style="font-size:1.5rem;letter-spacing:-0.02em">${f.code}</h3><p class="t-xs t-muted mt-2">${f.note}</p></div>
+        <div><div class="t-xs t-muted">บริหารโดย LH Fund</div><h3 class="t-h4 mt-2 t-num" style="font-size:1.5rem;letter-spacing:-0.02em">${f.code}</h3><p class="t-xs t-muted mt-2">${f.note}</p></div>
         <div class="fund-card__returns"><div><span>NAV</span><strong class="t-muted">Live</strong></div><div><span>ผลตอบแทน</span><strong class="t-muted">Live</strong></div><div><span>ความเสี่ยง</span><strong class="t-muted">Fact Sheet</strong></div></div>
         <div class="row" style="gap:8px"><a class="btn btn--secondary btn--sm" style="flex:1" href="https://www.lhfund.co.th/" target="_blank" rel="noopener">ข้อมูลกองทุน ${icon("arrow-up-right")}</a><button class="btn btn--dark btn--sm" style="flex:1" data-modal="leadModal">ปรึกษาที่ปรึกษา</button></div>
       </article>`).join("") + `
