@@ -15,7 +15,7 @@
   S.hero = (c) => `
     <section class="hero2">
       <div class="hero2__frame ${c.cards ? "hero2__frame--shift" : ""}">
-        ${img(U(c.img, 2000), "", 'fetchpriority="high" loading="eager"')}
+        ${img(c.local ? A(c.local) : U(c.img, 2000), "", 'fetchpriority="high" loading="eager"')}
         <div class="container hero2__content">
           <span class="eyebrow eyebrow--glass">${c.eyebrow}</span>
           <h1>${c.title}</h1>
@@ -348,7 +348,7 @@
   const CONFIG = {
     personal: [
       ["heroSplit", {
-        eyebrow: "Modern Wealth Lifestyle", img: "photo-1609220136736-443140cffec6",
+        eyebrow: "Modern Wealth Lifestyle", local: "hero-family.jpg",
         title: "ทุกเป้าหมายในชีวิต<br>มี<em>ที่ปรึกษา</em>เคียงข้าง",
         lead: "ตั้งแต่เริ่มทำงาน สร้างครอบครัว จนถึงวางแผนเกษียณและเสริมความมั่งคั่ง LH Bank พร้อมช่วยคุณวางแผนและตัดสินใจได้อย่างมั่นใจ",
         primary: ["ค้นหาผลิตภัณฑ์ที่ใช่", "personal/products/"], secondary: ["คำนวณสินเชื่อบ้าน", "personal/calculator/home-loan/"],

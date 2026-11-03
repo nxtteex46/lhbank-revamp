@@ -1920,3 +1920,19 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
 }
 .show-sheet { display: none !important; }
 @media (max-width: 1024px) { .show-sheet { display: flex !important; } }
+
+/* 44 — Hero with supplied Asian-family photo (1536px source) */
+@media (min-width: 1101px) { .hero2__frame--shift > img { transform: scale(1.12) translateX(6%); object-position: center 28%; } }
+@media (max-width: 680px) {
+  .hero2__frame--shift > img { top: 0; bottom: auto; height: 400px; object-position: 50% 30%; transform: none; animation: none; }
+  .hero2__frame--shift::before { background: linear-gradient(180deg, rgba(6,14,22,0) 0, rgba(6,14,22,0) 230px, rgba(11,33,49,.92) 385px, #0b2131 420px); }
+  .hero2__frame--shift { background: #0b2131; }
+  .hero2__frame--shift .hero2__content { padding-top: 330px; }
+}
+@media (min-width: 681px) and (max-width: 1100px) { .hero2__frame--shift > img { animation: none; transform: scale(1.32) translateX(11%); object-position: center 22%; transform-origin: center top; } }
+@media (min-width: 681px) and (max-width: 900px) {
+  .hero2__frame--shift > img { top: 0; bottom: auto; height: 480px; object-position: 50% 30%; transform: none; animation: none; }
+  .hero2__frame--shift::before { background: linear-gradient(180deg, rgba(6,14,22,0) 0, rgba(6,14,22,0) 280px, rgba(11,33,49,.92) 460px, #0b2131 500px); }
+  .hero2__frame--shift { background: #0b2131; }
+  .hero2__frame--shift .hero2__content { padding-top: 400px; }
+}
