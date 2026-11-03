@@ -1624,3 +1624,38 @@ a.fund-card:hover { background: var(--c-navy); }
 .calc-mini__foot .btn .ico { transition: transform .35s var(--ease); }
 .calc-mini__foot .btn:hover .ico { transform: translateX(3px); }
 .calc-mini__track { display: none; }
+
+/* ==========================================================================
+   31 — Card titles turn blue on hover · calculator card read-only summary ·
+        LH Bank logo pins
+   ========================================================================== */
+.product-card:hover .product-card__title,
+.promo-card:hover h3, .article-card:hover h3,
+.campaign2__slide:hover .campaign2__title,
+.bento__card:hover h3, .tile:hover .tile__title,
+.discovery__item:hover strong, .quick-bar a:hover strong, .cta-option:hover strong { color: var(--c-accent-700); }
+.bento__card--calc:hover h3 { color: #a9dcf0; }
+.product-card__title, .promo-card h3, .article-card h3, .campaign2__title, .bento__card h3, .tile__title, .discovery__item strong, .quick-bar strong, .cta-option strong { transition: color .35s var(--ease), transform .45s var(--ease); }
+
+/* Calculator card: link + read-only summary (no sliders) */
+.bento__card--calc { cursor: pointer; }
+.calc-sample { margin-top: auto; padding: 22px 24px; border-radius: 20px; background: rgba(255,255,255,.05); display: grid; gap: 16px; }
+.calc-sample__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,.6); }
+.calc-sample__tag { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.85); font-size: 12.5px; }
+.calc-sample__value { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.calc-sample__value strong { font-weight: 300; font-size: clamp(2.4rem, 1.8rem + 1.6vw, 3.2rem); letter-spacing: -0.04em; line-height: 1; color: #fff; }
+.calc-sample__value span { font-size: 13px; color: rgba(255,255,255,.6); }
+.calc-sample__timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.calc-sample__timeline li { display: grid; gap: 2px; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.06); }
+.calc-sample__timeline li:last-child { background: transparent; border: 1px dashed rgba(255,255,255,.18); }
+.calc-sample__timeline span { font-size: 12.5px; color: rgba(255,255,255,.6); }
+.calc-sample__timeline strong { font-size: 1.1rem; font-weight: 500; color: #fff; }
+.calc-sample__note { font-size: 12.5px; color: rgba(255,255,255,.45); }
+.bento__card--calc:hover .bento__icon { transform: scale(1.08); }
+
+/* Branch map: LH Bank logo pins */
+.map-mini .logo-pin { position: absolute; z-index: 1; transform: translate(-50%, -100%); padding: 6px 9px; border-radius: 10px; background: #fff; box-shadow: 0 6px 14px -6px rgba(10,22,32,.35); transition: transform .45s var(--ease); }
+.map-mini .logo-pin::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; background: #fff; transform: rotate(45deg); border-radius: 2px; }
+.map-mini .logo-pin img { position: relative; z-index: 1; height: 13px; width: auto; display: block; }
+.bento__card--branch:hover .map-mini .logo-pin { transform: translate(-50%, calc(-100% - 4px)); }
+.map-mini { height: 130px; }

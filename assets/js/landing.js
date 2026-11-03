@@ -194,22 +194,21 @@
           <div class="section-head__text"><span class="eyebrow">${c.eyebrow}</span><h2>${c.title}</h2><p class="t-lead">${c.lead}</p></div>
         </div>
         <div class="bento reveal">
-          <div class="bento__card bento__card--calc" data-mini-calc>
-            <div class="bento__head"><span class="bento__icon">${icon("calc")}</span><span class="badge badge--glass">คำนวณได้ทันที</span></div>
+          <a class="bento__card bento__card--calc" href="${url("personal/calculator/home-loan/")}">
+            <div class="bento__head"><span class="bento__icon">${icon("calc")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
             <h3>คำนวณสินเชื่อบ้าน</h3>
-            <p>ลองปรับวงเงินและระยะเวลาผ่อน ดูค่างวดโดยประมาณจากอัตราดอกเบี้ยจริงของ Home 1st Class</p>
-            <div class="calc-mini">
-              <label class="calc-mini__row" for="mc-loan"><span>วงเงินกู้</span><strong class="t-num" data-mc-loan-out>฿3,000,000</strong></label>
-              <input type="range" class="range range--dark" id="mc-loan" min="1000000" max="20000000" step="100000" value="3000000" aria-label="วงเงินกู้">
-              <label class="calc-mini__row" for="mc-years"><span>ระยะเวลาผ่อน</span><strong class="t-num" data-mc-years-out>30 ปี</strong></label>
-              <input type="range" class="range range--dark" id="mc-years" min="5" max="40" step="1" value="30" aria-label="ระยะเวลาผ่อน">
-              <div class="calc-mini__result" aria-live="polite"><span>ค่างวดต่อเดือนโดยประมาณ<br><small>3 ปีแรก · อัตราเฉลี่ย 2.66% ต่อปี*</small></span><strong class="t-num" data-mc-out>฿12,105</strong></div>
+            <p>ประเมินค่างวด วงเงินกู้ และตารางผ่อนชำระ ด้วยอัตราดอกเบี้ยจริงของ Home 1st Class</p>
+            <div class="calc-sample">
+              <div class="calc-sample__top"><span class="calc-sample__tag">ตัวอย่างการคำนวณ</span><span>วงเงิน ฿3,000,000 · ผ่อน 30 ปี</span></div>
+              <div class="calc-sample__value"><strong class="t-num">฿12,105</strong><span>/เดือน · 3 ปีแรก</span></div>
+              <ol class="calc-sample__timeline">
+                <li><span>ปีที่ 1</span><strong class="t-num">2.64%</strong></li>
+                <li><span>ปีที่ 2–3</span><strong class="t-num">2.67%</strong></li>
+                <li><span>หลังจากนั้น</span><strong class="t-num">5.17%</strong></li>
+              </ol>
+              <span class="calc-sample__note">Home 1st Class · ทำประกัน MRTA/MLTA · ไม่ฟรีค่าจดจำนอง</span>
             </div>
-            <div class="calc-mini__foot">
-              <a class="btn btn--light btn--sm" href="${url("personal/calculator/home-loan/")}" data-mc-link>คำนวณแบบละเอียด ${icon("arrow-right")}</a>
-              <span class="t-xs" style="color:rgba(255,255,255,.55)">*ทำประกัน MRTA/MLTA · ไม่ฟรีค่าจดจำนอง</span>
-            </div>
-          </div>
+          </a>
           <a class="bento__card bento__card--fx" href="${url("exchange-rates/")}">
             <div class="bento__head"><span class="bento__icon">${icon("swap")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
             <h3>อัตราแลกเปลี่ยน</h3>
@@ -220,7 +219,7 @@
             <div class="bento__head"><span class="bento__icon">${icon("pin")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
             <h3>ค้นหาสาขา</h3>
             <p>สาขาใกล้คุณ พร้อมเวลาทำการและบริการ</p>
-            <div class="map-mini" aria-hidden="true"><i style="left:22%;top:58%"></i><i style="left:48%;top:34%"></i><i style="left:70%;top:62%"></i><i class="me" style="left:56%;top:52%"></i></div>
+            <div class="map-mini" aria-hidden="true"><span class="logo-pin" style="left:24%;top:62%"><img src="${url("assets/img/lhbank/logo.svg")}" alt=""></span><span class="logo-pin" style="left:50%;top:36%"><img src="${url("assets/img/lhbank/logo.svg")}" alt=""></span><span class="logo-pin" style="left:74%;top:66%"><img src="${url("assets/img/lhbank/logo.svg")}" alt=""></span><i class="me" style="left:58%;top:56%"></i></div>
           </a>
           <a class="bento__card bento__card--quiz" href="${url("personal/investments/#advisory")}">
             <div class="bento__head"><span class="bento__icon">${icon("target")}</span><span class="bento__arrow">${icon("arrow-right")}</span></div>
@@ -450,22 +449,5 @@
     vp.addEventListener("mouseleave", play);
     vp.addEventListener("touchstart", () => clearInterval(t), { passive: true });
     sync(); play();
-  });
-  /* Mini home-loan calculator on the Tools card (real Home 1st Class 3-yr avg 2.66%) */
-  $$("[data-mini-calc]", main).forEach((card) => {
-    const loan = $("#mc-loan", card), years = $("#mc-years", card), out = $("[data-mc-out]", card), link = $("[data-mc-link]", card);
-    const rate = 2.66 / 1200;
-    const calc = () => {
-      const L = +loan.value, n = +years.value * 12;
-      const pay = (L * rate) / (1 - Math.pow(1 + rate, -n));
-      $("[data-mc-loan-out]", card).textContent = "฿" + fmt(L);
-      $("[data-mc-years-out]", card).textContent = years.value + " ปี";
-      out.textContent = "฿" + fmt(Math.round(pay));
-      const price = Math.max(2000000, L);
-      link.href = url(`personal/calculator/home-loan/?price=${price}&down=0&years=${years.value}`);
-      window.LH.syncRange(loan); window.LH.syncRange(years);
-    };
-    loan.addEventListener("input", calc); years.addEventListener("input", calc);
-    calc();
   });
 })();
