@@ -1898,3 +1898,25 @@ a.fund-card:hover { background: var(--c-navy); }
 /* Digital banking = header primary action (blue) */
 .login-dd .dropdown__trigger.btn--primary { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
 .login-dd .dropdown__trigger.btn--primary:hover, .login-dd.is-open .dropdown__trigger.btn--primary { background: var(--c-accent-700); border-color: var(--c-accent-700); }
+
+/* 42 — Layout audit fixes */
+#calcMode { max-width: 100%; }
+@media (max-width: 680px) { #calcMode { display: flex; width: 100%; } #calcMode button { flex: 1; min-width: 0; padding: 0 10px; white-space: normal; text-align: center; line-height: 1.25; height: auto; min-height: 44px; } #calcMode button .ico { flex: none; } }
+@media (max-width: 680px) { .site-header .logo { min-height: 44px; display: inline-flex; align-items: center; } .mobile-nav__head .logo { min-height: 44px; display: inline-flex; align-items: center; } }
+.compare-slot button { width: 32px; height: 32px; margin-right: -4px; }
+.search__clear { width: 40px; height: 40px; right: 7px; }
+.branch-detail .btn--icon { --bh: 40px; }
+.dropdown__menu { transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s; }
+
+/* 43 — Overlay audit fixes */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
+.compare-tray { visibility: hidden; transition: transform .4s var(--ease), visibility 0s linear .4s; }
+.compare-tray.is-on { visibility: visible; transition: transform .4s var(--ease), visibility 0s; }
+@media (max-width: 900px) {
+  .proto-nav { left: auto; right: 0; bottom: 38%; }
+  .proto-nav__btn { height: 40px; padding: 0 10px 0 12px; border-radius: 12px 0 0 12px; box-shadow: 0 6px 18px -6px rgba(10,22,32,.4); }
+  .proto-nav__btn .ico { width: 16px; height: 16px; }
+  .proto-nav__panel { left: auto; right: 8px; bottom: 52px; width: min(300px, calc(100vw - 24px)); }
+}
+.show-sheet { display: none !important; }
+@media (max-width: 1024px) { .show-sheet { display: flex !important; } }

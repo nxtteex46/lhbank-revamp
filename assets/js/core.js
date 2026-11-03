@@ -547,7 +547,22 @@
       if (dd.dataset.bound) return;
       dd.dataset.bound = 1;
       const trg = $(".dropdown__trigger", dd);
-      trg.addEventListener("click", (e) => { e.stopPropagation(); const o = dd.classList.contains("is-open"); $$(".dropdown.is-open").forEach((d) => d.classList.remove("is-open")); dd.classList.toggle("is-open", !o); });
+      trg.addEventListener("click", (e) => {
+        e.stopPropagation(); const o = dd.classList.contains("is-open");
+        $$(".dropdown.is-open").forEach((d) => d.classList.remove("is-open"));
+        dd.classList.toggle("is-open", !o);
+        trg.setAttribute("aria-expanded", String(!o));
+        /* keep the menu inside the viewport: flip side if it would overflow */
+        const menu = $(".dropdown__menu", dd);
+        if (menu && !o) {
+          menu.style.left = ""; menu.style.right = "";
+          const r = menu.getBoundingClientRect(), pad = 8;
+          if (r.left < pad) { menu.style.left = "0"; menu.style.right = "auto"; }
+          else if (r.right > innerWidth - pad) { menu.style.right = "0"; menu.style.left = "auto"; }
+          const r2 = menu.getBoundingClientRect();
+          if (r2.left < pad || r2.right > innerWidth - pad) { const tr = dd.getBoundingClientRect(); menu.style.left = (pad - tr.left) + "px"; menu.style.right = "auto"; menu.style.maxWidth = (innerWidth - pad * 2) + "px"; }
+        }
+      });
       $$(".dropdown__item", dd).forEach((it) => it.addEventListener("click", () => {
         $$(".dropdown__item", dd).forEach((x) => x.classList.toggle("is-selected", x === it));
         const lbl = $("[data-dd-label]", dd); if (lbl) lbl.textContent = it.dataset.label || it.textContent.trim();
