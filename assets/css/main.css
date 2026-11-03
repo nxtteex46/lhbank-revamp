@@ -1894,3 +1894,7 @@ a.fund-card:hover { background: var(--c-navy); }
   .quiz__opt { padding: 14px 18px; }
 }
 .mobile-nav__foot { grid-template-columns: 1fr; }
+
+/* Digital banking = header primary action (blue) */
+.login-dd .dropdown__trigger.btn--primary { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.login-dd .dropdown__trigger.btn--primary:hover, .login-dd.is-open .dropdown__trigger.btn--primary { background: var(--c-accent-700); border-color: var(--c-accent-700); }

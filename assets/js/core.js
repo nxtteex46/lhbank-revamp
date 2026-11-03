@@ -298,7 +298,7 @@
           <div class="header-actions">
             <button class="icon-btn" data-open-search aria-label="ค้นหา">${icon("search")}</button>
             <div class="dropdown login-dd hide-tablet">
-              <button class="dropdown__trigger btn btn--secondary btn--sm" aria-haspopup="true" aria-expanded="false">${icon("mobile")}ดิจิทัลแบงก์กิ้ง${icon("chevron-down")}</button>
+              <button class="dropdown__trigger btn btn--primary btn--sm" aria-haspopup="true" aria-expanded="false">${icon("mobile")}ดิจิทัลแบงก์กิ้ง${icon("chevron-down")}</button>
               <div class="dropdown__menu dropdown__menu--right login-dd__menu" role="menu">
                 ${loginItems()}
               </div>
@@ -343,7 +343,7 @@
           </div>
         </div>
         <div class="mobile-nav__foot">
-          <button class="btn btn--secondary" data-modal="loginModal">${icon("mobile")} ดิจิทัลแบงก์กิ้ง</button>
+          <button class="btn btn--primary" data-modal="loginModal">${icon("mobile")} ดิจิทัลแบงก์กิ้ง</button>
         </div>
       </div>`;
   }
