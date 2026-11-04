@@ -410,17 +410,11 @@
       ["P1", "6. Branch Locator", "branch-locations/", "branches"],
       ["P1", "7. Exchange Rates", "exchange-rates/", "rates"],
     ];
-    const extras = [
-      ["Variant", "SME Landing", "sme/", "sme"],
-      ["Variant", "Business Landing", "business/", "business"],
-      ["DS", "Design System", "design-system/", "design-system"],
-    ];
     const link = ([tag, t, h, id]) => `<a href="${url(h)}" class="${PAGE === id ? "is-current" : ""}">${t}<span>${tag}</span></a>`;
     return `
       <div class="proto-nav" id="protoNav">
         <div class="proto-nav__panel">
           <h6>Bid Prototype — 7 Pages</h6>${pages.map(link).join("")}
-          <h6>Templates &amp; System</h6>${extras.map(link).join("")}
         </div>
         <button class="proto-nav__btn" aria-expanded="false">${icon("grid")}<span>Prototype Map</span></button>
       </div>`;
