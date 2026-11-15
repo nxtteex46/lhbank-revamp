@@ -81,7 +81,7 @@
       <a href="${url("personal/product/?id=" + p.id)}" class="media product-card__media" tabindex="-1" aria-hidden="true">${img(U(p.img, 700), "")}</a>
       ${p.badge ? `<div class="product-card__badges"><span class="badge badge--glass" style="background:rgba(13,29,42,.55)">${p.badge}</span></div>` : ""}
       <div class="product-card__body">
-        <span class="product-card__cat">${c.label}</span>
+        <span class="product-card__cat" data-cat="${p.cat}">${c.label}</span>
         <h3 class="product-card__title"><a href="${url("personal/product/?id=" + p.id)}">${hl(p.name)}</a></h3>
         <p class="product-card__desc">${p.tagline}</p>
         <ul class="product-card__facts" role="list">${p.facts.map((f) => `<li>${icon("check")}<span>${f}</span></li>`).join("")}</ul>

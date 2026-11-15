@@ -16,7 +16,7 @@
     </div></section>
     <section class="hero2" style="padding-top:0">
       <div class="hero2__frame" style="min-height:min(76vh,720px)">
-        ${img(U("photo-1520250497591-112f2f40a3f4", 2000), "", 'loading="eager"')}
+        ${img(url("assets/img/lhbank/hero-invest-thai.jpg"), "", 'loading="eager"')}
         <div class="container hero2__content">
           <span class="eyebrow eyebrow--glass">Wealth &amp; Investment</span>
           <h1>สร้างความมั่งคั่ง<br>อย่าง<em>มีทิศทาง</em></h1>
@@ -55,6 +55,16 @@
           <div class="section-head__text"><span class="eyebrow">Recommended Funds</span><h2>กองทุนแนะนำ</h2><p class="t-lead">กองทุนลดหย่อนภาษี RMF / Thai ESG ปี 2026 และกองทุนที่เปิดเสนอขาย (IPO)</p></div>
         </div>
         <div class="cols-3" id="fundGrid"></div>
+        <div class="risk-scale reveal" id="riskScale">
+          <div class="risk-scale__head">
+            <div><h3>ระดับความเสี่ยงกองทุนรวม 1–8</h3><p>ตามเกณฑ์ของสำนักงาน ก.ล.ต. · ตรวจสอบระดับของแต่ละกองทุนได้จาก Fact Sheet</p></div>
+            <div class="risk-scale__legend"><span>ความเสี่ยงต่ำ</span><span>ความเสี่ยงสูง</span></div>
+          </div>
+          <ol class="risk-scale__bar">
+            ${[["lime", "ตลาดเงินในประเทศ"], ["teal", "ตลาดเงินที่ลงทุนต่างประเทศบางส่วน"], ["blue", "พันธบัตรรัฐบาล"], ["grey", "ตราสารหนี้"], ["yellow", "ผสม"], ["orange", "ตราสารทุน"], ["coral", "หมวดอุตสาหกรรม"], ["purple", "ทางเลือก"]]
+              .map(([c, t], i) => `<li style="--tone:var(--ci-${c})" data-risk="${i + 1}"><b class="t-num">${i + 1}</b><span>${t}</span></li>`).join("")}
+          </ol>
+        </div>
         <p class="t-xs t-muted mt-6">NAV และผลการดำเนินงานแสดงจากข้อมูลของ บลจ. แบบรายวันในระบบจริง · ผลการดำเนินงานในอดีตมิได้เป็นสิ่งยืนยันถึงผลการดำเนินงานในอนาคต · ผู้ลงทุนควรทำความเข้าใจลักษณะสินค้า เงื่อนไขผลตอบแทน และความเสี่ยงก่อนตัดสินใจลงทุน</p>
       </div>
     </section>
@@ -80,7 +90,7 @@
       <div class="container">
         <div class="section-head"><div class="section-head__text"><span class="eyebrow">Insights</span><h2>บทวิเคราะห์และข่าวสาร</h2></div><a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">ดูทั้งหมด ${icon("arrow-right")}</a></div>
         <div class="cols-3">
-          ${[["photo-1526628953301-3e589a6a8b74", "Weekly Report", "Weekly Report — บทวิเคราะห์เศรษฐกิจและการลงทุนประจำสัปดาห์ จาก LH Bank Advisory", "รายสัปดาห์"], ["photo-1600210492486-724fe5c67fb0", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["photo-1573497019236-17f8177b81e8", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"]]
+          ${[["photo-1526628953301-3e589a6a8b74", "Weekly Report", "Weekly Report — บทวิเคราะห์เศรษฐกิจและการลงทุนประจำสัปดาห์ จาก LH Bank Advisory", "รายสัปดาห์"], ["assets/img/lhbank/tax-planning-thai-v2.jpg", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["assets/img/lhbank/news-unit-linked.jpg", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"]]
             .map(([im, tag, t, d]) => `<a class="article-card" href="#" data-toast="Article template — reusable pattern"><div class="media media--zoom">${img(U(im, 700))}</div><div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${d}</span></div><h3>${t}</h3></a>`).join("")}
         </div>
       </div>
@@ -113,9 +123,9 @@
     ["หากพอร์ตลดลง 15% คุณจะ…", [["ขายทันที", 1], ["รอดูสถานการณ์", 2], ["ลงทุนเพิ่ม", 3]]],
   ];
   const PROFILES = [
-    [3, "Conservative", "เน้นความมั่นคง รักษาเงินต้น", "สนใจเงินฝากและตราสารหนี้เป็นหลัก"],
-    [6, "Balanced", "สมดุลระหว่างความเสี่ยงและผลตอบแทน", "กระจายลงทุนในกองทุนหลายประเภท"],
-    [9, "Growth", "เน้นการเติบโตระยะยาว", "รับความผันผวนได้ เพื่อผลตอบแทนระยะยาว"],
+    [3, "Conservative", "เน้นความมั่นคง รักษาเงินต้น", "สนใจเงินฝากและตราสารหนี้เป็นหลัก", [1, 4]],
+    [6, "Balanced", "สมดุลระหว่างความเสี่ยงและผลตอบแทน", "กระจายลงทุนในกองทุนหลายประเภท", [3, 6]],
+    [9, "Growth", "เน้นการเติบโตระยะยาว", "รับความผันผวนได้ เพื่อผลตอบแทนระยะยาว", [5, 8]],
   ];
   let step = 0, score = 0;
   const quiz = $("#quiz");
@@ -137,10 +147,14 @@
         <p style="opacity:.75">${p[2]}</p>
         <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);padding:20px;color:#fff">
           <div class="t-xs" style="opacity:.6">แนวทางเบื้องต้น</div><strong style="font-weight:400">${p[3]}</strong>
+          <div class="risk-mini mt-3" aria-label="ระดับความเสี่ยงกองทุนที่อาจสอดคล้อง ${p[4][0]}–${p[4][1]}">${["lime", "teal", "blue", "grey", "yellow", "orange", "coral", "purple"].map((c, i) => `<i style="--tone:var(--ci-${c})" class="${i + 1 >= p[4][0] && i + 1 <= p[4][1] ? "on" : ""}">${i + 1}</i>`).join("")}</div>
+          <span class="t-xs" style="opacity:.75">ระดับความเสี่ยงกองทุนที่อาจสอดคล้อง: ${p[4][0]}–${p[4][1]}</span>
           <p class="t-xs mt-3" style="opacity:.6">ผลนี้เป็นแนวทางเบื้องต้นเท่านั้น ไม่ใช่การประเมินความเสี่ยงตามเกณฑ์ ก.ล.ต. ปรึกษาที่ปรึกษาเพื่อทำแบบประเมินฉบับเต็ม</p>
         </div>
         <div class="row" style="gap:10px"><a class="btn btn--primary" href="#" data-modal="leadModal">คุยกับที่ปรึกษา</a><button class="btn btn--outline-light" id="quizReset">ทำใหม่</button></div>`;
-      $("#quizReset").addEventListener("click", () => { step = 0; score = 0; renderQuiz(); });
+      $$("#riskScale [data-risk]").forEach((li) => { const r = +li.dataset.risk; li.classList.toggle("is-match", r >= p[4][0] && r <= p[4][1]); });
+      $("#riskScale").classList.add("has-match");
+      $("#quizReset").addEventListener("click", () => { step = 0; score = 0; $("#riskScale").classList.remove("has-match"); renderQuiz(); });
     }
   }
   renderQuiz();

@@ -99,7 +99,7 @@
               </div>` : ""}
             </div>
             ${p.rateNote ? `<div class="note mt-6">${icon("info")}<span>${p.rateNote}</span></div>` : ""}` : `
-            <div class="note">${icon("info")}<span>อัตราดอกเบี้ยและค่าธรรมเนียมของผลิตภัณฑ์นี้เป็นไปตามประกาศของธนาคาร ในระบบจริงหน้านี้แสดงข้อมูลล่าสุดจาก CMS ของธนาคาร · สอบถามได้ที่ LH Bank Call Center 1327</span></div>`}
+            <div class="note">${icon("info")}<span>อัตราดอกเบี้ยและค่าธรรมเนียมของผลิตภัณฑ์นี้เป็นไปตามประกาศของธนาคาร ในระบบจริงหน้านี้แสดงข้อมูลล่าสุดจาก CMS ของธนาคาร · สอบถามได้ที่ LH Bank Contact Center 1327</span></div>`}
             ${p.payment ? `<h3 class="t-h4 mt-12 mb-4">ช่องทางการชำระเงิน</h3><ul class="check-list">${p.payment.map((x) => `<li>${x}</li>`).join("")}</ul>` : ""}
           </section>
 
@@ -128,7 +128,7 @@
             <div class="stack mt-6" style="--stack:10px">${primaryBtn("btn--primary btn--block")}${secondaryBtn("btn--secondary btn--block")}</div>
           </div>
           <div class="help-card mt-4">
-            <div class="row" style="gap:14px;flex-wrap:nowrap"><span class="help-card__icon">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs help-card__sub">LH Bank Call Center โทร 1327</div></div></div>
+            <div class="row" style="gap:14px;flex-wrap:nowrap"><span class="help-card__icon">${icon("headset")}</span><div><strong class="t-sm">มีคำถาม? คุยกับผู้เชี่ยวชาญ</strong><div class="t-xs help-card__sub">LH Bank Contact Center โทร 1327</div></div></div>
             <div class="help-card__actions"><button class="btn btn--primary btn--sm" data-modal="leadModal">ให้ติดต่อกลับ</button><a class="btn btn--outline-light btn--sm" href="tel:1327">${icon("phone")} 1327</a></div>
           </div>
         </aside>
@@ -142,7 +142,7 @@
         <div class="cols-3">${related.map((r) => `
           <a class="product-card" href="${url("personal/product/?id=" + r.id)}">
             <div class="media product-card__media">${img(U(r.img, 700), r.name)}</div>
-            <div class="product-card__body"><span class="product-card__cat">${D.categories[r.cat].label}</span><h3 class="product-card__title">${r.name}</h3><p class="product-card__desc">${r.tagline}</p>
+            <div class="product-card__body"><span class="product-card__cat" data-cat="${r.cat}">${D.categories[r.cat].label}</span><h3 class="product-card__title">${r.name}</h3><p class="product-card__desc">${r.tagline}</p>
             <div class="product-card__highlight">${r.highlight.text ? `<span class="product-card__value product-card__value--text">${r.highlight.text}</span>` : `<span class="product-card__value">${r.highlight.value}<small>${r.highlight.unit}</small></span>`}<span class="product-card__label">${r.highlight.label}</span></div></div>
           </a>`).join("")}</div>
       </div>

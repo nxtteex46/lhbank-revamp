@@ -105,7 +105,7 @@
   const res = $("#calcResult");
   function donut(a, b) {
     const C = 2 * Math.PI * 46, t = a + b || 1, da = (a / t) * C;
-    return `<svg class="donut" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)"/><circle cx="60" cy="60" r="46" stroke="var(--c-accent)" stroke-dasharray="${da} ${C}"/><circle cx="60" cy="60" r="46" stroke="var(--c-accent-200)" stroke-dasharray="${C - da} ${C}" stroke-dashoffset="${-da}"/></svg>`;
+    return `<svg class="donut" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="46" stroke="var(--c-line)"/><circle cx="60" cy="60" r="46" stroke="var(--btn)" stroke-dasharray="${da} ${C}"/><circle cx="60" cy="60" r="46" stroke="var(--ci-orange)" stroke-dasharray="${C - da} ${C}" stroke-dashoffset="${-da}"/></svg>`;
   }
 
   function compute() {
@@ -131,7 +131,7 @@
         <div><span>อัตราดอกเบี้ยเฉลี่ย 3 ปีแรก</span><strong>${s.avg3.toFixed(2)}%</strong></div>
         <div><span>ดอกเบี้ยรวมตลอดสัญญา</span><strong>฿${fmt(s.totalInt)}</strong></div>
       </div>
-      <div class="donut-wrap">${donut(loan, s.totalInt)}<div class="legend"><div><i style="background:var(--c-accent)"></i>เงินต้น ${((loan / totalPay) * 100 || 0).toFixed(0)}%</div><div><i style="background:var(--c-accent-200)"></i>ดอกเบี้ย ${((s.totalInt / totalPay) * 100 || 0).toFixed(0)}%</div><div class="t-xs" style="opacity:.6">ยอดชำระรวม ฿${fmt(totalPay)}</div></div></div>
+      <div class="donut-wrap">${donut(loan, s.totalInt)}<div class="legend"><div><i style="background:var(--btn)"></i>เงินต้น ${((loan / totalPay) * 100 || 0).toFixed(0)}%</div><div><i style="background:var(--ci-orange)"></i>ดอกเบี้ย ${((s.totalInt / totalPay) * 100 || 0).toFixed(0)}%</div><div class="t-xs" style="opacity:.6">ยอดชำระรวม ฿${fmt(totalPay)}</div></div></div>
       <div class="stack" style="--stack:10px;margin-top:auto;position:relative">
         <a class="btn btn--primary btn--block btn--lg" href="#" data-modal="applyModal">สมัครสินเชื่อบ้าน ${icon("arrow-right")}</a>
         <div class="row" style="gap:10px"><a class="btn btn--outline-light btn--block" style="flex:1" href="#" data-modal="leadModal">ปรึกษาเจ้าหน้าที่</a><button class="btn btn--outline-light btn--icon" data-toast="บันทึกผลการคำนวณเป็น PDF แล้ว" aria-label="บันทึก">${icon("download")}</button><button class="btn btn--outline-light btn--icon" data-share aria-label="แชร์">${icon("share")}</button></div>
@@ -142,7 +142,7 @@
         <div><span>อัตราดอกเบี้ยเฉลี่ย 3 ปีแรก</span><strong>${s.avg3.toFixed(2)}%</strong></div>
         <div><span>ดอกเบี้ยรวมตลอดสัญญา</span><strong>฿${fmt(s.totalInt)}</strong></div>
       </div>
-      ${`<div class="donut-wrap">${donut(loan, s.totalInt)}<div class="legend"><div><i style="background:var(--c-accent)"></i>เงินต้น</div><div><i style="background:var(--c-accent-200)"></i>ดอกเบี้ย</div></div></div>`}
+      ${`<div class="donut-wrap">${donut(loan, s.totalInt)}<div class="legend"><div><i style="background:var(--btn)"></i>เงินต้น</div><div><i style="background:var(--ci-orange)"></i>ดอกเบี้ย</div></div></div>`}
       <div class="stack" style="--stack:10px;margin-top:auto;position:relative">
         <button class="btn btn--primary btn--block btn--lg" id="useLoan">ใช้วงเงินนี้คำนวณค่างวด ${icon("arrow-right")}</button>
         <a class="btn btn--outline-light btn--block" href="#" data-modal="leadModal">ปรึกษาเจ้าหน้าที่</a>

@@ -99,7 +99,7 @@
     Number(n).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
   const img = (src, alt = "", extra = "") =>
     `<img src="${src}" alt="${alt}" loading="lazy" ${extra}>`;
-  const U = (id, w = 1200) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=75`;
+  const U = (id, w = 1200) => id.startsWith("assets/") ? url(id) : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=75`;
 
   /* ---------- Navigation model ---------- */
   const SEGMENTS = [
@@ -126,7 +126,7 @@
             ["globe", "บัญชีเงินตราต่างประเทศ (FCD)", "ฝากเงินสกุลต่างประเทศ", P_("fcd")],
           ]},
         ],
-        feature: { img: "photo-1559526324-4b87b5e36e44", tag: "โปรโมชัน", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER 200 บาท", href: "personal/products/?cat=deposit" },
+        feature: { img: "photo-1607863680198-23d4b2565df0", tag: "โปรโมชัน", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER 200 บาท", href: "personal/products/?cat=deposit" },
       },
       {
         id: "loans", label: "สินเชื่อ",
@@ -191,7 +191,7 @@
             ["star", "Wealth", "Family Banking", "personal/#family"],
           ]},
         ],
-        feature: { img: "photo-1520250497591-112f2f40a3f4", tag: "Family Banking", title: "ดูแลความมั่งคั่งของทั้งครอบครัว 5 ระดับสมาชิก", href: "personal/#family" },
+        feature: { local: "assets/img/lhbank/family-banking-branch.jpg", tag: "Family Banking", title: "ดูแลความมั่งคั่งของทั้งครอบครัว 5 ระดับสมาชิก", href: "personal/#family" },
       },
     ],
   };
@@ -207,11 +207,11 @@
         ["globe", "สินเชื่อและบริการการค้าระหว่างประเทศ", "นำเข้า · ส่งออก", P_("trade")],
         ["grid", "ผลิตภัณฑ์ SME ทั้งหมด", "SME Banking", "personal/products/?cat=sme"],
       ]},
-    ], feature: { img: "photo-1551836022-4c4c79ecde51", tag: "SME", title: "สินเชื่อธุรกิจสำหรับทุกช่วงของการเติบโต", href: "personal/products/?cat=sme" } },
+    ], feature: { img: "assets/img/lhbank/sme-owner-thai-v2.jpg", tag: "SME", title: "สินเชื่อธุรกิจสำหรับทุกช่วงของการเติบโต", href: "personal/products/?cat=sme" } },
     { id: "sme-acc", label: "บัญชีและบริการ", cols: [
       { h: "บัญชีเพื่อธุรกิจ", items: [["wallet", "เงินฝากออมทรัพย์ธุรกิจคุ้มค่า", "ออมทรัพย์สำหรับธุรกิจ", P_("sme-savings")], ["layers", "บริการ Cash Management", "Payment & Collection", P_("cash-management")]] },
       { h: "บริการ", items: [["mobile", "LH Bank Speedy", "บริการธนาคารทางอินเทอร์เน็ต", "#"], ["swap", "อัตราแลกเปลี่ยน", "ซื้อ-ขาย และย้อนหลัง", "exchange-rates/"]] },
-    ], feature: { img: "photo-1600880292089-90a7e086ee0c", tag: "Cash Management", title: "บริหารการรับ-จ่ายเงินของธุรกิจในที่เดียว", href: P_("cash-management") } },
+    ], feature: { img: "assets/img/lhbank/business-advisory-thai-v2.jpg", tag: "Cash Management", title: "บริหารการรับ-จ่ายเงินของธุรกิจในที่เดียว", href: P_("cash-management") } },
     { id: "sme-advisory", label: "Advisory Service", cols: [
       { h: "Advisory Service", items: [["target", "LHB GAFE", "Advisory Service", "#"], ["building", "Business Expand", "Business Expand Hub", "#"]] },
       { h: "", items: [["globe", "Import x Export Hub", "Export and Import", P_("trade")], ["doc", "SME Playbook", "คู่มือผู้ประกอบการ", "#"]] },
@@ -260,7 +260,7 @@
     if (!el) return;
     const menus = MENUS[SEGMENT] || MENUS.personal;
     const navItems = menus.map((m) => `
-      <li class="nav__item" data-menu="${m.id}">
+      <li class="nav__item" data-menu="${m.id}" data-cat="${({ deposit: "deposit", loans: "home-loan", invest: "invest", services: "card", family: "family", "sme-loans": "sme", "sme-acc": "sme", "sme-advisory": "sme", "biz-pay": "business", "biz-intl": "business" })[m.id] || ""}">
         <button class="nav__link ${NAV === m.id ? "is-current" : ""}" aria-expanded="false" aria-controls="mega-${m.id}">${m.label}${icon("chevron-down")}</button>
         <div class="mega" id="mega-${m.id}" role="region" aria-label="${m.label}">
           <div class="container mega__inner" style="${m.feature ? "" : "grid-template-columns: repeat(3, 1fr)"}">
@@ -292,7 +292,7 @@
         <div class="container site-header__bar">
           <a class="logo" href="${url(SEGMENT === "personal" ? "personal/" : SEGMENT + "/")}" aria-label="LH Bank หน้าแรก">
             <img class="logo__img" src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32">
-            <span class="logo__seg">${SEGMENT === "personal" ? "Personal" : SEGMENT === "sme" ? "SME" : "Business"}</span>
+            <span class="logo__seg">${SEGMENT === "personal" ? "Personal" : SEGMENT === "sme" ? "SME" : "Corporate"}</span>
           </a>
           <nav aria-label="เมนูหลัก" style="height:100%;flex:1;display:flex"><ul class="nav" role="list" style="margin:0;padding:0">${navItems}</ul></nav>
           <div class="header-actions">
@@ -384,16 +384,22 @@
         <div class="container">
           <div class="footer-top">
             <div class="footer-brand">
-              <a class="logo logo--light" href="${url("personal/")}"><img class="logo__img" src="${url("assets/img/lhbank/logo-white.svg")}" alt="LH Bank" width="132" height="32" style="height:38px"></a>
+              <a class="logo logo--light" href="${url("personal/")}"><img class="logo__img" src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32" style="height:38px"></a>
               <p>ธนาคารขนาดกลางชั้นนำที่โดดเด่นในการส่งมอบความเป็นเลิศด้านบริการ ด้วยโซลูชันที่ทันสมัยและตอบโจทย์เฉพาะบุคคล</p>
-              <a class="footer-contact" href="tel:1327">${icon("headset")}<div><span class="t-xs" style="opacity:.6">LH Bank Call Center · callcenter@lhbank.co.th</span><div class="t-num">1327</div></div></a>
+              <a class="footer-contact" href="tel:1327">${icon("headset")}<div><span class="t-xs" style="opacity:.6">LH Bank Contact Center · callcenter@lhbank.co.th</span><div class="t-num">1327</div></div></a>
             </div>
             ${cols.map(([h, ls]) => `<div><h6>${h}</h6><ul>${ls.map(([t, hr]) => `<li><a href="${hr === "#" ? "#" : url(hr)}">${t}</a></li>`).join("")}</ul></div>`).join("")}
           </div>
           <div class="footer-bottom">
             <span>© 2569 ธนาคารแลนด์ แอนด์ เฮ้าส์ จำกัด (มหาชน) · Prototype for bid presentation</span>
             <nav><a href="#">นโยบายความเป็นส่วนตัว</a><a href="#">ข้อกำหนดการใช้งาน</a><a href="#">นโยบายคุกกี้</a><a href="#">แจ้งเบาะแส</a></nav>
-            <div class="social"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="LINE">L</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Instagram">◎</a></div>
+            <div class="social">
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.6 21.9v-8.2h2.8l.4-3.3h-3.2V8.3c0-.9.3-1.6 1.6-1.6h1.7V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.4v3.3h2.8v8.2z"/></svg></a>
+              <a href="#" aria-label="LINE"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5 1.1-.5 5.9-3.5 8-5.9C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8ZM5.6 13.5V8.6h1.1v3.8h2v1.1zm4 0V8.6h1.1v4.9zm2 0V8.6h1l2 2.9V8.6h1.1v4.9h-1l-2-2.8v2.8zm5.2 0V8.6h3.2v1.1h-2.1v.8h2.1v1.1h-2.1v.8h2.1v1.1z"/></svg></a>
+              <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15V9l5.2 3z"/></svg></a>
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+              <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.5z"/></svg></a>
+            </div>
           </div>
         </div>
       </footer>
@@ -750,6 +756,36 @@
 
   /* Static-page icon placeholders: <i data-icon="name"></i> */
   $$("i[data-icon]").forEach((i) => { i.outerHTML = icon(i.dataset.icon, i.className); });
+
+  /* Thai units next to numbers (ปี · เดือน · ระดับ · บาท …) get their own Thai font,
+     separate from the number font. Wraps Thai text runs inside numeric elements in
+     <span class="u-th">; re-runs when page scripts re-render (calculator, filters, tabs). */
+  const NUM_SEL = ".t-num, .hero2__trust strong, .stats2__value, .product-card__value, .market-card__val, .pd-keyfacts strong, .calc-sample__value, .rate-steps strong, .meter__row strong, .fund-card__returns strong, .branch-card__dist, .glass-card .val, .stat__value, .calc-result__rows strong, .rate-tier strong, .calc-result__main .t-num, .adv3__call strong";
+  /* Thai letters only (U+0E01–0E3A, U+0E40–0E5B) — the baht sign ฿ (U+0E3F) stays with the number */
+  const ch = (c) => String.fromCharCode(c);
+  const THL = ch(0xE01) + "-" + ch(0xE3A) + ch(0xE40) + "-" + ch(0xE5B);
+  const TH_RUN = new RegExp("([" + THL + "][" + THL + "\\s.]*)");
+  function wrapThaiUnits(root = document) {
+    root.querySelectorAll(NUM_SEL).forEach((el) => {
+      if (el.closest("input, textarea, select") || !/\d/.test(el.textContent)) return; // only next to a number
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((n) => {
+        if (!TH_RUN.test(n.nodeValue) || n.parentElement.closest(".u-th")) return;
+        const frag = document.createDocumentFragment();
+        n.nodeValue.split(TH_RUN).forEach((part, i) => {
+          if (!part) return;
+          if (i % 2) { const s = document.createElement("span"); s.className = "u-th"; s.textContent = part.trim(); frag.appendChild(s); }
+          else frag.appendChild(document.createTextNode(part));
+        });
+        n.replaceWith(frag);
+      });
+    });
+  }
+  let thaiTimer;
+  new MutationObserver(() => { clearTimeout(thaiTimer); thaiTimer = setTimeout(() => wrapThaiUnits(), 60); })
+    .observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+  window.LH.wrapThaiUnits = wrapThaiUnits;
 
   /* Boot */
   renderHeader();

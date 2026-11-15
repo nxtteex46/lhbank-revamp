@@ -10,6 +10,8 @@
 
   /* ---------- Section components ---------- */
   const S = {};
+  /* Category colour key (CI) from a link — used by quick bar */
+  const catOf = (h) => /home-loan|calculator/.test(h) ? "home-loan" : /deposit|savings|fixed/.test(h) ? "deposit" : /personal-loan|happy-cash/.test(h) ? "personal-loan" : /invest/.test(h) ? "invest" : /sme/.test(h) ? "sme" : /cash-management|payroll|trade|fx-risk|business/.test(h) ? "business" : "";
 
   /* Cinematic hero (v2) — Personal uses data cards; SME / Business pass none */
   S.hero = (c) => `
@@ -33,7 +35,7 @@
       </div>
       <div class="container">
         <nav class="quick-bar" aria-label="ทางลัด">
-          ${c.quick.map(([ic, t, st, h]) => `<a href="${url(h)}"><span class="tile__icon">${icon(ic)}</span><div><strong>${t}</strong><span>${st}</span></div></a>`).join("")}
+          ${c.quick.map(([ic, t, st, h]) => `<a href="${url(h)}" data-cat="${catOf(h)}"><span class="tile__icon">${icon(ic)}</span><div><strong>${t}</strong><span>${st}</span></div></a>`).join("")}
         </nav>
       </div>
     </section>`;
@@ -63,7 +65,7 @@
   const goalPanel = (g) => `
     <div class="discovery__panel">
       <a class="discovery__lead" href="${url(g.href)}">
-        ${img(U(g.img, 900))}
+        ${img(g.local ? A(g.local) : U(g.img, 900))}
         <span class="badge badge--glass">${g.tag}</span>
         <h3 class="mt-4" style="font-size:1.6rem">${g.headline}</h3>
         <p class="mt-2" style="opacity:.8;max-width:38ch">${g.text}</p>
@@ -96,7 +98,7 @@
       <div class="media product-card__media">${img(U(p.img, 700), p.name)}</div>
       ${p.badge ? `<div class="product-card__badges"><span class="badge badge--glass" style="background:rgba(13,29,42,.55)">${p.badge}</span></div>` : ""}
       <div class="product-card__body">
-        <span class="product-card__cat">${D.categories[p.cat].label}</span>
+        <span class="product-card__cat" data-cat="${p.cat}">${D.categories[p.cat].label}</span>
         <h3 class="product-card__title">${p.name}</h3>
         <p class="product-card__desc">${p.tagline}</p>
         <div class="product-card__highlight">${p.highlight.text ? `<span class="product-card__value product-card__value--text">${p.highlight.text}</span>` : `<span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span>`}<span class="product-card__label">${p.highlight.label}</span></div>
@@ -109,7 +111,7 @@
     <section class="privilege" id="family">
       <div class="privilege__inner container">
         <div class="privilege__media reveal">
-          ${img(U(c.img, 1400), "")}
+          ${img(c.local ? A(c.local) : U(c.img, 1400), "")}
           <div class="tier-card" aria-label="ระดับสมาชิก Family Banking">
             <div class="tier-card__head"><img src="${url("assets/img/lhbank/logo.svg")}" alt="LH Bank" width="132" height="32"><span>FAMILY BANKING</span></div>
             <ol>${c.tiers.map((t, i) => `<li><span>0${c.tiers.length - i}</span><strong>${t}</strong></li>`).join("")}</ol>
@@ -167,20 +169,19 @@
   S.advisory = (c) => `
     <section class="section" id="advisory" style="padding-top:0">
       <div class="container">
-        <div class="advisory reveal">
-          <div class="advisory__content">
-            <span class="eyebrow" style="color:var(--c-accent-200)">${c.eyebrow}</span>
+        <div class="adv3 reveal">
+          <div class="adv3__intro">
+            <span class="eyebrow">${c.eyebrow}</span>
             <h2>${c.title}</h2>
             <p class="t-lead">${c.lead}</p>
-            <ul class="advisory__list">${c.points.map((t) => `<li>${icon("check")}<span>${t}</span></li>`).join("")}</ul>
-            <div class="row" style="gap:12px">
-              <a class="btn btn--primary btn--lg" href="#" data-modal="leadModal">${c.cta} ${icon("arrow-right")}</a>
-              <a class="btn btn--outline-light btn--lg" href="tel:1327">${icon("phone")} 1327</a>
+            <div class="adv3__actions">
+              <a class="btn btn--primary" href="#" data-modal="leadModal">${c.cta} ${icon("arrow-right")}</a>
+              <a class="adv3__call" href="tel:1327"><span>${icon("phone")}</span><div><small>LH Bank Contact Center</small><strong class="t-num">1327</strong></div></a>
             </div>
           </div>
-          <div class="advisory__media">
-            ${img(U(c.img, 1000))}
-            <div class="advisor-chip"><span class="avatar" style="display:grid;place-items:center;color:var(--c-accent-700);background:var(--c-accent-50)">${c.avatar ? img(U(c.avatar, 120)) : icon("headset")}</span><div><strong class="t-sm" style="display:block;line-height:1.2">${c.advisor}</strong><span class="t-xs t-muted">${c.role}</span></div></div>
+          <div class="adv3__grid">
+            <div class="adv3__photo">${img(c.local ? A(c.local) : U(c.img, 900))}<span class="adv3__tag">${icon("headset")} ${c.advisor}</span></div>
+            ${c.points.map((t, i) => `<div class="adv3__card" style="--tone:var(--ci-${["blue", "teal", "orange"][i % 3]})"><span class="adv3__icon">${icon((c.icons || ["pie", "chart", "phone"])[i % 3])}</span><span class="adv3__num t-num">0${i + 1}</span>${Array.isArray(t) ? `<div class="adv3__text"><strong>${t[0]}</strong><p>${t[1]}</p></div>` : `<p>${t}</p>`}</div>`).join("")}
           </div>
         </div>
       </div>
@@ -199,16 +200,30 @@
             <h3>คำนวณสินเชื่อบ้าน</h3>
             <p>ประเมินค่างวด วงเงินกู้ และตารางผ่อนชำระ ด้วยอัตราดอกเบี้ยจริงของ Home 1st Class</p>
             <div class="calc-sample">
-              <div class="calc-sample__top"><span class="calc-sample__tag">ตัวอย่างการคำนวณ</span></div>
-              <div class="meter"><div class="meter__row"><span>วงเงินกู้</span><strong class="t-num">฿3,000,000</strong></div><div class="meter__bar"><i style="--w:38%"></i></div></div>
-              <div class="meter"><div class="meter__row"><span>ระยะเวลาผ่อน</span><strong class="t-num">30 ปี</strong></div><div class="meter__bar"><i style="--w:71%"></i></div></div>
-              <div class="calc-sample__value"><strong class="t-num">฿12,105</strong><span>/เดือน · 3 ปีแรก</span></div>
-              <ol class="calc-sample__timeline">
-                <li><span>ปีที่ 1</span><strong class="t-num">2.64%</strong></li>
-                <li><span>ปีที่ 2–3</span><strong class="t-num">2.67%</strong></li>
-                <li><span>หลังจากนั้น</span><strong class="t-num">5.17%</strong></li>
-              </ol>
-              <span class="calc-sample__note">Home 1st Class · ทำประกัน MRTA/MLTA · ไม่ฟรีค่าจดจำนอง</span>
+              <div class="calc-sample__hero">
+                <div>
+                  <span class="calc-sample__tag">ตัวอย่างค่างวด</span>
+                  <div class="calc-sample__value"><strong class="t-num">฿12,105</strong><span>/เดือน</span></div>
+                  <span class="calc-sample__sub">3 ปีแรก · Home 1st Class</span>
+                </div>
+                <div class="calc-sample__ring" style="--p:72" aria-hidden="true"><span><b class="t-num">2.64%</b>ปีแรก*</span></div>
+              </div>
+              <div class="calc-sample__inputs">
+                <div class="meter meter--blue"><div class="meter__row"><span>วงเงินกู้</span><strong class="t-num">฿3,000,000</strong></div><div class="meter__bar"><i style="--w:38%"></i></div></div>
+                <div class="meter meter--teal"><div class="meter__row"><span>ระยะเวลาผ่อน</span><strong class="t-num">30 ปี</strong></div><div class="meter__bar"><i style="--w:71%"></i></div></div>
+              </div>
+              <div class="rate-steps" aria-label="อัตราดอกเบี้ยตามช่วงเวลา">
+                <span class="rate-steps__title">อัตราดอกเบี้ยตามช่วงเวลา</span>
+                <ol>
+                  <li style="--tone:var(--ci-blue);--h:34%"><strong class="t-num">2.64<small>%</small></strong><i></i><span>ปีที่ 1</span></li>
+                  <li style="--tone:var(--ci-teal);--h:36%"><strong class="t-num">2.67<small>%</small></strong><i></i><span>ปีที่ 2–3</span></li>
+                  <li style="--tone:var(--ci-orange);--h:70%"><strong class="t-num">5.17<small>%</small></strong><i></i><span>หลังจากนั้น</span></li>
+                </ol>
+              </div>
+              <div class="calc-sample__foot">
+                <span class="calc-sample__note">ทำประกัน MRTA/MLTA · ไม่ฟรีค่าจดจำนอง</span>
+                <span class="calc-sample__cta">คำนวณของคุณเอง ${icon("arrow-right")}</span>
+              </div>
             </div>
           </a>
           <a class="bento__card bento__card--fx" href="${url("exchange-rates/")}">
@@ -308,13 +323,20 @@
       </div>
     </section>`;
 
+  /* Insights — 3 groups (บทความ / ข่าวสาร / ประกาศธนาคาร) switched by tabs */
+  const articleCard = ([im, tag, t, m]) => `<a class="article-card" href="#" data-toast="Article template — reusable pattern"><div class="media media--zoom">${img(U(im, 700), im.includes("/news-") ? "ภาพประกอบ: " + t : "")}</div><div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${m}${im.includes("/news-") ? " · ภาพประกอบ" : ""}</span></div><h3>${t}</h3></a>`;
+  const noticeCard = ([ic, tone, tag, t, m, im]) => `<a class="article-card notice-card" href="#" data-toast="Announcement template — reusable pattern">${im ? `<div class="media media--zoom">${img(U(im, 700), "ภาพประกอบ: " + tag)}</div>` : `<div class="notice-card__media" style="--tone:var(--ci-${tone})"><span class="notice-card__icon">${icon(ic)}</span><span class="notice-card__label">ประกาศธนาคาร</span></div>`}<div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${m}</span></div><h3>${t}</h3></a>`;
   S.articles = (c) => `
-    <section class="section" style="padding-top:0">
+    <section class="section" style="padding-top:0" data-articles>
       <div class="container">
-        <div class="section-head reveal"><div class="section-head__text"><span class="eyebrow">${c.eyebrow}</span><h2>${c.title}</h2></div><a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">บทความทั้งหมด ${icon("arrow-right")}</a></div>
-        <div class="cols-3 reveal">
-          ${c.items.map(([im, tag, t, m]) => `<a class="article-card" href="#" data-toast="Article template — reusable pattern"><div class="media media--zoom">${img(U(im, 700))}</div><div class="row t-xs t-muted"><span class="badge badge--line">${tag}</span><span>${m}</span></div><h3>${t}</h3></a>`).join("")}
+        <div class="section-head reveal">
+          <div class="section-head__text"><span class="eyebrow">${c.eyebrow}</span><h2>${c.title}</h2></div>
+          <div class="articles-head__side">
+            <div class="segmented" role="tablist" aria-label="ประเภทเนื้อหา">${c.groups.map((g, i) => `<button class="${i === 0 ? "is-active" : ""}" role="tab" aria-selected="${i === 0}" data-agroup="${i}">${g.label}</button>`).join("")}</div>
+            <a class="link" href="#" data-toast="Article Pages ใช้ Reusable Design Patterns">ดูทั้งหมด ${icon("arrow-right")}</a>
+          </div>
         </div>
+        ${c.groups.map((g, i) => `<div class="cols-3 reveal ${i === 0 ? "" : "hide"}" data-apanel="${i}" role="tabpanel">${g.items.map(g.notice ? noticeCard : articleCard).join("")}</div>`).join("")}
       </div>
     </section>`;
 
@@ -347,8 +369,8 @@
   /* ---------- Segment configs ---------- */
   const CONFIG = {
     personal: [
-      ["heroSplit", {
-        eyebrow: "Modern Wealth Lifestyle", local: "hero-family.jpg",
+      ["heroBanner", {
+        eyebrow: "Modern Wealth Lifestyle", local: "hero-thai-family.jpg",
         title: "ทุกเป้าหมายในชีวิต<br>มี<em>ที่ปรึกษา</em>เคียงข้าง",
         lead: "ตั้งแต่เริ่มทำงาน สร้างครอบครัว จนถึงวางแผนเกษียณและเสริมความมั่งคั่ง LH Bank พร้อมช่วยคุณวางแผนและตัดสินใจได้อย่างมั่นใจ",
         primary: ["ค้นหาผลิตภัณฑ์ที่ใช่", "personal/products/"], secondary: ["คำนวณสินเชื่อบ้าน", "personal/calculator/home-loan/"],
@@ -364,49 +386,53 @@
       ["discovery", {
         eyebrow: "LH Bank Advisory", title: "วันนี้คุณอยู่ใน<em>ช่วงชีวิต</em>ไหน", lead: "เลือกช่วงชีวิตของคุณ แล้วเราจะแนะนำผลิตภัณฑ์ที่เหมาะสม", all: "personal/products/",
         goals: [
-          { label: "เริ่มทำงาน", img: "photo-1548142813-c348350df52b", tag: "เริ่มต้นออม", headline: "เริ่มต้นวางรากฐานการเงินตั้งแต่วันแรก", text: "เริ่มออมกับบัญชีออมทรัพย์ และมีสินเชื่อส่วนบุคคลไว้รองรับเป้าหมาย", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["digital-savings", "happy-cash"] },
+          { label: "เริ่มทำงาน", local: "life-start-work.jpg", tag: "เริ่มต้นออม", headline: "เริ่มต้นวางรากฐานการเงินตั้งแต่วันแรก", text: "เริ่มออมกับบัญชีออมทรัพย์ และมีสินเชื่อส่วนบุคคลไว้รองรับเป้าหมาย", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["digital-savings", "happy-cash"] },
           { label: "สร้างครอบครัว", img: "photo-1613490493576-7fde63acd811", tag: "สินเชื่อบ้าน", headline: "บ้านหลังใหม่สำหรับครอบครัว", text: "Home 1st Class กู้ได้ 100% ระยะเวลากู้สูงสุด 40 ปี ดอกเบี้ยพิเศษเริ่มต้น 2.64% ต่อปี*", cta: "ดูสินเชื่อบ้าน", href: "personal/products/?cat=home-loan", items: ["home-1st-class", "home-2nd-hand"] },
-          { label: "เพิ่มความมั่นคง", img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", headline: "ให้เงินออมงอกเงยอย่างมั่นคง", text: "เงินฝากประจำพิเศษ 6 เดือน ฝากสั้น รับดอกเบี้ยสูง และเงินฝากปลอดภาษี", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["fixed-special", "tax-free"] },
-          { label: "วางแผนเกษียณ", img: "photo-1519451241324-20b4ea2c4220", tag: "ลดหย่อนภาษี", headline: "วางแผนเกษียณพร้อมลดหย่อนภาษี", text: "กองทุน RMF และ Thai ESG ปี 2026 พร้อมบริการวางแผนการเงินที่ The Advisory Branch", cta: "ไปที่การลงทุน", href: "personal/investments/", items: ["fixed", "high-yield-savings"] },
-          { label: "เสริมความมั่งคั่ง", img: "photo-1530521954074-e64f6810b32d", tag: "การลงทุน", headline: "ต่อยอดความมั่งคั่งอย่างมีทิศทาง", text: "กองทุนรวม ตราสารทางการเงิน และประกันชีวิตควบการลงทุน", cta: "ไปที่การลงทุน", href: "personal/investments/", items: ["fcd", "home-4cash"] },
+          { label: "เพิ่มความมั่นคง", img: "photo-1579621970795-87facc2f976d", tag: "เงินฝาก", headline: "ให้เงินออมงอกเงยอย่างมั่นคง", text: "เงินฝากประจำพิเศษ 6 เดือน ฝากสั้น รับดอกเบี้ยสูง และเงินฝากปลอดภาษี", cta: "ดูบัญชีเงินฝาก", href: "personal/products/?cat=deposit", items: ["fixed-special", "tax-free"] },
+          { label: "วางแผนเกษียณ", local: "life-retirement.jpg", tag: "ลดหย่อนภาษี", headline: "วางแผนเกษียณพร้อมลดหย่อนภาษี", text: "กองทุน RMF และ Thai ESG ปี 2026 พร้อมบริการวางแผนการเงินที่ The Advisory Branch", cta: "ไปที่การลงทุน", href: "personal/investments/", items: ["fixed", "high-yield-savings"] },
+          { label: "เสริมความมั่งคั่ง", local: "life-wealth.jpg", tag: "การลงทุน", headline: "ต่อยอดความมั่งคั่งอย่างมีทิศทาง", text: "กองทุนรวม ตราสารทางการเงิน และประกันชีวิตควบการลงทุน", cta: "ไปที่การลงทุน", href: "personal/investments/", items: ["fcd", "home-4cash"] },
         ],
       }],
       ["featured", { eyebrow: "Featured Products", title: "ผลิตภัณฑ์แนะนำ", all: "personal/products/", tabs: [["ทั้งหมด", "all"], ["สินเชื่อบ้าน", "home-loan"], ["เงินฝาก", "deposit"], ["สินเชื่อบุคคล", "personal-loan"]], pick: ["home-1st-class", "happy-cash", "fixed-special", "home-refinance", "digital-savings", "happy-cash-bt", "home-2nd-hand", "tax-free", "home-4cash"] }],
-      ["privilege", { eyebrow: "Family Banking", img: "photo-1520250497591-112f2f40a3f4",
+      ["privilege", { eyebrow: "Family Banking", local: "family-banking-branch.jpg",
         title: "ดูแลความมั่งคั่ง<br>ของทั้งครอบครัว",
         lead: "Family Banking จาก LH Bank มี 5 ระดับสมาชิก ตั้งแต่ Wealth จนถึง Elite Privilege",
         tiers: ["Elite Privilege", "Elite Plus", "Elite", "Wealth Plus", "Wealth"],
         points: [["5 ระดับสมาชิก", "Wealth · Wealth Plus · Elite · Elite Plus · Elite Privilege — สิทธิประโยชน์ตามระดับสมาชิกที่ธนาคารกำหนด"], ["The Advisory Branch", "บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร"], ["LH Bank Advisory", "บทวิเคราะห์เศรษฐกิจ และ Weekly Report"]],
         cta: "สอบถาม Family Banking" }],
-      ["stats", { items: [["Home 1st Class", "2.64", "%", "ดอกเบี้ยพิเศษเริ่มต้นปีที่ 1*"], ["Happy Cash", "8.88", "%", "ดอกเบี้ยเริ่มต้นต่อปี*"], ["Family Banking", "5", "ระดับ", "สมาชิก ตั้งแต่ Wealth ถึง Elite Privilege"], ["Call Center", "1327", "", "LH Bank Call Center ติดต่อสอบถาม"]] }],
+      ["stats", { items: [["Home 1st Class", "2.64", "%", "ดอกเบี้ยพิเศษเริ่มต้นปีที่ 1*"], ["Happy Cash", "8.88", "%", "ดอกเบี้ยเริ่มต้นต่อปี*"], ["Family Banking", "5", "ระดับ", "สมาชิก ตั้งแต่ Wealth ถึง Elite Privilege"], ["LH Bank Contact Center", "1327", "", "ติดต่อสอบถามข้อมูลและบริการ"]] }],
       ["promotions", { eyebrow: "Promotions", title: "ผลิตภัณฑ์แนะนำและโปรโมชัน", items: [
         { img: "photo-1600585154526-990dced4db0d", tag: "สินเชื่อบ้าน", until: "สมัครภายใน 31 ม.ค. 70", title: "สินเชื่อบ้านใหม่ Home 1st Class ดอกเบี้ยพิเศษเริ่มต้น 2.64% ต่อปี*", href: "personal/product/?id=home-1st-class" },
-        { img: "photo-1559526324-4b87b5e36e44", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER มูลค่า 200 บาท", href: "personal/products/?cat=deposit" },
+        { img: "photo-1607863680198-23d4b2565df0", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "ลูกค้าใหม่ เปิดบัญชีออมทรัพย์ที่ร่วมรายการ รับ E-VOUCHER มูลค่า 200 บาท", href: "personal/products/?cat=deposit" },
         { img: "photo-1600047509807-ba8f99d2cdde", tag: "สินเชื่อบ้าน", until: "ตามเงื่อนไขธนาคาร", title: "อยู่ครบ 1 ปี ก็รีได้ (Retention) ปลดล็อกสัญญากู้บ้านแบบเดิมๆ", href: "personal/product/?id=retention" },
-        { img: "photo-1600210492486-724fe5c67fb0", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "เงินฝากประจำพิเศษ 6 เดือน ฝากสั้น รับดอกเบี้ยสูง", href: "personal/product/?id=fixed-special" },
-        { img: "photo-1529333166437-7750a6dd5a70", tag: "สินเชื่อบุคคล", until: "ตามเงื่อนไขธนาคาร", title: "สินเชื่อส่วนบุคคล Happy Cash ดอกเบี้ยเริ่มเพียง 8.88% ต่อปี นานสูงสุด 5 ปี*", href: "personal/product/?id=happy-cash" },
+        { img: "assets/img/lhbank/fixed-deposit-thai-v2.jpg", tag: "เงินฝาก", until: "ตามเงื่อนไขธนาคาร", title: "เงินฝากประจำพิเศษ 6 เดือน ฝากสั้น รับดอกเบี้ยสูง", href: "personal/product/?id=fixed-special" },
+        { img: "assets/img/lhbank/happy-cash-thai-v2.jpg", tag: "สินเชื่อบุคคล", until: "ตามเงื่อนไขธนาคาร", title: "สินเชื่อส่วนบุคคล Happy Cash ดอกเบี้ยเริ่มเพียง 8.88% ต่อปี นานสูงสุด 5 ปี*", href: "personal/product/?id=happy-cash" },
       ] }],
-      ["advisory", { eyebrow: "The Advisory Branch", title: "ที่ปรึกษาการเงิน<br>ที่เข้าใจคุณ", lead: "LH Bank ธนาคารที่ปรึกษาทางการเงินมืออาชีพ กับ The Advisory Branch บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร", points: ["บริการด้านวางแผนการเงินและการลงทุนแบบครบวงจร", "LH Bank Advisory · บทวิเคราะห์เศรษฐกิจ และ Weekly Report", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ หรือโทร LH Bank Call Center 1327"], cta: "ให้ที่ปรึกษาติดต่อกลับ", img: "photo-1573497019236-17f8177b81e8", avatar: null, advisor: "The Advisory Branch", role: "วางแผนการเงินและการลงทุน" }],
+      ["advisory", { eyebrow: "The Advisory Branch", title: "ที่ปรึกษาการเงิน<br>ที่เข้าใจคุณ", lead: "LH Bank ธนาคารที่ปรึกษาทางการเงินมืออาชีพ พร้อมดูแลทุกเป้าหมายของคุณ ตั้งแต่การออม การลงทุน จนถึงการวางแผนเกษียณ", icons: ["pie", "chart", "pin"], points: [["วางแผนการเงินแบบครบวงจร", "บริการด้านวางแผนการเงินและการลงทุนจาก The Advisory Branch"], ["บทวิเคราะห์จาก LH Bank Advisory", "บทวิเคราะห์เศรษฐกิจ และ Weekly Report ทุกสัปดาห์"], ["คุยกับที่ปรึกษาที่สาขา", "นัดพบที่ปรึกษาที่ The Advisory Branch หรือให้เจ้าหน้าที่ติดต่อกลับ"]], cta: "ให้ที่ปรึกษาติดต่อกลับ", local: "advisor-thai.jpg", img: "photo-1573497019236-17f8177b81e8", avatar: null, advisor: "The Advisory Branch", role: "วางแผนการเงินและการลงทุน" }],
       ["tools", { eyebrow: "Tools & Services", title: "เครื่องมือช่วยตัดสินใจ", lead: "เครื่องมือที่ช่วยให้คุณวางแผน เปรียบเทียบ และตัดสินใจได้ง่ายขึ้น" }],
       ["app", {}],
-      ["articles", { eyebrow: "Insights", title: "ความรู้และข่าวสาร", items: [["photo-1600210492486-724fe5c67fb0", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["photo-1573497019236-17f8177b81e8", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"], ["photo-1609220136736-443140cffec6", "ข่าวสารและกิจกรรม", "กลุ่มธุรกิจทางการเงินแลนด์ แอนด์ เฮ้าส์ มอบเงินสนับสนุนการจำหน่ายช่อดอกมะลิโครงการ “รวมใจรักแม่” ให้แก่สภาสังคมสงเคราะห์ฯ", "ข่าวสาร"]] }],
+      ["articles", { eyebrow: "Insights", title: "ความรู้และข่าวสาร", groups: [
+        { label: "บทความ", items: [["assets/img/lhbank/tax-planning-thai-v2.jpg", "ลดหย่อนภาษี", "ช่วยให้คุณวางแผนลดหย่อนภาษีได้ง่ายขึ้น ด้วยกองทุน SSF และกองทุน RMF ที่ LH Bank", "บทความ"], ["photo-1613490493576-7fde63acd811", "สินเชื่อบ้าน", "เตรียมตัวก่อนกู้บ้านหลังแรก เช็กลิสต์เอกสารและวิธีคำนวณค่างวดที่เหมาะกับรายได้", "บทความ"], ["photo-1579621970795-87facc2f976d", "เงินออม", "เริ่มต้นออมเงินอย่างมีเป้าหมาย เลือกบัญชีเงินฝากให้เหมาะกับแต่ละช่วงชีวิต", "บทความ"]] },
+        { label: "ข่าวสาร", items: [["assets/img/lhbank/news-community-water.jpg", "ข่าวสารและกิจกรรม", "LH Bank ร่วมส่งมอบน้ำดื่มให้ชุมชนบ่อนไก่ สนับสนุนกิจกรรมเพื่อสังคม", "ข่าวสาร"], ["assets/img/lhbank/news-unit-linked.jpg", "ประกัน", "LH Bank ร่วมมือเมืองไทยประกันชีวิต เปิดตัวประกันยูนิตลิงค์", "ข่าวสาร"], ["assets/img/lhbank/news-jasmine-charity.jpg", "ข่าวสารและกิจกรรม", "กลุ่มธุรกิจทางการเงินแลนด์ แอนด์ เฮ้าส์ มอบเงินสนับสนุนการจำหน่ายช่อดอกมะลิโครงการ “รวมใจรักแม่” ให้แก่สภาสังคมสงเคราะห์ฯ", "ข่าวสาร"]] },
+        { label: "ประกาศธนาคาร", notice: true, items: [["calendar", "blue", "วันหยุดทำการ", "ประกาศวันหยุดทำการของธนาคาร ประจำปี 2570", "ประกาศ", "assets/img/lhbank/notice-bank-holidays.jpg"], ["shield", "coral", "เตือนภัย", "ธนาคารไม่มีนโยบายส่ง SMS หรือลิงก์ให้กรอกข้อมูลส่วนตัว รหัสผ่าน หรือ OTP", "ประกาศ", "assets/img/lhbank/notice-scam-alert.jpg"], ["doc", "teal", "อัตราดอกเบี้ย", "ประกาศอัตราดอกเบี้ยเงินฝาก เงินให้สินเชื่อ และค่าธรรมเนียมบริการ", "ประกาศ", "assets/img/lhbank/notice-interest-fees.jpg"]] },
+      ] }],
       ["cta", { eyebrow: "เริ่มต้นวันนี้", title: "พร้อมก้าวต่อไป<br>กับ LH Bank", lead: "เลือกช่องทางที่สะดวกสำหรับคุณ เราพร้อมดูแลทุกขั้นตอน", options: [["home", "สมัครสินเชื่อบ้าน", "Home 1st Class เริ่มต้น 2.64%*", "personal/product/?id=home-1st-class"], ["headset", "ให้เจ้าหน้าที่ติดต่อกลับ", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ", "", "leadModal"], ["pin", "ค้นหาสาขา", "สาขาใกล้คุณและเวลาทำการ", "branch-locations/"]] }],
     ],
     sme: [
-      ["heroBanner", { eyebrow: "SME Banking", local: "hero-sme.jpg", title: "เติบโตไปด้วยกัน<br>กับ<em>พันธมิตร</em>ทางธุรกิจ", lead: "สินเชื่อธุรกิจ บัญชีเพื่อธุรกิจ บริการชำระเงิน และ Advisory Service สำหรับลูกค้าธุรกิจขนาดกลางและขนาดย่อม", primary: ["ดูผลิตภัณฑ์ SME", "personal/products/?cat=sme"], secondary: ["ให้ผู้ดูแลติดต่อกลับ", "#", "leadModal"],
+      ["heroBanner", { eyebrow: "SME Banking", local: "hero-sme-thai.jpg", title: "เติบโตไปด้วยกัน<br>กับ<em>พันธมิตร</em>ทางธุรกิจ", lead: "สินเชื่อธุรกิจ บัญชีเพื่อธุรกิจ บริการชำระเงิน และ Advisory Service สำหรับลูกค้าธุรกิจขนาดกลางและขนาดย่อม", primary: ["ดูผลิตภัณฑ์ SME", "personal/products/?cat=sme"], secondary: ["ให้ผู้ดูแลติดต่อกลับ", "#", "leadModal"],
         quick: [["store", "สินเชื่อธุรกิจ", "หมุนเวียน · ลงทุน", "personal/products/?cat=sme"], ["wallet", "บัญชีเพื่อธุรกิจ", "ออมทรัพย์ธุรกิจคุ้มค่า", "personal/product/?id=sme-savings"], ["layers", "Cash Management", "Payment & Collection", "personal/product/?id=cash-management"], ["globe", "การค้าระหว่างประเทศ", "นำเข้า · ส่งออก", "personal/product/?id=trade"]] }],
       ["segmentSolutions", { eyebrow: "สินเชื่อธุรกิจ", title: "สินเชื่อสำหรับทุกช่วงของธุรกิจ", lead: "ผลิตภัณฑ์จากเมนูสินเชื่อธุรกิจของ LH Bank", items: [["bolt", "สินเชื่อเพื่อหมุนเวียนในธุรกิจ", "เงินทุนหมุนเวียน", "personal/product/?id=sme-working-capital"], ["building", "สินเชื่อเพื่อการลงทุนในธุรกิจ", "สินเชื่อธุรกิจ", "personal/product/?id=sme-investment"], ["leaf", "Green Transition Advisory Loan", "เปลี่ยนผ่านสู่ความยั่งยืน", "personal/product/?id=sme-green"]] }],
       ["featured", { eyebrow: "Featured", title: "ผลิตภัณฑ์สำหรับ SME", all: "personal/products/?cat=sme", tabs: [["ทั้งหมด", "all"]], pick: ["sme-factoring", "sme-savings", "cash-management"] }],
       ["segmentSolutions", { eyebrow: "Advisory Service", title: "ที่ปรึกษาธุรกิจจาก LH Bank", lead: "โปรแกรม Advisory Service สำหรับผู้ประกอบการ", items: [["target", "LHB GAFE", "Advisory Service", "#"], ["building", "Business Expand", "Business Expand Hub", "#"], ["globe", "Import x Export Hub", "Export and Import", "personal/product/?id=trade"], ["doc", "SME Playbook", "Advisory Service", "#"]] }],
-      ["advisory", { eyebrow: "SME Advisory", title: "ผู้ดูแลธุรกิจ<br>ที่เข้าใจคุณ", lead: "สินเชื่อธุรกิจ บัญชีเพื่อธุรกิจ บริการชำระเงิน และ Advisory Service พร้อมเครื่องคำนวณสินเชื่อ SME", points: ["สินเชื่อธุรกิจ แฟคเตอริ่ง และหนังสือค้ำประกัน", "บริการชำระเงินและรับชำระเงิน", "บริการระหว่างประเทศ นำเข้า ส่งออก และโอนเงิน"], cta: "ให้ผู้ดูแลติดต่อกลับ", img: "photo-1600880292089-90a7e086ee0c", avatar: null, advisor: "SME Banking", role: "LH Bank Call Center 1327" }],
+      ["advisory", { icons: ["wallet", "layers", "globe"], eyebrow: "SME Advisory", title: "ผู้ดูแลธุรกิจ<br>ที่เข้าใจคุณ", lead: "สินเชื่อธุรกิจ บัญชีเพื่อธุรกิจ บริการชำระเงิน และ Advisory Service พร้อมเครื่องคำนวณสินเชื่อ SME", points: ["สินเชื่อธุรกิจ แฟคเตอริ่ง และหนังสือค้ำประกัน", "บริการชำระเงินและรับชำระเงิน", "บริการระหว่างประเทศ นำเข้า ส่งออก และโอนเงิน"], cta: "ให้ผู้ดูแลติดต่อกลับ", img: "assets/img/lhbank/sme-advisory-thai-v2.jpg", avatar: null, advisor: "SME Banking", role: "LH Bank Contact Center 1327" }],
       ["cta", { eyebrow: "พร้อมเติบโต", title: "เริ่มต้นคุยกับ<br>ทีม SME วันนี้", lead: "ให้เราช่วยแนะนำสินเชื่อและบริการที่เหมาะกับธุรกิจของคุณ", options: [["headset", "ให้ผู้ดูแลติดต่อกลับ", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ", "", "leadModal"], ["pin", "ค้นหาสาขา", "สาขาใกล้คุณ", "branch-locations/?type=sme"]] }],
     ],
     business: [
-      ["heroBanner", { eyebrow: "Business Banking", img: "photo-1582407947304-fd86f028f716", title: "พันธมิตรทางการเงิน<br>สำหรับธุรกิจ", lead: "ธนาคารขนาดกลางชั้นนำที่โดดเด่นในการส่งมอบความเป็นเลิศด้านบริการ ด้วยโซลูชันที่ทันสมัยและตอบโจทย์เฉพาะบุคคล", primary: ["ดูบริการธุรกิจ", "personal/products/?cat=business"], secondary: ["ติดต่อผู้ดูแล", "#", "leadModal"],
+      ["heroBanner", { eyebrow: "Corporate Banking", local: "hero-corporate-thai.jpg", title: "พันธมิตรทางการเงิน<br>สำหรับธุรกิจ", lead: "ธนาคารขนาดกลางชั้นนำที่โดดเด่นในการส่งมอบความเป็นเลิศด้านบริการ ด้วยโซลูชันที่ทันสมัยและตอบโจทย์เฉพาะบุคคล", primary: ["ดูบริการธุรกิจ", "personal/products/?cat=business"], secondary: ["ติดต่อผู้ดูแล", "#", "leadModal"],
         quick: [["layers", "Cash Management", "Payment & Collection", "personal/product/?id=cash-management"], ["users", "Payroll", "จ่ายเงินเดือน", "personal/product/?id=payroll"], ["globe", "การค้าระหว่างประเทศ", "นำเข้า · ส่งออก", "personal/product/?id=trade"], ["swap", "บริหารความเสี่ยง FX", "อัตราแลกเปลี่ยน", "personal/product/?id=fx-risk"]] }],
       ["segmentSolutions", { eyebrow: "Services", title: "บริการสำหรับธุรกิจ", lead: "บริการชำระเงิน รับชำระเงิน และบริการระหว่างประเทศของ LH Bank", items: [["layers", "บริการชำระเงิน", "Payroll · LHB BULK PAYMENT · ORFT · Bahtnet", "personal/product/?id=cash-management"], ["wallet", "บริการรับชำระเงิน", "Bill Payment · LHB Direct Debit", "personal/product/?id=cash-management"], ["globe", "บริการระหว่างประเทศ", "นำเข้า · ส่งออก · โอนเงินระหว่างประเทศ", "personal/product/?id=trade"], ["mobile", "LHB Biz Connect", "และ LH Bank Speedy", "#"]] }],
-      ["advisory", { eyebrow: "Business Advisory", title: "ทีมผู้เชี่ยวชาญ<br>สำหรับธุรกิจของคุณ", lead: "ให้ทีมของเราช่วยออกแบบบริการชำระเงิน รับชำระเงิน และบริการระหว่างประเทศให้เหมาะกับธุรกิจ", points: ["Cash Management ครบทั้ง Payment และ Collection", "บริการด้านการนำเข้า การส่งออก และหนังสือค้ำประกันต่างประเทศ", "บริการบริหารความเสี่ยงอัตราแลกเปลี่ยนเงินตราต่างประเทศ"], cta: "ติดต่อผู้ดูแล", img: "photo-1573164713988-8665fc963095", avatar: null, advisor: "Business Banking", role: "LH Bank Call Center 1327" }],
-      ["cta", { eyebrow: "Business", title: "พูดคุยกับ<br>ทีมธุรกิจ", lead: "ให้เราแนะนำโซลูชันทางการเงินสำหรับธุรกิจของคุณ", options: [["headset", "ให้ผู้ดูแลติดต่อกลับ", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ", "", "leadModal"], ["phone", "LH Bank Call Center", "โทร 1327", "tel:1327"]] }],
+      ["advisory", { icons: ["layers", "globe", "swap"], eyebrow: "Business Advisory", title: "ทีมผู้เชี่ยวชาญ<br>สำหรับธุรกิจของคุณ", lead: "ให้ทีมของเราช่วยออกแบบบริการชำระเงิน รับชำระเงิน และบริการระหว่างประเทศให้เหมาะกับธุรกิจ", points: ["Cash Management ครบทั้ง Payment และ Collection", "บริการด้านการนำเข้า การส่งออก และหนังสือค้ำประกันต่างประเทศ", "บริการบริหารความเสี่ยงอัตราแลกเปลี่ยนเงินตราต่างประเทศ"], cta: "ติดต่อผู้ดูแล", img: "assets/img/lhbank/business-advisory-thai-v2.jpg", avatar: null, advisor: "Business Banking", role: "LH Bank Contact Center 1327" }],
+      ["cta", { eyebrow: "Business", title: "พูดคุยกับ<br>ทีมธุรกิจ", lead: "ให้เราแนะนำโซลูชันทางการเงินสำหรับธุรกิจของคุณ", options: [["headset", "ให้ผู้ดูแลติดต่อกลับ", "แจ้งข้อมูลให้ผู้เชี่ยวชาญติดต่อกลับ", "", "leadModal"], ["phone", "LH Bank Contact Center", "โทร 1327", "tel:1327"]] }],
     ],
   };
 
@@ -427,6 +453,15 @@
     $$(".goal", disc).forEach((g) => g.addEventListener("click", () => show(+g.dataset.goal)));
     show(0);
   }
+
+  /* Insights tabs */
+  $$("[data-articles]", main).forEach((sec) => {
+    const tabs = $$("[data-agroup]", sec), panels = $$("[data-apanel]", sec);
+    tabs.forEach((b) => b.addEventListener("click", () => {
+      tabs.forEach((x) => { const on = x === b; x.classList.toggle("is-active", on); x.setAttribute("aria-selected", on); });
+      panels.forEach((p) => p.classList.toggle("hide", p.dataset.apanel !== b.dataset.agroup));
+    }));
+  });
 
   /* Featured filter */
   const featConf = conf.find(([k]) => k === "featured");

@@ -6,7 +6,7 @@
   const { icon, $, $$, fmt, toast, initDropdowns, url } = window.LH;
   const D = window.LHDATA;
   const qs = new URLSearchParams(location.search);
-  const state = { q: "", prov: "all", type: qs.get("type") === "sme" ? "sme" : "all", svc: new Set(), openNow: false, me: null, active: null };
+  const state = { q: "", prov: "all", type: qs.get("type") === "sme" ? "sme" : "all", svc: new Set(), queueOnly: false, openNow: false, me: null, active: null };
 
   /* ---------- Projection ---------- */
   const B = { n: 14.03, s: 13.62, w: 100.37, e: 100.73 }, W = 1400, H = 1100;
@@ -82,9 +82,10 @@
   /* Filters: type = single choice (segmented) · services = multi-select
      (check chips) · open-now = switch · clear with active count */
   const TYPES = [["all", "ทั้งหมด"], ["branch", "สาขา"], ["sme", "ศูนย์ธุรกิจ SME"]];
+  const canQueue = (b) => b.type === "branch";
   const SVCS = [["weekend", "เปิดเสาร์-อาทิตย์"], ["fx", "แลกเงิน"], ["wealth", "ที่ปรึกษาการลงทุน"], ["safe", "ตู้นิรภัย"]];
   const fWrap = $("#brFilters");
-  const activeCount = () => (state.type !== "all" ? 1 : 0) + state.svc.size + (state.openNow ? 1 : 0);
+  const activeCount = () => (state.type !== "all" ? 1 : 0) + state.svc.size + (state.openNow ? 1 : 0) + (state.queueOnly ? 1 : 0);
   const renderChips = () => {
     const n = activeCount();
     fWrap.innerHTML = `
@@ -96,6 +97,7 @@
         <span class="br-filter__label">บริการ <small>เลือกได้หลายข้อ</small></span>
         <div class="br-svc" role="group" aria-label="บริการ">${SVCS.map(([v, l]) => `<button type="button" role="checkbox" aria-checked="${state.svc.has(v)}" class="check-chip ${state.svc.has(v) ? "is-on" : ""}" data-svc="${v}"><span class="check-chip__box">${icon("check")}</span>${l}</button>`).join("")}</div>
       </div>
+      <label class="switch"><input type="checkbox" data-queue-only ${state.queueOnly ? "checked" : ""}> เฉพาะสาขาที่จองคิวได้</label>
       <div class="br-filter__foot">
         <label class="switch"><input type="checkbox" data-open ${state.openNow ? "checked" : ""}> เปิดอยู่ตอนนี้</label>
         <button type="button" class="br-filter__clear" data-clear ${n ? "" : "disabled"}>ล้างตัวกรอง${n ? ` (${n})` : ""}</button>
@@ -105,11 +107,11 @@
     const t = e.target.closest("[data-type]"), sv = e.target.closest("[data-svc]"), cl = e.target.closest("[data-clear]");
     if (t) state.type = t.dataset.type;
     else if (sv) { const v = sv.dataset.svc; state.svc.has(v) ? state.svc.delete(v) : state.svc.add(v); }
-    else if (cl) { state.type = "all"; state.svc.clear(); state.openNow = false; }
+    else if (cl) { state.type = "all"; state.svc.clear(); state.openNow = false; state.queueOnly = false; }
     else return;
     renderChips(); render(true);
   });
-  fWrap.addEventListener("change", (e) => { if (e.target.matches("[data-open]")) { state.openNow = e.target.checked; renderChips(); render(true); } });
+  fWrap.addEventListener("change", (e) => { if (e.target.matches("[data-open], [data-queue-only]")) { state[e.target.matches("[data-open]") ? "openNow" : "queueOnly"] = e.target.checked; renderChips(); render(true); } });
 
   const sWrap = $("#brSearch"), sIn = $("input", sWrap);
   sIn.addEventListener("input", () => { state.q = sIn.value; sWrap.classList.toggle("has-value", !!sIn.value); render(true); });
@@ -137,7 +139,7 @@
     let list = D.branches.filter((b) =>
       (!q || (b.name + b.district + b.province + b.addr).toLowerCase().includes(q)) &&
       (state.prov === "all" || b.province === state.prov) &&
-      (state.type === "all" || b.type === state.type) &&
+      (state.type === "all" || b.type === state.type) && (!state.queueOnly || canQueue(b)) &&
       (!state.openNow || isOpen(b)) &&
       [...state.svc].every((s) => b.services.includes(s)));
     if (state.me) list = list.map((b) => ({ ...b, km: dist(state.me, b) })).sort((a, b) => a.km - b.km);
@@ -149,17 +151,116 @@
     const list = visible();
     const ids = new Set(list.map((b) => b.id));
     $$(".pin", canvas).forEach((p) => p.classList.toggle("pin--hidden", !ids.has(+p.dataset.pin)));
-    $("#brList").innerHTML = `<div class="locator__count">พบ ${list.length} สาขา${state.me ? " · เรียงตามระยะทาง" : ""}</div>` + (list.length ? list.map((b) => `
-      <button class="branch-card ${state.active === b.id ? "is-active" : ""}" data-branch="${b.id}">
+    const qMode = state.queueOnly;
+    $("#brList").innerHTML = `<div class="locator__count">${qMode ? "สาขาที่รับจองคิวล่วงหน้า · " : ""}พบ ${list.length} สาขา${state.me ? " · เรียงตามระยะทาง" : ""}</div>` + (list.length ? list.map((b) => `
+      <div class="branch-card ${state.active === b.id ? "is-active" : ""}" data-branch="${b.id}">
         <div class="branch-card__top"><h4>${b.name}</h4>${b.km != null ? `<span class="branch-card__dist">${b.km.toFixed(1)} กม.</span>` : ""}</div>
         <p>${b.addr}</p>
         <div class="branch-card__meta">${openLabel(b)}<span class="t-xs t-muted">· ${b.hours === "mall" ? "เปิดทุกวัน" : "จ.–ศ."}</span></div>
         <div class="branch-card__meta">${b.services.slice(0, 3).map((s) => `<span class="badge badge--line">${D.services[s][1]}</span>`).join("")}</div>
-      </button>`).join("") : `<div class="listing__empty" style="margin:12px">ไม่พบสาขาที่ตรงกับเงื่อนไข<br><button class="btn btn--secondary btn--sm mt-4" id="brReset">ล้างตัวกรอง</button></div>`);
-    const rs = $("#brReset"); rs && rs.addEventListener("click", () => { state.q = ""; sIn.value = ""; state.type = "all"; state.svc.clear(); state.openNow = false; state.prov = "all"; renderChips(); render(true); });
+        ${canQueue(b) ? `<button type="button" class="btn btn--primary btn--sm branch-card__queue" data-queue="${b.id}">${icon("calendar")} จองคิวล่วงหน้า</button>` : ""}
+        <div class="row mt-3"><button class="btn btn--ghost btn--sm" data-detail="${b.id}">รายละเอียด</button><a class="btn btn--ghost btn--sm" href="https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lng}" target="_blank" rel="noopener">นำทาง</a></div>
+      </div>`).join("") : `<div class="listing__empty" style="margin:12px">ไม่พบสาขาที่ตรงกับเงื่อนไข<br><button class="btn btn--secondary btn--sm mt-4" id="brReset">ล้างตัวกรอง</button></div>`);
+    const rs = $("#brReset"); rs && rs.addEventListener("click", () => { state.q = ""; sIn.value = ""; state.type = "all"; state.svc.clear(); state.openNow = false; state.queueOnly = false; state.prov = "all"; renderChips(); render(true); });
     if (refit) fit(list);
   }
-  $("#brList").addEventListener("click", (e) => { const c = e.target.closest("[data-branch]"); if (c) select(+c.dataset.branch, true); });
+  $("#brList").addEventListener("click", (e) => { if (e.target.closest("button, a")) return; const c = e.target.closest("[data-branch]"); if (c) select(+c.dataset.branch, true); });
+  $("#brList").addEventListener("keydown", (e) => { const c = e.target.closest(".branch-card"); if (c && e.target === c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(+c.dataset.branch, true); } });
+
+  /* ---------- Branch queue booking (จองคิวสาขา) ---------- */
+  const TH_MON = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+  const qDays = (b) => {
+    const out = [], d = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+    d.setHours(0, 0, 0, 0);
+    while (out.length < 5) { d.setDate(d.getDate() + 1); if (HOURS[b.hours].days.includes(d.getDay())) out.push(new Date(d)); }
+    return out;
+  };
+  function openQueue(id) {
+    const b = D.branches.find(x => x.id === id); if (!b || !canQueue(b)) return;
+    const days = qDays(b), h = HOURS[b.hours];
+    const services = ["เปิดบัญชีเงินฝาก", "สินเชื่อบ้าน / สินเชื่อบุคคล", ...(b.services.includes("wealth") ? ["ปรึกษาการลงทุน"] : []), ...(b.services.includes("fx") ? ["แลกเปลี่ยนเงินตรา"] : []), "บริการอื่น ๆ"];
+    const slots = [];
+    for (let m = h.open * 60; m + 30 <= h.close * 60; m += 30) slots.push(String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"));
+    const dlg = $("#queueDialog");
+    let step = 1, day = 0, time = "", service = services[0];
+    const dateLabel = () => `${DAYS[days[day].getDay()]} ${days[day].getDate()} ${TH_MON[days[day].getMonth()]} ${days[day].getFullYear() + 543}`;
+    dlg.innerHTML = `
+      <header class="booking-head"><span class="eyebrow">จองคิวล่วงหน้า</span><button class="icon-btn modal__close" data-close-modal aria-label="ปิดการจอง">${icon("close")}</button>
+      <h2 id="queueTitle" tabindex="-1">เลือกบริการและวันเวลา</h2>
+      <ol class="booking-steps" aria-label="ขั้นตอนการจอง"><li aria-current="step">1 · วันเวลา</li><li>2 · ตรวจสอบ</li><li>3 · ยืนยัน</li></ol></header>
+      <p class="booking-demo">ทดลองจองในต้นแบบ · ยังไม่มีการส่งข้อมูลหรือจองคิวกับธนาคาร</p>
+      <div class="booking-branch"><div><strong>${b.name}</strong><p class="t-sm t-muted">${b.addr}</p></div><button class="link" type="button" data-change-branch>เปลี่ยนสาขา</button></div>
+      <form id="queueForm" novalidate>
+        <section data-book-step="1" class="stack booking-fields">
+          <div class="field"><label for="qf-svc">บริการที่ต้องการ</label><select class="select" id="qf-svc">${services.map(s => `<option>${s}</option>`).join("")}</select></div>
+          <fieldset><legend>วันที่เข้ารับบริการ</legend><div class="booking-days">${days.map((d,i) => `<label class="booking-choice"><input type="radio" name="qday" value="${i}" ${i === 0 ? "checked" : ""}><span>${DAYS[d.getDay()]}<strong>${d.getDate()} ${TH_MON[d.getMonth()]}</strong></span></label>`).join("")}</div></fieldset>
+          <fieldset><legend>ช่วงเวลา <small class="t-muted">เวลาตัวอย่าง · ครั้งละ 30 นาที</small></legend><div class="booking-times">${slots.map(t => `<label class="booking-choice"><input type="radio" name="qtime" value="${t}"><span>${t}</span></label>`).join("")}</div></fieldset>
+          <p id="qTimeError" class="booking-error hide" role="alert">กรุณาเลือกช่วงเวลา</p>
+        </section>
+        <section data-book-step="2" class="stack booking-fields hide">
+          <div class="booking-summary"><strong>รายละเอียดนัดหมาย</strong><p id="queueReview"></p><button type="button" class="link" data-book-back>แก้ไขบริการ / วันเวลา</button></div>
+          <div class="field"><label for="qf-name">ชื่อ-นามสกุล *</label><input class="input" id="qf-name" required autocomplete="name" maxlength="100"></div>
+          <div class="field"><label for="qf-tel">เบอร์โทรศัพท์มือถือ *</label><input class="input" id="qf-tel" type="tel" required autocomplete="tel" placeholder="08X-XXX-XXXX"></div>
+          <p id="qContactError" class="booking-error hide" role="alert"></p>
+          <p class="t-sm t-muted">โปรดตรวจสอบสาขาและเวลานัดหมายก่อนยืนยัน</p>
+        </section>
+        <footer class="booking-actions"><button type="button" class="btn btn--secondary hide" id="qBack">ย้อนกลับ</button><button type="submit" class="btn btn--primary" id="qNext">ถัดไป · ข้อมูลผู้จอง ${icon("arrow-right")}</button></footer>
+      </form>
+      <section id="queueDone" class="hide booking-done"><span class="tile__icon">${icon("check")}</span><h3>บันทึกนัดหมายตัวอย่างแล้ว</h3><p id="queueSummary"></p><div class="queue-code"><span>เลขอ้างอิงนัดหมายตัวอย่าง</span><strong>DEMO-${String(b.id).padStart(3,"0")}</strong></div><p class="t-sm t-muted">นี่ไม่ใช่หมายเลขคิวเข้ารับบริการ และยังไม่ได้จองกับธนาคาร</p><div class="booking-summary"><strong>เตรียมตัวก่อนเข้ารับบริการ</strong><p class="t-sm">เตรียมบัตรประชาชน และติดต่อสาขาเพื่อตรวจสอบเอกสารเพิ่มเติมตามบริการที่เลือก</p><a class="link" href="tel:${b.tel.replace(/-/g, "")}">ติดต่อสาขา ${b.tel}</a></div><button type="button" class="btn btn--primary btn--block" data-close-modal>กลับไปหน้าสาขา</button></section>`;
+    const go = (next) => {
+      step = next;
+      $$("[data-book-step]", dlg).forEach(el => el.classList.toggle("hide", +el.dataset.bookStep !== step));
+      $("#queueTitle").textContent = ["", "เลือกบริการและวันเวลา", "ตรวจสอบและกรอกข้อมูล", "รายละเอียดนัดหมาย"][step];
+      $$(".booking-steps li", dlg).forEach((el,i) => { if (i + 1 === step) el.setAttribute("aria-current", "step"); else el.removeAttribute("aria-current"); });
+      $("#qBack").classList.toggle("hide", step !== 2);
+      $("#qNext").textContent = step === 1 ? "ถัดไป · ข้อมูลผู้จอง" : "ยืนยันนัดหมายตัวอย่าง";
+      dlg.scrollTop = 0; $("#queueTitle").focus();
+    };
+    dlg.onclick = (e) => {
+      if (e.target.closest("[data-book-back], #qBack")) go(1);
+      if (e.target.closest("[data-change-branch]")) { window.LH.closeModals(); chooseQueueBranch(); }
+    };
+    dlg.onchange = (e) => {
+      if (e.target.name === "qday") { day = +e.target.value; time = ""; $$("[name=qtime]", dlg).forEach(x => x.checked = false); }
+      if (e.target.name === "qtime") { time = e.target.value; $("#qTimeError").classList.add("hide"); }
+      if (e.target.id === "qf-svc") service = e.target.value;
+    };
+    $("#queueForm").onsubmit = (e) => {
+      e.preventDefault();
+      if (step === 1) {
+        if (!time) { $("#qTimeError").classList.remove("hide"); $("[name=qtime]",dlg).focus(); return; }
+        $("#queueReview").textContent = `${service} · ${b.name} · ${dateLabel()} · ${time} น.`;
+        go(2); return;
+      }
+      const name = $("#qf-name"), tel = $("#qf-tel"), phone = tel.value.replace(/[\s-]/g, "");
+      name.setAttribute("aria-invalid", !name.value.trim()); tel.setAttribute("aria-invalid", !/^0[689]\d{8}$/.test(phone));
+      if (!name.value.trim() || !/^0[689]\d{8}$/.test(phone)) {
+        $("#qContactError").textContent = !name.value.trim() ? "กรุณากรอกชื่อ-นามสกุล" : "กรุณากรอกเบอร์มือถือ 10 หลัก เริ่มด้วย 06, 08 หรือ 09";
+        $("#qContactError").classList.remove("hide"); (!name.value.trim() ? name : tel).focus(); return;
+      }
+      $("#queueSummary").textContent = `${name.value.trim()} · ${service} · ${b.name} · ${dateLabel()} · ${time} น.`;
+      go(3); $("#queueForm").classList.add("hide"); $("#queueDone").classList.remove("hide");
+    };
+    dlg.onkeydown = (e) => {
+      if (e.key !== "Tab") return;
+      const items = $$("button, input, select, a[href], [tabindex='0']",dlg).filter(el => !el.disabled && el.getClientRects().length);
+      const first = items[0], last = items[items.length-1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    window.LH.openModal("queueModal");
+  }
+  function chooseQueueBranch() {
+    state.queueOnly = true; state.type = "all"; renderChips(); render(true);
+    $("#locator").classList.remove("show-map");
+    $$("#viewToggle button").forEach(x => x.classList.toggle("is-active", x.dataset.view === "list"));
+    $("#locator").scrollIntoView({ behavior: "smooth", block: "start" });
+    sIn.focus({ preventScroll: true });
+  }
+  document.addEventListener("click", (e) => {
+    const q = e.target.closest("[data-queue]"); if (q) { e.preventDefault(); closeD(); openQueue(+q.dataset.queue); return; }
+    const m = e.target.closest("[data-queue-mode]"); if (m) { e.preventDefault(); chooseQueueBranch(); }
+  });
   canvas.addEventListener("click", (e) => { const p = e.target.closest("[data-pin]"); if (p && !moved) select(+p.dataset.pin, false); });
 
   /* ---------- Select / popup / drawer ---------- */
@@ -174,7 +275,7 @@
       <div class="row row--between" style="align-items:flex-start"><div><span class="badge ${b.type === "sme" ? "badge--ink" : ""}">${b.type === "sme" ? "ศูนย์ธุรกิจ SME" : "สาขา"}</span><h4 class="mt-2" style="font-size:1.05rem">${b.name}</h4></div><button class="icon-btn" id="popClose" aria-label="ปิด" style="width:36px;height:36px">${icon("close")}</button></div>
       <div class="mt-2">${openLabel(b)}</div>
       <p class="t-xs t-muted mt-2">${b.addr}</p>
-      <div class="row mt-4" style="gap:8px"><button class="btn btn--dark btn--sm" data-detail="${b.id}">รายละเอียด</button><a class="btn btn--secondary btn--sm" href="https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lng}" target="_blank" rel="noopener">${icon("arrow-up-right")} นำทาง</a></div>`;
+      <div class="row mt-4" style="gap:8px"><button class="btn btn--dark btn--sm" data-detail="${b.id}">รายละเอียด</button>${canQueue(b) ? `<button class="btn btn--primary btn--sm" data-queue="${b.id}">จองคิว</button>` : ""}<a class="btn btn--secondary btn--sm" href="https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lng}" target="_blank" rel="noopener">${icon("arrow-up-right")} นำทาง</a></div>`;
     popup.classList.add("is-on");
     $("#popClose").addEventListener("click", () => { popup.classList.remove("is-on"); state.active = null; $$(".pin, .branch-card").forEach((x) => x.classList.remove("is-active")); apply(false); });
     if (fromList && matchMedia("(max-width: 960px)").matches) { openDetail(b.id); return; }
@@ -202,6 +303,7 @@
           <a class="btn btn--secondary btn--sm" style="flex:1" href="tel:${b.tel.replace(/-/g, "")}">${icon("phone")} โทร</a>
           <button class="btn btn--secondary btn--sm btn--icon" data-toast="คัดลอกลิงก์สาขาแล้ว" aria-label="แชร์">${icon("share")}</button>
         </div>
+        ${canQueue(b) ? `<button class="btn btn--dark btn--block btn--sm mt-3" data-queue="${b.id}">${icon("calendar")} จองคิวสาขาล่วงหน้า</button>` : ""}
         <h4 class="mt-8 mb-4" style="font-size:1rem">เวลาทำการ</h4>
         <div class="branch-detail__hours">${[1, 2, 3, 4, 5, 6, 0].map((d) => `<div class="${d === today ? "is-today" : ""}"><span>${DAYS[d]}${d === today ? " (วันนี้)" : ""}</span><span class="t-num">${h.days.includes(d) ? h.label : "ปิดทำการ"}</span></div>`).join("")}</div>
         <h4 class="mt-8 mb-4" style="font-size:1rem">บริการ</h4>

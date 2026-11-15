@@ -20,19 +20,19 @@ window.LHDATA = (function () {
     kitchen: "photo-1617806118233-18e1de247200",
     keys: "photo-1600047509807-ba8f99d2cdde",
     family: "photo-1609220136736-443140cffec6",
-    savings: "photo-1548142813-c348350df52b",
-    docs: "photo-1600210492486-724fe5c67fb0",
+    savings: "assets/img/lhbank/digital-banking-thai-v2.jpg",
+    docs: "assets/img/lhbank/fixed-deposit-thai-v2.jpg",
     woman: "photo-1573497019236-17f8177b81e8",
     man: "photo-1556157382-97eda2d62296",
     travel: "photo-1530521954074-e64f6810b32d",
     card: "photo-1563013544-824ae1b704d3",
-    cafe: "photo-1551836022-4c4c79ecde51",
+    cafe: "assets/img/lhbank/sme-owner-thai-v2.jpg",
     meeting: "photo-1600880292089-90a7e086ee0c",
     tower: "photo-1582407947304-fd86f028f716",
     sign: "photo-1573164713988-8665fc963095",
     nature: "photo-1519451241324-20b4ea2c4220",
     market: "photo-1526628953301-3e589a6a8b74",
-    friends: "photo-1529333166437-7750a6dd5a70",
+    friends: "assets/img/lhbank/happy-cash-thai-v2.jpg",
     apartment: "photo-1571867424488-4565932edb41",
     dusk: "photo-1600585154526-990dced4db0d",
     suit: "photo-1519085360753-af0119f7cbe7",
@@ -50,7 +50,7 @@ window.LHDATA = (function () {
     ["หนังสือรับรองนิติบุคคล งบการเงินย้อนหลัง 3 ปี และ Statement 6 เดือน", "กรณีธุรกิจส่วนตัว / เจ้าของกิจการ"],
     ["สำเนาโฉนดที่ดิน / หนังสือกรรมสิทธิ์ห้องชุด และสัญญาจะซื้อจะขาย", "เอกสารทางด้านหลักประกัน"],
   ];
-  const contactFaq = ["สอบถามรายละเอียดเพิ่มเติมได้ที่ไหน", "LH Bank Call Center โทร 1327 หรืออีเมล callcenter@lhbank.co.th"];
+  const contactFaq = ["สอบถามรายละเอียดเพิ่มเติมได้ที่ไหน", "LH Bank Contact Center โทร 1327 หรืออีเมล callcenter@lhbank.co.th"];
 
   const products = [
     /* ---------------- Home loans (lhbank.co.th/th/personal/loans/) ---------------- */
@@ -336,7 +336,7 @@ window.LHDATA = (function () {
      full terms come from the bank's CMS / announcements in the real build. */
   products.forEach((p) => {
     if (!p.benefits) p.benefits = p.facts.map((f, i) => [["check", "sparkle", "shield", "headset"][i % 4], f, ""]);
-    if (!p.eligibility) p.eligibility = ["คุณสมบัติและเงื่อนไขเป็นไปตามหลักเกณฑ์ที่ธนาคารกำหนด", "สอบถามรายละเอียดได้ที่ LH Bank Call Center โทร 1327"];
+    if (!p.eligibility) p.eligibility = ["คุณสมบัติและเงื่อนไขเป็นไปตามหลักเกณฑ์ที่ธนาคารกำหนด", "สอบถามรายละเอียดได้ที่ LH Bank Contact Center โทร 1327"];
     if (!p.fees) p.fees = null;
     if (!p.docs) p.docs = null;
     if (!p.faq) p.faq = [contactFaq];

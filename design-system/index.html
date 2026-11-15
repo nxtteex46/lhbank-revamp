@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="../assets/img/lhbank/favicon.png">
 <link rel="apple-touch-icon" href="../assets/img/lhbank/favicon.png">
-<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/main.css?v=20261115-booking-v2">
 </head>
 <body data-root="../" data-segment="personal" data-page="design-system">
 <div id="site-header"></div>
@@ -67,18 +67,29 @@
 
         <div class="ds-block" id="color">
           <h2>Color</h2>
-          <p>White-first palette — สีหลักของแบรนด์ใช้สำหรับ action, highlight และ data เท่านั้น สีเข้ม Navy ใช้กับ section ที่ต้องการความหรูและ advisory</p>
-          <span class="ds-label">Brand</span>
+          <p>White-first palette ที่สดใส — ไม่ใช้พื้นสีเข้มทึบ · ปุ่มและสถานะที่เลือกใช้ฟ้า Digital Banking สีเดียว · สี CI 8 สีใช้เป็นสีประจำหมวด กราฟ ระดับความเสี่ยงกองทุน และขีดใต้หัวข้อ</p>
+          <span class="ds-label">Action (ปุ่ม · สถานะที่เลือก)</span>
           <div class="cols-4 mb-8">
-            <div class="swatch"><div class="swatch__color" style="background:#39a3ce"></div><div class="swatch__meta"><strong>Accent 500</strong>#39A3CE · --c-accent</div></div>
-            <div class="swatch"><div class="swatch__color" style="background:#1f7fa8"></div><div class="swatch__meta"><strong>Accent 700</strong>#1F7FA8 · hover / text on light</div></div>
-            <div class="swatch"><div class="swatch__color" style="background:#e1f1f8"></div><div class="swatch__meta"><strong>Accent 100</strong>#E1F1F8 · tint</div></div>
-            <div class="swatch"><div class="swatch__color" style="background:#f1f8fb"></div><div class="swatch__meta"><strong>Accent 50</strong>#F1F8FB · surface</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#39a3ce"></div><div class="swatch__meta"><strong>Button / Accent</strong>#39A3CE · --btn (= ปุ่มดิจิทัลแบงก์กิ้ง)</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#1f7fa8"></div><div class="swatch__meta"><strong>Button hover</strong>#1F7FA8 · --btn-hover / ลิงก์</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#0a6a9e"></div><div class="swatch__meta"><strong>CI Deep</strong>#0A6A9E · พื้นฟ้าสำหรับแผงผลลัพธ์</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#e1f1f8"></div><div class="swatch__meta"><strong>Accent tint</strong>#E1F1F8 · พื้นอ่อน</div></div>
+          </div>
+          <span class="ds-label">CI 8 สี (จากแถบโลโก้)</span>
+          <div class="cols-4 mb-8">
+            <div class="swatch"><div class="swatch__color" style="background:#ced629"></div><div class="swatch__meta"><strong>Lime</strong>#CED629 · พื้น/จุดเท่านั้น</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#47b9c0"></div><div class="swatch__meta"><strong>Teal</strong>#47B9C0 · เงินฝาก</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#8b3f92"></div><div class="swatch__meta"><strong>Purple</strong>#8B3F92 · การลงทุน</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#ed8068"></div><div class="swatch__meta"><strong>Coral</strong>#ED8068 · บัตร/ธุรกิจ</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#0080be"></div><div class="swatch__meta"><strong>Blue</strong>#0080BE · สินเชื่อบ้าน</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#f5bf0e"></div><div class="swatch__meta"><strong>Yellow</strong>#F5BF0E · SME (พื้นเท่านั้น)</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#94988d"></div><div class="swatch__meta"><strong>Grey</strong>#94988D · พื้น/จุดเท่านั้น</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#f08d1d"></div><div class="swatch__meta"><strong>Orange</strong>#F08D1D · สินเชื่อบุคคล</div></div>
           </div>
           <span class="ds-label">Neutral & Surface</span>
           <div class="cols-4 mb-8">
-            <div class="swatch"><div class="swatch__color" style="background:#0d1d2a"></div><div class="swatch__meta"><strong>Ink</strong>#0D1D2A · text / dark CTA</div></div>
-            <div class="swatch"><div class="swatch__color" style="background:#0b2131"></div><div class="swatch__meta"><strong>Navy</strong>#0B2131 · premium sections</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#0d1d2a"></div><div class="swatch__meta"><strong>Ink</strong>#0D1D2A · ตัวหนังสือเท่านั้น (ไม่ใช้เป็นพื้น)</div></div>
+            <div class="swatch"><div class="swatch__color" style="background:#34444f"></div><div class="swatch__meta"><strong>Ink 2</strong>#34444F · ตัวหนังสือรอง</div></div>
             <div class="swatch"><div class="swatch__color" style="background:#f4f7f9"></div><div class="swatch__meta"><strong>Mist</strong>#F4F7F9 · cool section</div></div>
             <div class="swatch"><div class="swatch__color" style="background:#f7f5f1"></div><div class="swatch__meta"><strong>Sand</strong>#F7F5F1 · editorial section</div></div>
           </div>
@@ -305,8 +316,8 @@
   </section>
 </main>
 <div id="site-footer"></div>
-<script src="../assets/js/data.js"></script>
-<script src="../assets/js/core.js"></script>
+<script src="../assets/js/data.js?v=20261115-news-v1"></script>
+<script src="../assets/js/core.js?v=20261115-news-v1"></script>
 <script>
 (function(){const {img,U,url}=window.LH,D=window.LHDATA;
 document.getElementById("dsCards").innerHTML=["home-1st-class","fixed-special","sme-working-capital"].map(id=>{const p=D.products.find(x=>x.id===id);return `<a class="product-card" href="${url("personal/product/?id="+p.id)}"><div class="media product-card__media">${img(U(p.img,700),p.name)}</div><div class="product-card__body"><span class="product-card__cat">${D.categories[p.cat].label}</span><h3 class="product-card__title">${p.name}</h3><p class="product-card__desc">${p.tagline}</p><div class="product-card__highlight"><span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span><span class="product-card__label">${p.highlight.label}</span></div></div></a>`}).join("");})();
