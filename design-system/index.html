@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="../assets/img/lhbank/favicon.png">
 <link rel="apple-touch-icon" href="../assets/img/lhbank/favicon.png">
-<link rel="stylesheet" href="../assets/css/main.css?v=20261115-booking-v2">
+<link rel="stylesheet" href="../assets/css/main.css?v=20261124-about8">
 </head>
 <body data-root="../" data-segment="personal" data-page="design-system">
 <div id="site-header"></div>
@@ -316,8 +316,8 @@
   </section>
 </main>
 <div id="site-footer"></div>
-<script src="../assets/js/data.js?v=20261115-news-v1"></script>
-<script src="../assets/js/core.js?v=20261115-news-v1"></script>
+<script src="../assets/js/data.js?v=20261124-about8"></script>
+<script src="../assets/js/core.js?v=20261124-about8"></script>
 <script>
 (function(){const {img,U,url}=window.LH,D=window.LHDATA;
 document.getElementById("dsCards").innerHTML=["home-1st-class","fixed-special","sme-working-capital"].map(id=>{const p=D.products.find(x=>x.id===id);return `<a class="product-card" href="${url("personal/product/?id="+p.id)}"><div class="media product-card__media">${img(U(p.img,700),p.name)}</div><div class="product-card__body"><span class="product-card__cat">${D.categories[p.cat].label}</span><h3 class="product-card__title">${p.name}</h3><p class="product-card__desc">${p.tagline}</p><div class="product-card__highlight"><span class="product-card__value">${p.highlight.value}<small>${p.highlight.unit}</small></span><span class="product-card__label">${p.highlight.label}</span></div></div></a>`}).join("");})();

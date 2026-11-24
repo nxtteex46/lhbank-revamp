@@ -281,6 +281,7 @@
             ${SEGMENTS.map((s) => `<a href="${url(s.href)}" class="${s.id === SEGMENT ? "is-active" : ""}">${s.th}</a>`).join("")}
           </nav>
           <div class="utility__links">
+            <a href="${url("about-us/corporate-profile/")}" class="hide-tablet${document.body.dataset.page === "about" ? " is-current" : ""}">${icon("building")}เกี่ยวกับเรา</a>
             <a href="${url("exchange-rates/")}" class="hide-tablet">${icon("swap")}อัตราแลกเปลี่ยน</a>
             <a href="${url("branch-locations/")}" class="hide-tablet">${icon("pin")}ค้นหาสาขา</a>
             <a href="tel:1327">${icon("phone")}1327</a>
@@ -334,6 +335,12 @@
                   ${m.cols.flatMap((c) => c.items).map(([ic, t, , h]) => `<a href="${url(h)}">${icon(ic)}${t}</a>`).join("")}
                 </div></div></div>
               </div>`).join("")}
+            <div class="acc-item">
+              <button class="acc-trigger" aria-expanded="false">เกี่ยวกับเรา<span class="acc-icon"></span></button>
+              <div class="acc-panel"><div><div class="mobile-nav__links">
+                ${[["building", "ข้อมูลธนาคาร", "about-us/corporate-profile/"], ["users", "คณะกรรมการและผู้บริหารระดับสูง", "about-us/committees/"], ["layers", "โครงสร้างองค์กร", "about-us/organizational-structure/"], ["layers", "โครงสร้างกลุ่มธุรกิจทางการเงิน", "about-us/shareholding-structure/"], ["doc", "เอกสารจดทะเบียนธนาคาร", "about-us/certification/"]].map(([ic, t, h]) => `<a href="${url(h)}">${icon(ic)}${t}</a>`).join("")}
+              </div></div></div>
+            </div>
           </div>
           <div class="mobile-nav__quick">
             <a href="${url("personal/calculator/home-loan/")}">${icon("calc")}คำนวณสินเชื่อ</a>
@@ -377,7 +384,7 @@
       ["ผลิตภัณฑ์ของเรา", [["เงินฝาก", "personal/products/?cat=deposit"], ["สินเชื่อ", "personal/products/?cat=home-loan"], ["การลงทุน", "personal/investments/"], ["บริการ", "personal/products/?cat=card"], ["ดิจิทัลแบงก์กิ้ง", "personal/#app"], ["Family Banking", "personal/#family"]]],
       ["ธุรกิจ", [["SME Banking", "sme/"], ["บริการธุรกิจ", "business/"], ["สินเชื่อธุรกิจ", "personal/products/?cat=sme"], ["บริการ Cash Management", "personal/product/?id=cash-management"]]],
       ["ข้อมูลอื่นๆ", [["อัตราแลกเปลี่ยนเงินตราต่างประเทศ", "exchange-rates/"], ["เครื่องมือคำนวณ", "personal/calculator/home-loan/"], ["กองทุนแนะนำ", "personal/investments/#funds"], ["ค้นหาสาขา", "branch-locations/"], ["Design System", "design-system/"]]],
-      ["เกี่ยวกับเรา", [["ความเป็นมา", "#"], ["ข่าวสารและกิจกรรม", "#"], ["Responsible Lending", "#"], ["สมัครงาน", "#"], ["ติดต่อเรา", "#"]]],
+      ["เกี่ยวกับเรา", [["ข้อมูลธนาคาร", "about-us/corporate-profile/"], ["คณะกรรมการและผู้บริหาร", "about-us/committees/"], ["โครงสร้างองค์กร", "about-us/organizational-structure/"], ["โครงสร้างกลุ่มธุรกิจทางการเงิน", "about-us/shareholding-structure/"], ["เอกสารจดทะเบียนธนาคาร", "about-us/certification/"], ["ข่าวสารและกิจกรรม", "#"], ["Responsible Lending", "#"], ["สมัครงาน", "#"], ["ติดต่อเรา", "#"]]],
     ];
     el.outerHTML = `
       <footer class="site-footer">
